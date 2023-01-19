@@ -1,4 +1,21 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The main template file
+ *
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
+ *
+ * @link
+ *
+ * @package WordPress
+ * @subpackage twentytwentyfour
+ * @since twentytwentyfour 1.0
+ * @version 1.0
+ */
+
+get_header(); ?>
 <!-- Banner Section End -->
 
 <!-- Services Section Start -->
@@ -80,7 +97,7 @@
     </div>
 </div>
 <!-- Services Section End -->
-
+<?php echo esc_html_x( 'Tags:', 'Label for a list of post tags', 'twentytwentyfour' ); ?>
 <!-- About Section Start -->
 <div class="rs-about style5">
     <div class="about-bg pt-120 pb-120 md-pt-80 md-pb-80">
