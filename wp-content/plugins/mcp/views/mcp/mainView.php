@@ -97,7 +97,7 @@
                                 <img src="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/excel.png" class="icon" draggable="false" alt="">
                             </div>
                             <div class="btn-part" style="position: absolute;bottom: 18px;">
-                                <a class="readon more-about btn-sm" target="_blank" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/Registro-de-Recepcion-de-Materias-Primas-v1.xlsx">Descargar</a>
+                                <a class="readon more-about btn-sm" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/Registro-de-Recepcion-de-Materias-Primas-v1.xlsx">Descargar</a>
                             </div>
                         </div>
                     </div>
