@@ -66,11 +66,11 @@ function twentyseventeen_setup() {
 	// This theme uses wp_nav_menu() in two locations.
 	register_nav_menus(
 		array(
+			'menu_header' => 'menu_header',
 			'top'    => __( 'Top Menu', 'twentyseventeen' ),
 			'social' => __( 'Social Links Menu', 'twentyseventeen' ),
 		)
 	);
-
 	/*
 	 * Switch default core markup for search form, comment form, and comments
 	 * to output valid HTML5.

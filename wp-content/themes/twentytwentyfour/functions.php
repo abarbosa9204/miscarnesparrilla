@@ -119,4 +119,19 @@ function send_smtp_email($phpmailer)
         )
     );
 }
+
+add_menu_page( 
+    __( 'Simple', 'simple-wp' ),
+    __( 'Simple', 'simple-wp' ), 
+    'administrator', 
+    'simplewp',
+    'simple_dashboard'
+);
+// subpagina
+add_submenu_page( 'simplewp',
+               __( 'Ingresos', 'simple-wp' ),
+               __( 'Ingresos', 'simple-wp' ), 
+              'administrator', 'simplewp-ingresos',
+              'simple_ingresos' 
+);
 ?>
