@@ -63,7 +63,7 @@
                                 <img src="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/Procedimiento-Recepcion-de-materias-primas-pdf-232x300.jpg" class="thumbnail" draggable="false" alt="">
                             </div>
                             <div class="btn-part" style="position: absolute;bottom: 18px;">
-                                <a class="readon more-about btn-sm" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/Procedimiento-Recepcion-de-materias-primas.pdf">Descargar</a>
+                                <a class="readon more-about btn-sm" target="_blank" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/Procedimiento-Recepcion-de-materias-primas.pdf">Descargar</a>
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                                 <img src="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/COCINA-Manual-de-operaciones-v02-pdf-232x300.jpg" class="thumbnail" draggable="false" alt="">
                             </div>
                             <div class="btn-part" style="position: absolute;bottom: 18px;">
-                                <a class="readon more-about btn-sm" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/COCINA-Manual-de-operaciones-v02.pdf">Descargar</a>
+                                <a class="readon more-about btn-sm" target="_blank" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/COCINA-Manual-de-operaciones-v02.pdf">Descargar</a>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                                 <img src="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/excel.png" class="icon" draggable="false" alt="">
                             </div>
                             <div class="btn-part" style="position: absolute;bottom: 18px;">
-                                <a class="readon more-about btn-sm" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/Registro-de-Recepcion-de-Materias-Primas-v1.xlsx">Descargar</a>
+                                <a class="readon more-about btn-sm" target="_blank" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/Registro-de-Recepcion-de-Materias-Primas-v1.xlsx">Descargar</a>
                             </div>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                                 <img src="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/Servicio-MANUAL-OPERACIONES-version-2-pdf-232x300.jpg" class="thumbnail" draggable="false" alt="">
                             </div>
                             <div class="btn-part" style="position: absolute;bottom: 18px;">
-                                <a class="readon more-about btn-sm" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/Servicio-MANUAL-OPERACIONES-version-2.pdf">Descargar</a>
+                                <a class="readon more-about btn-sm" target="_blank" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/Servicio-MANUAL-OPERACIONES-version-2.pdf">Descargar</a>
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                                 <img src="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/PARRILLA-Manual-de-Operaciones-v02-pdf-232x300.jpg" class="thumbnail" draggable="false" alt="">
                             </div>
                             <div class="btn-part" style="position: absolute;bottom: 18px;">
-                                <a class="readon more-about btn-sm" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/PARRILLA-Manual-de-Operaciones-v02.pdf">Descargar</a>
+                                <a class="readon more-about btn-sm" target="_blank" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/PARRILLA-Manual-de-Operaciones-v02.pdf">Descargar</a>
                             </div>
                         </div>
                     </div>
@@ -149,7 +149,7 @@
                                 <img src="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/BAR-Manual-de-Operaciones-version-02-pdf-232x300.jpg" class="thumbnail" draggable="false" alt="">
                             </div>
                             <div class="btn-part" style="position: absolute;bottom: 18px;">
-                                <a class="readon more-about btn-sm" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/BAR-Manual-de-Operaciones-version-02.pdf">Descargar</a>
+                                <a class="readon more-about btn-sm" target="_blank" href="https://mcpintranet.miscarnesparrilla.com/wp-content/uploads/2023/01/BAR-Manual-de-Operaciones-version-02.pdf">Descargar</a>
                             </div>
                         </div>
                     </div>
