@@ -53,8 +53,14 @@ Use it to make something cool, have fun, and share what you've learned with othe
 /*--------------------------------------------------------------
 1.0 Normalize
 Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
-
 --------------------------------------------------------*/
+@color-primary:#a5151d;
+@color-secondary:#CE162A;
+@font-size-14-5:14.5px !important;
+@font-size-15:15px !important;
+@font-size-15-5:15.5px !important;
+@font-size-default:16px !important;
+
 @font-face {
   /* font-family: 'DIN Alternate Bold';
   font-style: italic;
@@ -151,8 +157,8 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 -------------------------------------*/
 
 html,
-body {
-  font-size: 18px !important;
+body{
+  font-size: @font-size-default;
   color: #454545;
   font-family: 'DIN Alternate Bold', sans-serif;
   vertical-align: baseline;
@@ -301,7 +307,7 @@ body.nav-expanded .offwrap {
 }
 
 .primary-background {
-  background-color: #a5151d;
+  background-color: @color-primary;
 }
 
 .white-bg {
@@ -333,7 +339,7 @@ body.nav-expanded .offwrap {
 }
 
 a {
-  color: #a5151d;
+  color: @color-primary;
   transition: all 0.3s ease;
   text-decoration: none !important;
   outline: none !important;
@@ -343,7 +349,7 @@ a:active,
 a:hover {
   text-decoration: none;
   outline: 0 none;
-  color: #a5151d;
+  color: @color-primary;
 }
 
 ul {
@@ -357,13 +363,13 @@ ul {
 }
 
 ::-moz-selection {
-  background: #a5151d;
+  background: @color-primary;
   text-shadow: none;
   color: #ffffff;
 }
 
 ::selection {
-  background: #a5151d;
+  background: @color-primary;
   text-shadow: none;
   color: #ffffff;
 }
@@ -587,7 +593,7 @@ ul {
 }
 
 .rs-menu-toggle {
-  color: #a5151d;
+  color: @color-primary;
   text-align: right;
 }
 
@@ -628,10 +634,10 @@ ul.services-list li a:before {
 
 ul.services-list li a:hover,
 ul.services-list li a.active {
-  background-image: linear-gradient(250deg, #a5151d 19%, #03228f 100%);
+  background-image: linear-gradient(250deg, @color-primary 19%, #03228f 100%);
   color: #ffffff;
   border-radius: 5px;
-  border-color: #a5151d;
+  border-color: @color-primary;
 }
 
 ul.services-list li a:hover:before,
@@ -735,7 +741,7 @@ button:focus {
 }
 
 .pagination-part .active a {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .gridFilter button {
@@ -868,7 +874,7 @@ blockquote cite:before {
   height: 42px;
   line-height: 42px;
   border-radius: 50%;
-  background: #a5151d;
+  background: @color-primary;
   text-align: center;
   color: #ffffff;
   transition: all 0.5s;
@@ -934,7 +940,7 @@ blockquote cite:before {
 
 .rs-carousel.nav-style2 .owl-nav .owl-prev:hover i,
 .rs-carousel.nav-style2 .owl-nav .owl-next:hover i {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-carousel.nav-style2 .owl-nav .owl-prev i:before {
@@ -966,18 +972,18 @@ blockquote cite:before {
   margin: 0 6px;
   padding: 3px 0;
   border-radius: 30px;
-  border: 1px solid #a5151d;
+  border: 1px solid @color-primary;
   background: transparent;
   opacity: 0.7;
   cursor: pointer;
 }
 
 .rs-carousel .owl-dots .owl-dot:hover {
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .rs-carousel .owl-dots .active {
-  background: #a5151d;
+  background: @color-primary;
   opacity: 1;
 }
 
@@ -1103,7 +1109,7 @@ blockquote cite:before {
 
 .readon.learn-more.slider-btn {
   background: #ffffff;
-  color: #a5151d;
+  color: @color-primary;
   padding: 15px 37px;
   border-radius: 8px 8px 8px 8px !important;
 }
@@ -1328,7 +1334,7 @@ blockquote cite:before {
   padding: 16px 47px 16px 30px;
   color: #ffffff;
   background-color: transparent;
-  background-image: linear-gradient(110deg, #CE162A 0%, #a5151d 100%);
+  background-image: linear-gradient(110deg, @color-secondary 0%, @color-primary 100%);
   border-radius: 3px 3px 3px 3px;
 }
 
@@ -1345,7 +1351,7 @@ blockquote cite:before {
 
 .readon.more-about:hover {
   background-color: transparent;
-  background-image: linear-gradient(90deg, #CE162A 0%, #a5151d 100%);
+  background-image: linear-gradient(90deg, @color-secondary 0%, @color-primary 100%);
 }
 
 /*-- Services Button Css --*/
@@ -1454,12 +1460,12 @@ blockquote cite:before {
 }
 
 .blog-button a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .blog-button a:hover:after {
   transform: translateX(10px);
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .blog-button.style2 a:hover {
@@ -1475,11 +1481,11 @@ blockquote cite:before {
 }
 
 .blog-button.style3 a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .blog-button.style3 a:hover:after {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .blog-button.inner-blog a {
@@ -1579,7 +1585,7 @@ blockquote cite:before {
   border-radius: 3px;
   font-size: 16px;
   font-weight: 500;
-  background-image: linear-gradient(110deg, #CE162A 0%, #a5151d 100%);
+  background-image: linear-gradient(110deg, @color-secondary 0%, @color-primary 100%);
   color: #ffffff;
   z-index: 1;
   border: none;
@@ -1604,7 +1610,7 @@ blockquote cite:before {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #ffffff;
-  background: #a5151d;
+  background: @color-primary;
   width: 70px;
   height: 70px;
   border-radius: 100%;
@@ -1634,7 +1640,7 @@ blockquote cite:before {
 }
 
 .media-icon .popup-videos:hover:before {
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .media-icon.video-item {
@@ -1651,7 +1657,7 @@ blockquote cite:before {
   line-height: 70px;
   border-radius: 100%;
   text-align: center;
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .slider-video .popup-videos i {
@@ -1680,7 +1686,7 @@ blockquote cite:before {
   height: 70px;
   border-radius: 50%;
   animation: pulse-border 3000ms ease-out infinite;
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .address-item .address-icon {
@@ -1696,7 +1702,7 @@ blockquote cite:before {
 
 .address-item .address-icon i {
   text-align: center;
-  color: #a5151d;
+  color: @color-primary;
   border-radius: 100%;
   font-size: 25px;
   position: relative;
@@ -1778,7 +1784,7 @@ blockquote cite:before {
 
 .rs-videos .animate-border .popup-border:before {
   content: "";
-  border: 2px solid #a5151d;
+  border: 2px solid @color-primary;
   position: absolute;
   z-index: 0;
   left: 50%;
@@ -1795,7 +1801,7 @@ blockquote cite:before {
 
 .rs-videos .animate-border .popup-border:after {
   content: "";
-  border: 2px solid #a5151d;
+  border: 2px solid @color-primary;
   position: absolute;
   z-index: 0;
   left: 50%;
@@ -1997,18 +2003,18 @@ blockquote cite:before {
 }
 
 .sec-title .sub-text.style2:after {
-  background-color: #a5151d;
+  background-color: @color-primary;
 }
 
 .sec-title .sub-text.style2:before {
-  background-color: #a5151d;
+  background-color: @color-primary;
 }
 
 .sec-title .sub-text.style-bg {
-  background-color: #a5151d17;
+  background-color: @color-primary;
   display: inline-block;
   padding: 6px 25px;
-  color: #a5151d;
+  color: @color-primary;
   border-radius: 30px;
   text-transform: uppercase;
 }
@@ -2092,7 +2098,7 @@ blockquote cite:before {
 }
 
 .sec-title2 .sub-text.contact {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .sec-title2 .sub-text.orange-color {
@@ -2100,10 +2106,10 @@ blockquote cite:before {
 }
 
 .sec-title2 .sub-text.style-bg {
-  background-color: #a5151d17;
+  background-color: @color-primary;
   display: inline-block;
   padding: 6px 25px;
-  color: #a5151d;
+  color: @color-primary;
   border-radius: 30px;
   text-transform: uppercase;
 }
@@ -2276,7 +2282,7 @@ blockquote cite:before {
   font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
-  color: #a5151d;
+  color: @color-primary;
   display: block;
   margin: -26px 0px 10px 0px;
 }
@@ -2472,7 +2478,7 @@ blockquote cite:before {
   content: "\f058";
   font-weight: 400;
   font-family: fontawesome;
-  color: #a5151d;
+  color: @color-primary;
 }
 
 /* -----------------------
@@ -2506,7 +2512,7 @@ blockquote cite:before {
 
 .full-width-header .rs-header .topbar-area .rs-contact-info .contact-part i:before {
   font-size: 26px;
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header .topbar-area .rs-contact-info .contact-part .contact-info {
@@ -2532,7 +2538,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header .topbar-area .rs-contact-info .contact-part .contact-info a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header .topbar-area.style2 {
@@ -2752,7 +2758,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header .menu-area .main-menu .rs-menu ul.sub-menu li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header .menu-area .main-menu .rs-menu ul.sub-menu li.menu-item-has-children a:before {
@@ -2761,7 +2767,7 @@ blockquote cite:before {
 
 .full-width-header .rs-header .menu-area .main-menu .rs-menu ul.sub-menu li.current-menu-item>a,
 .full-width-header .rs-header .menu-area .main-menu .rs-menu ul.sub-menu li.active>a {
-  color: #a5151d !important;
+  color: @color-primary !important;
 }
 
 .full-width-header .rs-header .menu-area .main-menu .rs-menu ul.sub-menu li:last-child {
@@ -2802,11 +2808,11 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header .menu-area.sticky .main-menu .rs-menu ul.nav-menu>li>a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header .menu-area.sticky .main-menu .rs-menu ul.nav-menu>li.current-menu-item>a {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header .menu-area.sticky .expand-btn-inner {
@@ -2819,7 +2825,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header .menu-area.sticky .expand-btn-inner li .cart-icon .cart-count {
-  background: #a5151d;
+  background: @color-primary;
   color: #ffffff;
 }
 
@@ -2828,7 +2834,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header .menu-area.sticky .expand-btn-inner li>a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header .menu-area.sticky .expand-btn-inner.hidden-sticky {
@@ -2923,7 +2929,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style2 .menu-area .main-menu .rs-menu ul.nav-menu li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style2 .menu-area .main-menu .rs-menu ul.nav-menu li.menu-item-has-children:hover>a:before {
@@ -2931,7 +2937,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style2 .menu-area .main-menu .rs-menu ul.nav-menu li.current-menu-item>a {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style2 .menu-area .main-menu .rs-menu ul.sub-menu li {
@@ -2945,7 +2951,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style2 .menu-area .main-menu .rs-menu ul.sub-menu li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style2 .menu-area .main-menu .rs-menu ul.sub-menu li.menu-item-has-children a:before {
@@ -2953,7 +2959,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style2 .menu-area .main-menu .rs-menu ul.sub-menu li.active a {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style2 .menu-area.sticky .expand-btn-inner ul {
@@ -2966,7 +2972,7 @@ blockquote cite:before {
 
 .full-width-header .rs-header.style2 .menu-area.sticky .expand-btn-inner ul li .quote-btn {
   font-size: 14px;
-  background-image: linear-gradient(110deg, #CE162A 0%, #a5151d 100%);
+  background-image: linear-gradient(110deg, @color-secondary 0%, @color-primary 100%);
   padding: 13px 22px;
   border-radius: 3px;
   color: #fff;
@@ -2992,7 +2998,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style2 .expand-btn-inner .sidebarmenu-search>a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style2 .expand-btn-inner li .humburger {
@@ -3018,7 +3024,7 @@ blockquote cite:before {
 .full-width-header .rs-header.style2 .expand-btn-inner li .humburger span.dot4,
 .full-width-header .rs-header.style2 .expand-btn-inner li .humburger span.dot6,
 .full-width-header .rs-header.style2 .expand-btn-inner li .humburger span.dot8 {
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .full-width-header .rs-header.style2 .expand-btn-inner ul {
@@ -3031,7 +3037,7 @@ blockquote cite:before {
 
 .full-width-header .rs-header.style2 .expand-btn-inner ul li .quote-btn {
   font-size: 14px;
-  background-image: linear-gradient(110deg, #CE162A 0%, #a5151d 100%);
+  background-image: linear-gradient(110deg, @color-secondary 0%, @color-primary 100%);
   padding: 13px 22px;
   border-radius: 3px;
   color: #fff;
@@ -3109,11 +3115,11 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style3 .menu-area.sticky .main-menu .rs-menu ul.nav-menu li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style3 .menu-area.sticky .main-menu .rs-menu ul.nav-menu li.current-menu-item>a {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style3 .expand-btn-inner ul {
@@ -3162,7 +3168,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style3.modify1 .menu-area .main-menu .rs-menu ul.nav-menu li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style3.modify1 .menu-area .main-menu .rs-menu ul.nav-menu li.menu-item-has-children:hover>a:before {
@@ -3170,7 +3176,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style3.modify1 .menu-area .main-menu .rs-menu ul.nav-menu li.current-menu-item>a {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style3.modify1 .menu-area .main-menu .rs-menu ul.sub-menu li a {
@@ -3178,7 +3184,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style3.modify1 .menu-area .main-menu .rs-menu ul.sub-menu li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style3.modify1 .menu-area .main-menu .rs-menu ul.sub-menu li.menu-item-has-children a:before {
@@ -3186,7 +3192,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style3.modify1 .menu-area .main-menu .rs-menu ul.sub-menu li.active a {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style3.modify1 .expand-btn-inner ul .sidebarmenu-search a i {
@@ -3277,7 +3283,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style3.modify3 .menu-area .row-table .main-menu .rs-menu ul.sub-menu li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style3.modify3 .menu-area .row-table .main-menu .rs-menu ul.sub-menu li.menu-item-has-children a:before {
@@ -3286,13 +3292,13 @@ blockquote cite:before {
 
 .full-width-header .rs-header.style3.modify3 .menu-area .row-table .main-menu .rs-menu ul.sub-menu li.current-menu-item>a,
 .full-width-header .rs-header.style3.modify3 .menu-area .row-table .main-menu .rs-menu ul.sub-menu li.active>a {
-  color: #a5151d !important;
+  color: @color-primary !important;
 }
 
 .full-width-header .rs-header.style3.modify3 .menu-area .row-table .main-menu .rs-menu ul li a:hover,
 .full-width-header .rs-header.style3.modify3 .menu-area .row-table .main-menu .rs-menu ul li.active a,
 .full-width-header .rs-header.style3.modify3 .menu-area .row-table .main-menu .rs-menu ul li.current-menu-item>a {
-  color: #CE162A;
+  color: @color-secondary;
   font-size: 18px;
 }
 
@@ -3301,7 +3307,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style3.modify3 .menu-area.sticky .main-menu .rs-menu ul.nav-menu>li>a:hover {
-  color: #fff;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style3.modify3 .menu-area.sticky .main-menu .rs-menu ul.nav-menu>li.current-menu-item>a {
@@ -3313,7 +3319,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style3.modify3 .menu-area.sticky .expand-btn-inner ul li .humburger span {
-  background: #a5151d;
+  background: @color-primary;
   margin: 2px 4px;
 }
 
@@ -3466,7 +3472,7 @@ blockquote cite:before {
 }
 
 .full-width-header .rs-header.style4.modify1 .expand-btn-inner ul .sidebarmenu-search:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .rs-header.style4.modify1 .expand-btn-inner ul li i:before {
@@ -3530,7 +3536,7 @@ blockquote cite:before {
 }
 
 .full-width-header .mobile-menu .rs-menu-toggle.primary {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .mobile-menu .rs-menu-toggle.secondary {
@@ -3580,7 +3586,7 @@ blockquote cite:before {
 .full-width-header .right_menu_togle .close-btn .nav-link .humburger span.dot4,
 .full-width-header .right_menu_togle .close-btn .nav-link .humburger span.dot6,
 .full-width-header .right_menu_togle .close-btn .nav-link .humburger span.dot8 {
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .full-width-header .right_menu_togle .canvas-logo {
@@ -3599,7 +3605,7 @@ blockquote cite:before {
 }
 
 .full-width-header .right_menu_togle .sidebarnav_menu li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .full-width-header .right_menu_togle .canvas-contact {
@@ -4089,7 +4095,7 @@ body .search-modal .close:hover {
 
 .rs-slider.style1 .owl-nav .owl-next:hover,
 .rs-slider.style1 .owl-nav .owl-prev:hover {
-  background: #a5151d;
+  background: @color-primary;
   color: #ffffff;
 }
 
@@ -4195,7 +4201,7 @@ body .search-modal .close:hover {
 
 .rs-slider.style2 .owl-nav .owl-next:hover,
 .rs-slider.style2 .owl-nav .owl-prev:hover {
-  background: #a5151d;
+  background: @color-primary;
   color: #ffffff;
 }
 
@@ -4232,7 +4238,7 @@ body .search-modal .close:hover {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  color: #a5151d;
+  color: @color-primary;
   transition: all 0.3s ease;
   margin: 0 auto;
   text-align: center;
@@ -4256,7 +4262,7 @@ body .search-modal .close:hover {
 .rs-slider.style3 .owl-nav .owl-next:hover,
 .rs-slider.style3 .owl-nav .owl-prev:hover {
   background: #fff;
-  color: #a5151d;
+  color: @color-primary;
   border: 1px solid #454545;
   box-shadow: 0 0 10px #eee;
 }
@@ -4490,7 +4496,7 @@ body .search-modal .close:hover {
 }
 
 .rs-contact .contact-box.onepage-box.modify1 .address-box .address-icon i {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-contact .contact-widget .from-control {
@@ -5324,7 +5330,7 @@ body .search-modal .close:hover {
   font-size: 40px;
   font-weight: 700;
   line-height: 48px;
-  color: #a5151d;
+  color: @color-primary;
   padding: 0px 0px 12px 0px;
 }
 
@@ -5412,7 +5418,7 @@ body .search-modal .close:hover {
 }
 
 .rs-skillbar.style1 .cl-skill-bar .skillbar .skillbar-bar {
-  background: #a5151d;
+  background: @color-primary;
   width: 0;
   margin-bottom: 0;
   height: 7px;
@@ -5603,7 +5609,7 @@ body .search-modal .close:hover {
 }
 
 .rs-why-choose .services-wrap .services-text .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-why-choose .services-wrap .services-text .services-txt {
@@ -5691,7 +5697,7 @@ body .search-modal .close:hover {
 }
 
 .rs-why-choose.style2 .services-wrap .services-text .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-why-choose.style2 .services-wrap .services-text .services-txt {
@@ -6000,7 +6006,7 @@ body .search-modal .close:hover {
 }
 
 .rs-team.style2 .team-item .team-content .person-name a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-team.style2 .team-item .team-content .designation {
@@ -6050,7 +6056,7 @@ body .search-modal .close:hover {
 }
 
 .rs-team.style2.onepage-style4 .team-item .team-content .person-name a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-team.style2.onepage-style4 .team-item .team-content .designation {
@@ -6071,14 +6077,14 @@ body .search-modal .close:hover {
   border-radius: 30px;
   border: none;
   transition: all 0.3s ease;
-  background: #a5151d;
+  background: @color-primary;
   box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.25);
 }
 
 .rs-team.style2.onepage-style4 .owl-dots .owl-dot:hover,
 .rs-team.style2.onepage-style4 .owl-dots .owl-dot.active {
   width: 40px;
-  background: #a5151d;
+  background: @color-primary;
   opacity: 1;
 }
 
@@ -6149,7 +6155,7 @@ body .search-modal .close:hover {
 }
 
 .rs-team-Single .btm-info-team .con-info .ps-informations .personal-info li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-team-Single .btm-info-team .con-info .ps-informations .social-info {
@@ -6212,7 +6218,7 @@ body .search-modal .close:hover {
 }
 
 .rs-services.main-home .services-item .services-content .services-text .services-title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-services.main-home .services-item .services-content .services-desc p {
@@ -6398,7 +6404,7 @@ body .search-modal .close:hover {
 }
 
 .rs-services.style2 .flip-box-inner .flip-box-wrap .front-part .front-content-part .front-title-part .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-services.style2 .flip-box-inner .flip-box-wrap .front-part .front-content-part .front-desc-part p {
@@ -6491,7 +6497,7 @@ body .search-modal .close:hover {
 }
 
 .rs-services.style2.modify1 .flip-box-inner .flip-box-wrap .front-part .front-content-part .front-title-part .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-services.style2.modify1 .flip-box-inner .flip-box-wrap .front-part .front-content-part .front-desc-part p {
@@ -6678,7 +6684,7 @@ body .search-modal .close:hover {
 }
 
 .rs-services.style3 .services-item:hover.light-purple-bg {
-  background-image: linear-gradient(90deg, #CE162A 0%, #a5151d 100%);
+  background-image: linear-gradient(90deg, @color-secondary 0%, @color-primary 100%);
 }
 
 .rs-services.style3 .services-item:hover .services-icon {
@@ -6877,7 +6883,7 @@ body .search-modal .close:hover {
 }
 
 .rs-services.style4 .services-item .services-content .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-services.style4 .services-item .services-content .desc {
@@ -6959,7 +6965,7 @@ body .search-modal .close:hover {
 }
 
 .rs-services.style5 .services-item .services-content .services-title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-services.style5 .services-item .services-content .services-desc {
@@ -6992,7 +6998,7 @@ body .search-modal .close:hover {
 }
 
 .rs-services.style6 .services-item .services-content .services-title .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-services.style6 .services-item:hover .services-icon img {
@@ -7091,7 +7097,7 @@ body .search-modal .close:hover {
 }
 
 .rs-services.style8 .services-item .services-content .services-title .title:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-services.style8 .services-item .services-content .services-txt {
@@ -7454,7 +7460,7 @@ body .search-modal .close:hover {
   top: 30px;
   left: 0px;
   padding: 10px 23px 11px 23px;
-  background-color: #a5151d;
+  background-color: @color-primary;
   border-radius: 0px 30px 30px 0px;
   font-size: 13px;
   font-weight: 500;
@@ -7467,7 +7473,7 @@ body .search-modal .close:hover {
 
 .rs-pricing .pricing-table .pricing-badge.white-color-bg {
   background: #ffffff;
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-pricing .pricing-table .pricing-badge.secondary-bg {
@@ -7524,7 +7530,7 @@ body .search-modal .close:hover {
 .rs-pricing .pricing-table .pricing-table-body li i {
   float: right;
   margin-right: 0;
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-pricing .pricing-table.primary-bg {
@@ -7864,7 +7870,7 @@ body .search-modal .close:hover {
 }
 
 .rs-blog .blog-item .blog-content .blog-meta .date i {
-  color: #a5151d;
+  color: @color-primary;
   padding-right: 5px;
 }
 
@@ -7876,7 +7882,7 @@ body .search-modal .close:hover {
 }
 
 .rs-blog .blog-item .blog-content .blog-meta .admin i {
-  color: #a5151d;
+  color: @color-primary;
   padding-right: 5px;
 }
 
@@ -7892,7 +7898,7 @@ body .search-modal .close:hover {
 }
 
 .rs-blog .blog-item .blog-content .blog-title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-blog .blog-item .blog-content .desc {
@@ -7932,7 +7938,7 @@ body .search-modal .close:hover {
 }
 
 .rs-blog.style2 .blog-item .blog-content .blog-meta .date i {
-  color: #a5151d;
+  color: @color-primary;
   padding-right: 5px;
 }
 
@@ -7944,7 +7950,7 @@ body .search-modal .close:hover {
 }
 
 .rs-blog.style2 .blog-item .blog-content .blog-meta .admin i {
-  color: #a5151d;
+  color: @color-primary;
   padding-right: 5px;
 }
 
@@ -7962,11 +7968,11 @@ body .search-modal .close:hover {
 }
 
 .rs-blog.style3 .blog-item .blog-content .blog-meta .date i {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-blog.style3 .blog-item .blog-content .blog-meta .admin i {
-  color: #a5151d;
+  color: @color-primary;
   padding-right: 5px;
 }
 
@@ -7975,7 +7981,7 @@ body .search-modal .close:hover {
 }
 
 .rs-blog.style3 .blog-item .blog-content .blog-title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-inner-blog .blog-item {
@@ -8042,7 +8048,7 @@ body .search-modal .close:hover {
 }
 
 .rs-inner-blog .blog-item .blog-content .blog-title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-inner-blog .blog-item .blog-content .blog-meta .btm-cate {
@@ -8116,7 +8122,7 @@ body .search-modal .close:hover {
   border: 0;
   width: 50px;
   height: 2px;
-  background: #a5151d;
+  background: @color-primary;
   z-index: 1;
   margin-left: 0;
   bottom: 0;
@@ -8163,7 +8169,7 @@ body .search-modal .close:hover {
 }
 
 .rs-inner-blog .widget-area .search-widget .search-wrap button:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-inner-blog .widget-area .recent-posts {
@@ -8201,7 +8207,7 @@ body .search-modal .close:hover {
 }
 
 .rs-inner-blog .widget-area .recent-posts .recent-post-widget .post-desc a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-inner-blog .widget-area .recent-posts .recent-post-widget .post-desc .date {
@@ -8236,7 +8242,7 @@ body .search-modal .close:hover {
 }
 
 .rs-inner-blog .widget-area .categories li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-inner-blog .blog-details .blog-full .single-post-meta {
@@ -8285,7 +8291,7 @@ body .search-modal .close:hover {
 }
 
 .rs-inner-blog .blog-details .blog-full .single-post-meta .Post-cate .tag-line a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-inner-blog .blog-details .blog-full .single-post-meta .post-comment {
@@ -8729,7 +8735,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style1 .project-item .project-content .category a {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style1 .project-item:hover .project-img img {
@@ -8767,7 +8773,7 @@ body .search-modal .close:hover {
 
 .rs-project.style1 .owl-nav .owl-next:hover,
 .rs-project.style1 .owl-nav .owl-prev:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style1 .owl-nav .owl-next {
@@ -8885,7 +8891,7 @@ body .search-modal .close:hover {
 
 .rs-project.style2 .owl-nav .owl-next:hover,
 .rs-project.style2 .owl-nav .owl-prev:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style2 .owl-nav .owl-next {
@@ -9033,7 +9039,7 @@ body .search-modal .close:hover {
 
 .rs-project.style3 .owl-nav .owl-next:hover,
 .rs-project.style3 .owl-nav .owl-prev:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style3 .owl-nav .owl-next {
@@ -9226,7 +9232,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style5 .project-item .project-content .project-inner .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style5 .project-item .project-content .project-inner .category {
@@ -9241,7 +9247,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style5 .project-item .project-content .project-inner .category a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style5 .project-item:before {
@@ -9330,7 +9336,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style6 .project-item .project-content .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style6 .project-item .project-content .category {
@@ -9341,7 +9347,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style6 .project-item .project-content .category a {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style6 .project-item:hover .project-img .plus-icon {
@@ -9376,11 +9382,11 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style6.modify1 .project-item .project-content .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style6.modify2 .project-item .project-img .plus-icon {
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .rs-project.style6.modify2 .project-item .project-img .plus-icon i {
@@ -9406,7 +9412,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style6.modify2 .project-item .project-content .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style6.modify3 .project-item {
@@ -9440,7 +9446,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style6.modify3 .project-item .project-content .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style6.modify3 .project-item .project-content .category {
@@ -9497,7 +9503,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style7 .project-item .project-content .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style7 .project-item .project-content .category {
@@ -9512,7 +9518,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style7 .project-item .project-content .category a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style7 .project-item .project-content:before {
@@ -9594,7 +9600,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style8 .project-item .project-content .project-inner .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style8 .project-item .project-content .project-inner .category {
@@ -9609,7 +9615,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style8 .project-item .project-content .project-inner .category a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style8 .project-item .project-content:before {
@@ -9653,7 +9659,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style8 .project-item:hover .project-content .project-inner .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style8 .project-item:hover .project-content .project-inner .category {
@@ -9668,7 +9674,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style8 .project-item:hover .project-content .project-inner .category a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style8 .project-item:hover .project-content:before {
@@ -9723,7 +9729,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style9 .project-item .project-content .project-inner .title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style9 .project-item .project-content .project-inner .category {
@@ -9739,7 +9745,7 @@ body .search-modal .close:hover {
 }
 
 .rs-project.style9 .project-item .project-content .project-inner .category a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-project.style9 .project-item .project-content .p-icon {
@@ -10041,7 +10047,7 @@ body .search-modal .close:hover {
 }
 
 .rs-testimonial.style3 .testi-item .testi-content .name:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-testimonial.style3 .testi-item .testi-content .designation {
@@ -10559,14 +10565,14 @@ body .search-modal .close:hover {
   border-radius: 30px;
   border: none;
   transition: all 0.3s ease;
-  background: #a5151d;
+  background: @color-primary;
   box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.25);
 }
 
 .rs-testimonial.style9 .owl-dots .owl-dot:hover,
 .rs-testimonial.style9 .owl-dots .owl-dot.active {
   width: 40px;
-  background: #a5151d;
+  background: @color-primary;
   opacity: 1;
 }
 
@@ -10615,7 +10621,7 @@ body .search-modal .close:hover {
   font-size: 30px;
   color: #ffffff;
   font-weight: 400;
-  background: #a5151d;
+  background: @color-primary;
   border: none;
   padding: 8px 10px 8px;
   height: 45px;
@@ -10629,7 +10635,7 @@ body .search-modal .close:hover {
   color: #ffffff;
   font-weight: 700;
   line-height: 40px;
-  background: #a5151d;
+  background: @color-primary;
   width: 40px;
   height: 40px;
   text-align: center;
@@ -10656,13 +10662,13 @@ body .search-modal .close:hover {
 }
 
 .rs-shop-part .product-list .content-desc .loop-product-title a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-shop-part .product-list .content-desc .price {
   font-size: 20px;
   line-height: 30px;
-  color: #a5151d;
+  color: @color-primary;
   font-weight: 700;
   margin: 0;
 }
@@ -10696,7 +10702,7 @@ body .search-modal .close:hover {
 }
 
 .rs-single-shop .single-price-info .single-price {
-  color: #a5151d;
+  color: @color-primary;
   font-weight: 600;
 }
 
@@ -10735,7 +10741,7 @@ body .search-modal .close:hover {
 }
 
 .rs-single-shop .single-price-info p.category a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-single-shop .single-price-info .tag {
@@ -10771,7 +10777,7 @@ body .search-modal .close:hover {
 
 .rs-single-shop .tab-area ul.nav-tabs li a:hover,
 .rs-single-shop .tab-area ul.nav-tabs li a.active {
-  background: #a5151d;
+  background: @color-primary;
   color: #ffffff;
 }
 
@@ -10841,7 +10847,7 @@ body .search-modal .close:hover {
 }
 
 .rs-single-shop .tab-area .tab-content .tab-pane .reviews-grid .comment-form .ratings ul li i {
-  color: #a5151d;
+  color: @color-primary;
   font-weight: normal;
 }
 
@@ -10911,7 +10917,7 @@ body .search-modal .close:hover {
 }
 
 .rs-cart .cart-wrap table.cart-table .product-name a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-cart .cart-wrap table.cart-table .product-price {
@@ -10996,7 +11002,7 @@ body .search-modal .close:hover {
 
 .rs-checkout .coupon-toggle .accordion .card {
   border: unset;
-  border-top: 3px solid #a5151d;
+  border-top: 3px solid @color-primary;
   border-radius: 0;
 }
 
@@ -11017,14 +11023,14 @@ body .search-modal .close:hover {
 .rs-checkout .coupon-toggle .accordion .card .card-header .card-title button {
   background: unset;
   border: none;
-  color: #a5151d;
+  color: @color-primary;
   transition: all 0.3s ease;
   outline: none;
   cursor: pointer;
 }
 
 .rs-checkout .coupon-toggle .accordion .card .card-header .card-title button:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-checkout .coupon-toggle .accordion .card .card-body {
@@ -11187,7 +11193,7 @@ body .search-modal .close:hover {
 }
 
 .rs-my-account .rs-login .form-group label span {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-my-account .rs-login .form-group input {
@@ -11203,7 +11209,7 @@ body .search-modal .close:hover {
   font-size: 18px;
   line-height: 26px;
   font-weight: 400;
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-my-account .rs-login p {
@@ -11218,7 +11224,7 @@ body .search-modal .close:hover {
   font-size: 18px;
   line-height: 26px;
   font-weight: 400;
-  color: #a5151d;
+  color: @color-primary;
 }
 
 /*------------------------------------
@@ -11258,7 +11264,7 @@ body .search-modal .close:hover {
 }
 
 .rs-footer .footer-top .site-map li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer .footer-top .footer-social li {
@@ -11285,7 +11291,7 @@ body .search-modal .close:hover {
 
 .rs-footer .footer-top .footer-social li a:hover {
   color: #ffffff;
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .rs-footer .footer-top .footer-social li:last-child {
@@ -11302,11 +11308,11 @@ body .search-modal .close:hover {
 }
 
 .rs-footer .footer-top .address-widget li .desc a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer .footer-top .address-widget li i {
-  color: #a5151d;
+  color: @color-primary;
   position: absolute;
   left: 0px;
 }
@@ -11342,7 +11348,7 @@ body .search-modal .close:hover {
   top: 1px;
   right: 1px;
   bottom: 1px;
-  background-image: linear-gradient(110deg, #CE162A 0%, #a5151d 100%);
+  background-image: linear-gradient(110deg, @color-secondary 0%, @color-primary 100%);
   border-radius: 50%;
   padding: 15px 28px 15px;
   font-family: "Flaticon";
@@ -11402,7 +11408,7 @@ body .search-modal .close:hover {
 }
 
 .rs-footer .footer-bottom .copyright p a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer .footer-bottom .copy-right-menu li {
@@ -11416,7 +11422,7 @@ body .search-modal .close:hover {
 }
 
 .rs-footer .footer-bottom .copy-right-menu li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer .footer-bottom .copy-right-menu li:before {
@@ -11424,7 +11430,7 @@ body .search-modal .close:hover {
   content: "";
   position: absolute;
   font-size: 18px;
-  background: #a5151d;
+  background: @color-primary;
   left: 0;
   top: 50%;
   width: 6px;
@@ -11521,7 +11527,7 @@ body .search-modal .close:hover {
 
 .rs-footer.style2 .footer-top .footer-social li a:hover {
   color: #ffffff;
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .rs-footer.style2 .footer-top .footer-social li:last-child {
@@ -11581,7 +11587,7 @@ body .search-modal .close:hover {
 }
 
 .rs-footer.style2.modify1 .footer-top .site-map li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer.style2.modify1 .footer-top .address-widget li i:before {
@@ -11589,7 +11595,7 @@ body .search-modal .close:hover {
 }
 
 .rs-footer.style2.modify1 .footer-top .address-widget li .desc a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer.style2.modify1 .footer-bottom {
@@ -11607,7 +11613,7 @@ body .search-modal .close:hover {
 }
 
 .rs-footer.style2.modify1 .footer-bottom .copyright p a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer.style2.modify1 .footer-bottom .copy-right-menu li a {
@@ -11615,7 +11621,7 @@ body .search-modal .close:hover {
 }
 
 .rs-footer.style2.modify1 .footer-bottom .copy-right-menu li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer.style3 {
@@ -11628,23 +11634,23 @@ body .search-modal .close:hover {
 }
 
 .rs-footer.style3 .footer-top .site-map li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer.style3 .footer-top .footer-social li a:hover {
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .rs-footer.style3 .footer-top .address-widget li .desc a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer.style3 .footer-top .address-widget li i {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer.style3 .footer-top p input[type="submit"] {
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .rs-footer.style3 .footer-top p input[type="submit"]:hover {
@@ -11652,15 +11658,15 @@ body .search-modal .close:hover {
 }
 
 .rs-footer.style3 .footer-bottom .copyright p a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer.style3 .footer-bottom .copy-right-menu li a:hover {
-  color: #a5151d;
+  color: @color-primary;
 }
 
 .rs-footer.style3 .footer-bottom .copy-right-menu li:before {
-  background: #a5151d;
+  background: @color-primary;
 }
 
 .rs-footer.style3.onepage-style4 {
@@ -11686,7 +11692,7 @@ body .search-modal .close:hover {
 }
 
 #scrollUp i {
-  background-image: linear-gradient(110deg, #CE162A 0%, #a5151d 100%);
+  background-image: linear-gradient(110deg, @color-secondary 0%, @color-primary 100%);
   border-radius: 50%;
   height: 40px;
   font-size: 24px;
@@ -11708,7 +11714,7 @@ body .search-modal .close:hover {
 }
 
 #scrollUp.purple-color i {
-  background: #a5151d;
+  background: @color-primary;
 }
 
 /* ------------------------------------
@@ -11727,7 +11733,7 @@ body .search-modal .close:hover {
 .loader .loader-container {
   width: 50px;
   height: 50px;
-  background-color: #a5151d;
+  background-color: @color-primary;
   border-radius: 100%;
   -webkit-animation: sk-scaleout 1s infinite ease-in-out;
   animation: sk-scaleout 1s infinite ease-in-out;
@@ -11911,7 +11917,7 @@ body .search-modal .close:hover {
   width: 3px;
   top: -20%;
   left: -1px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 39%, #a5151d 130%, #a5151d 59%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 39%, @color-primary 130%, @color-primary 59%);
   background-color: rgba(0, 0, 0, 0);
   -webkit-animation: rain-line 13s 0s linear infinite;
   animation: rain-line 13s 0s linear infinite;
@@ -12141,6 +12147,12 @@ div.main-menu nav.rs-menu ul.nav-menu li>* {
   font-size: 17px !important;
 }
 
+.menu-area.menu-sticky.sticky .container .row-table .rs-menu-area .main-menu .rs-menu .menu-item.current-menu-item a{
+  color:@color-primary !important;
+}
+.twentyseventeen-font-size-theme-15-5{
+  font-size: @font-size-15-5;
+}
 .twentyseventeen-font-size-theme-16{
   font-size: 16px;
 }
@@ -12149,4 +12161,97 @@ div.main-menu nav.rs-menu ul.nav-menu li>* {
 }
 .twentyseventeen-font-size-theme-18{
   font-size: 18px;
+}
+
+input[type=date],
+input[type=datetime-local],
+input[type=month],
+input[type=time],
+input[type=text],
+input[type=number],
+input[type=file],
+input[type=search],
+input[type=url],
+input[type=datetime],
+input[type=email],
+input[type=tel],
+input[type=week]
+input[type=password],
+optgroup,
+select{
+    border-radius: 0px !important;
+    background-color: #fff !important;
+    border-color: rgb(51, 51, 51) !important;
+    padding: 0 8px;
+    line-height: 2;
+    height: 29px !important;
+    font-size:@font-size-default;
+}
+textarea{
+  border-radius: 0px !important;
+  background-color: #fff !important;
+  border-color: rgb(51, 51, 51) !important;
+  padding: 0 8px;
+  line-height: 2;
+  min-height: 29px !important;
+  font-size:@font-size-default;
+
+}
+table.table thead{
+  height:5px;
+  background:@color-primary;        
+  vertical-align: middle;
+}
+table.table thead>tr>th{    
+  color:#fff;
+  font-size:@font-size-default;
+  text-align:center;
+}
+table.table tbody>tr>td{    
+  font-size:@font-size-default;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  text-align: justify;
+  overflow: hidden
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: @color-primary;
+  border-color: @color-primary;
+}
+
+#adminmenu .wp-submenu-head,#adminmenu a.menu-top,#adminmenu .wp-submenu a{
+  font-size: @font-size-default;
+}
+
+body #adminmenuwrap *,
+body #adminmenuwrap .wp-submenu.wp-submenu-wrap *,
+body #adminmenuwrap .wp-submenu.wp-submenu-wrap > a * {  
+  font-size: 14px !important;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+button.close{
+  border: none;
+  background: transparent;
+  color: @color-primary;
+}
+
+.toast-message { 
+    font-size: 15.5px;
+}
+
+#marketing-file-listing tbody td:nth-child(1),
+#marketing-file-listing tbody td:nth-child(n+6)
+{
+  text-align: center;    
+}
+#marketing-file-listing tbody td:nth-child(5),#marketing-file-listing tbody td { 
+  vertical-align: middle;
+  white-space: break-spaces;  
+}
+
+.wp-person a:focus .gravatar, a:focus, a:focus .media-icon img, a:focus .plugin-icon { 
+  box-shadow: none;  
 }
