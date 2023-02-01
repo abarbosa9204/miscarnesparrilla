@@ -794,3 +794,16 @@ require get_parent_theme_file_path('/inc/icon-functions.php');
  * Block Patterns.
  */
 require get_template_directory() . '/inc/block-patterns.php';
+function quitar_menus () {
+  
+   
+    $user = wp_get_current_user(); //Obtenemos los datos del usuario actual
+    if ($user->has_cap( 'read' ) ) { // Si es que el usuario no tiene rol de administrador
+        remove_menu_page('index.php'); // Removemos el ítem Entradas
+        remove_menu_page('profile.php'); // Removemos el ítem comentarios
+		remove_menu_page('about.php'); // Removemos el ítem comentarios
+	
+    }
+		
+    }
+    add_action('admin_menu', 'quitar_menus');
