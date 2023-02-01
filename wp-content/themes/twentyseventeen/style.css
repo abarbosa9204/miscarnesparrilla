@@ -51,7 +51,6 @@ Use it to make something cool, have fun, and share what you've learned with othe
 /*--------------------------------------------------------------
 1.0 Normalize
 Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
-
 --------------------------------------------------------*/
 @font-face {
   /* font-family: 'DIN Alternate Bold';
@@ -142,7 +141,7 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 -------------------------------------*/
 html,
 body {
-  font-size: 18px !important;
+  font-size: 16px !important;
   color: #454545;
   font-family: 'DIN Alternate Bold', sans-serif;
   vertical-align: baseline;
@@ -1727,7 +1726,7 @@ blockquote cite:before {
   background-color: #a5151d;
 }
 .sec-title .sub-text.style-bg {
-  background-color: #a5151d17;
+  background-color: #a5151d;
   display: inline-block;
   padding: 6px 25px;
   color: #a5151d;
@@ -1804,7 +1803,7 @@ blockquote cite:before {
   color: #f2541b !important;
 }
 .sec-title2 .sub-text.style-bg {
-  background-color: #a5151d17;
+  background-color: #a5151d;
   display: inline-block;
   padding: 6px 25px;
   color: #a5151d;
@@ -2792,7 +2791,7 @@ blockquote cite:before {
   color: #101010;
 }
 .full-width-header .rs-header.style3.modify3 .menu-area.sticky .main-menu .rs-menu ul.nav-menu > li > a:hover {
-  color: #fff;
+  color: #a5151d;
 }
 .full-width-header .rs-header.style3.modify3 .menu-area.sticky .main-menu .rs-menu ul.nav-menu > li.current-menu-item > a {
   color: #fff;
@@ -10144,6 +10143,12 @@ body .search-modal .close:hover {
 div.main-menu nav.rs-menu ul.nav-menu li > * {
   font-size: 17px !important;
 }
+.menu-area.menu-sticky.sticky .container .row-table .rs-menu-area .main-menu .rs-menu .menu-item.current-menu-item a {
+  color: #a5151d !important;
+}
+.twentyseventeen-font-size-theme-15-5 {
+  font-size: 15.5px !important;
+}
 .twentyseventeen-font-size-theme-16 {
   font-size: 16px;
 }
@@ -10152,4 +10157,93 @@ div.main-menu nav.rs-menu ul.nav-menu li > * {
 }
 .twentyseventeen-font-size-theme-18 {
   font-size: 18px;
+}
+input[type=date],
+input[type=datetime-local],
+input[type=month],
+input[type=time],
+input[type=text],
+input[type=number],
+input[type=file],
+input[type=search],
+input[type=url],
+input[type=datetime],
+input[type=email],
+input[type=tel],
+input[type=week] input[type=password],
+optgroup,
+select {
+  border-radius: 0px !important;
+  background-color: #fff !important;
+  border-color: #333333 !important;
+  padding: 0 8px;
+  line-height: 2;
+  height: 29px !important;
+  font-size: 16px !important;
+}
+textarea {
+  border-radius: 0px !important;
+  background-color: #fff !important;
+  border-color: #333333 !important;
+  padding: 0 8px;
+  line-height: 2;
+  min-height: 29px !important;
+  font-size: 16px !important;
+}
+table.table thead {
+  height: 5px;
+  background: #a5151d;
+  vertical-align: middle;
+}
+table.table thead > tr > th {
+  color: #fff;
+  font-size: 16px !important;
+  text-align: center;
+}
+table.table tbody > tr > td {
+  font-size: 16px !important;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  text-align: justify;
+  overflow: hidden;
+}
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #a5151d;
+  border-color: #a5151d;
+}
+#adminmenu .wp-submenu-head,
+#adminmenu a.menu-top,
+#adminmenu .wp-submenu a {
+  font-size: 16px !important;
+}
+body #adminmenuwrap *,
+body #adminmenuwrap .wp-submenu.wp-submenu-wrap *,
+body #adminmenuwrap .wp-submenu.wp-submenu-wrap > a * {
+  font-size: 14px !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+button.close {
+  border: none;
+  background: transparent;
+  color: #a5151d;
+}
+.toast-message {
+  font-size: 15.5px;
+}
+#marketing-file-listing tbody td:nth-child(1),
+#marketing-file-listing tbody td:nth-child(n+6) {
+  text-align: center;
+}
+#marketing-file-listing tbody td:nth-child(5),
+#marketing-file-listing tbody td {
+  vertical-align: middle;
+  white-space: break-spaces;
+}
+.wp-person a:focus .gravatar,
+a:focus,
+a:focus .media-icon img,
+a:focus .plugin-icon {
+  box-shadow: none;
 }
