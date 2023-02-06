@@ -807,3 +807,103 @@ function quitar_menus () {
 		
     }
     add_action('admin_menu', 'quitar_menus');
+	add_action('after_setup_theme', 'remove_admin_bar');
+function remove_admin_bar() {
+if ((!current_user_can('administrator') && !is_admin()) && (!current_user_can('super_administrator'))) {
+  show_admin_bar(false);
+}
+}
+add_action('wp_logout','cerrar_sesion');
+function cerrar_sesion()
+{
+    wp_redirect(home_url());
+   exit();
+}
+function my_event_arbol_cb() {
+    // Check for nonce security
+    $nonce = sanitize_text_field( $_POST['nonce'] );
+	global $wpdb;
+	$options = $wpdb->get_results( "SELECT * FROM  folders" );
+
+
+foreach ( (array) $options as $option ){
+	$parentid = $option->parentid;
+      if($parentid == '0'){
+		$parentid = "#";
+		$icon="fa fa-folder fa-1x";
+	  }
+	  else{
+		$icon="fa fa-file fa-1x";
+	  } 
+      $selected = false;$opened = false;    
+      $arregloRetorno[] = array(
+         "id" => $option->id,
+         "parent" => $parentid,
+         "text" => $option->name,
+         "state" => array("selected" => $selected,"opened"=>$opened) ,
+		 "icon"=>$icon
+      );
+}
+	//$arregloRetorno=[];
+	/*if($_POST["node"]=="parentNode"){
+		$child=[];
+		array_push($child, [
+			'id'    => "2",
+			'text'  =>  "xxx",
+			'icon'  =>"fa fa-folder fa-3x",
+			'state' => [
+				'opened' => false,
+				'disabled'=>false
+			]
+		]);
+		$arregloRetorno[]=[
+			'id'=>$_POST['id'],
+			'text'=>" CARPETA",
+			'icon'=>"fa fa-folder fa-3x",
+			'state'=>[
+				"opened"    =>false,  // is the node open
+				"disabled"   => false,  // is the node disabled
+				"selected"   => true, // is the node selected
+				"children" =>$child 
+			]];
+
+	}
+	if($_POST["node"]=="childNode"){
+		$child=[];
+		array_push($child, [
+			'id'    => "21",
+			'text'  =>  "xxx",
+			'icon'  =>"fa fa-file fa-3x",
+			'state' => [
+				'opened' => false,
+				'disabled'=>false
+			]
+		]);
+		$arregloRetorno[]=[
+			'id'=>$_POST['id'],
+			'text'=>" CARPETA",
+			'icon'=>"fa fa-folder fa-3x",
+			'state'=>[
+				"opened"    =>false,  // is the node open
+				"disabled"   => false,  // is the node disabled
+				"selected"   => true, // is the node selected
+				"children" =>$child 
+			]];
+
+	}
+	*/
+	echo json_encode($arregloRetorno);
+    wp_die();
+}
+add_action( 'wp_ajax_nopriv_event-arbol', 'my_event_arbol_cb' );
+add_action( 'wp_ajax_event-arbol', 'my_event_arbol_cb' );
+function my_load_scripts() {
+    wp_enqueue_script( 'my_js', get_theme_file_uri( 'js/eventos.js'), array('jquery') );
+
+    wp_localize_script( 'my_js', 'ajax_var', array(
+        'url'    => admin_url( 'admin-ajax.php' ),
+        'nonce'  => wp_create_nonce( 'my-ajax-nonce' ),
+        'action' => 'event-arbol'
+    ) );
+}
+add_action( 'wp_enqueue_scripts', 'my_load_scripts' );
