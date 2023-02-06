@@ -1,0 +1,5 @@
+{
+    "require": {
+        "vakata/jstree": "^3.3"
+    }
+}

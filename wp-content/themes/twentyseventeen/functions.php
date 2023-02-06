@@ -463,58 +463,74 @@ function mcp_manager()
 	global $wpdb;
 	$results = $wpdb->get_results("SELECT * FROM wp_menus WHERE MenuStatus = 1", OBJECT);
 	foreach ($results as $menus) {
+		$folderView = $menus->FolderView;
+		$menuSlug = $menus->MenuSlug;
 		if ($menus->MenuType == 1) {
 			add_menu_page(
 				$menus->PageTitle, //Titulo de la pagina
 				$menus->MenuTitle, // Titulo del menu
 				$menus->Capability, // Capability
 				$menus->MenuSlug, //slug
-				$menus->FunctionMenu, //function del contenido
+				function () use ($folderView,$menuSlug) {
+					home_render_view($folderView,$menuSlug);
+				},
 				get_template_directory() . '/assets/icons/' . $menus->IconUrl, //icono,
 				null
 			);
 		}
 		if ($menus->MenuType == 2) {
+			$folderView = $menus->FolderView;
+			$menuSlug = $menus->MenuSlug;
 			add_submenu_page(
 				$menus->parentSlug, //Titulo de la pagina
 				$menus->PageTitle, //Titulo de la pagina
 				$menus->MenuTitle, // Titulo del menu
 				$menus->Capability, // Capability
-				$menus->MenuSlug, //slug
-				$menus->FunctionMenu, //function del contenido
+				$menus->MenuSlug, //slug				
+				function () use ($folderView,$menuSlug) {
+					home_render_view($folderView,$menuSlug);
+				}
+				//$menus->FunctionMenu, //function del contenido*/
 			);
 		}
 	}
-	// add_menu_page('Gestión de calidad', 'MCP Manager', 'manage_options', 'mcp_manager', 'mcp_quality_management', '', 110);	
-	//add_submenu_page('mcp_manager', 'Publicidad & Mercadeo', 'Publicidad & Mercadeo', 'manage_options', 'marketing_advertising', 'home_marketing_advertising');
+
 }
 add_action('admin_menu', 'mcp_manager');
 
-//Template submenu functions
-function mcp_quality_management()
-{
-	//require_once(get_template_directory() . '/inc/templates/index.php');
-}
-function home_marketing_advertising()
-{
-	require_once(get_template_directory() . '/inc/templates/views/marketing/' . $_GET['page'] . '.php');
+function home_render_view($folderView,$menuSlug)
+{	
+	require_once(get_template_directory() . '/inc/templates/views/' . $folderView . '/' . $menuSlug . '.php');
 }
 
 require_once(get_template_directory() . '/inc/templates/libs/app.php');
 
+//Mercadeo
+add_action('wp_ajax_marketing_advertising', 'marketing_advertising');
+add_action('wp_ajax_nopriv_marketing_advertising', 'marketing_advertising');
+
+//Calidad
+add_action('wp_ajax_quality', 'quality');
+add_action('wp_ajax_nopriv_quality', 'quality');
+
+// Function Mercadeo
 function marketing_advertising()
 {
-	echo processRequest($_POST);
+	echo process_request($_POST);
 	die;
 }
-function processRequest($request, $files = null)
+// Function Calidad
+function quality()
+{
+	echo process_request($_POST);
+	die;
+}
+
+function process_request($request, $files = null)
 {
 	$app = new App($request, $files);
 	return json_encode($app);
 }
-
-add_action('wp_ajax_marketing_advertising', 'marketing_advertising');
-add_action('wp_ajax_nopriv_marketing_advertising', 'marketing_advertising');
 
 function aw_scripts()
 {
@@ -536,10 +552,9 @@ add_action('wp_ajax_nopriv_marketing_upload_files', 'marketing_upload_files');
 
 function marketing_upload_files()
 {
-	echo processRequest($_POST, $_FILES);
+	echo process_request($_POST, $_FILES);
 	die;
 }
-
 
 /**
  * Enqueues scripts and styles.

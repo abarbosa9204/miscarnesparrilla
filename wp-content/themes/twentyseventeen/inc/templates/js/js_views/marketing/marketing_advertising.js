@@ -22,24 +22,49 @@ $(document).ready(function () {
             //     console.log(data);
             // }
         },
+        drawCallback: function (settings) {
+            let api = this.api();
+            api.rows({
+                page: 'current'
+            }).data().each(function (index, id, row) {
+                $('#' + index.path_id).jstree({
+                    'core': {
+                        'themes': {
+                            //'name': 'proton',
+                            'responsive': true,                            
+                        },
+                        'data': index.path_json
+                    },
+                    'types': {
+                        'default' : {
+                            'icon' : 'fa fa-folder text-warning'
+                        },
+                        "file": {
+                            "icon": "fa fa-file text-warning"
+                        }
+
+                    },
+                    "plugins": ["types"]
+                });
+            });
+        },
         columns: [
-            {data: 'am_row_id'},
-            {data: 'folder_name'},
-            {data: 'subfolder_name'},
-            {data: 'am_description'},
-            {data: 'am_text_information'},
-            {data: 'am_status'},
-            {data: 'created_at'},
-            {data: 'updated_at'},
-            {data: 'user_login'},
-            {data: 'accion'},
+            { data: 'am_row_id' },
+            { data: 'div_path_id' },
+            { data: 'am_description' },
+            { data: 'am_text_information' },
+            { data: 'am_status' },
+            { data: 'created_at' },
+            { data: 'updated_at' },
+            { data: 'user_login_id_create' },
+            { data: 'accion' },
 
         ],
         columnDefs: [{
-            targets: [4,9],
+            targets: [4, 8],
             sortable: false,
         }, {
-            "width": "20px",            
+            "width": "20px",
             "targets": 1
         }],
         language: {
@@ -57,8 +82,8 @@ $(document).ready(function () {
             paginate: {
                 first: 'Primero',
                 last: 'Último',
-                next: 'Siguiente',
-                previous: 'Anterior'
+                next: ' Siguiente',
+                previous: 'Anterior '
             },
             aria: {
                 sortAscending: ' Activar para ordenar la columna de manera ascendente',
@@ -77,6 +102,7 @@ $(document).ready(function () {
 
 function showModalAddFile() {
     $('#addFileModal').modal('show');
+    resetattachmentForm('reset');
 }
 function uploadFile() {
     file_data = $('#file-upload')[0].files[0];
@@ -103,7 +129,6 @@ function uploadFile() {
         processData: false,
         data: form_data,
         success: function (data) {
-            console.log(data);
             setTimeout(function () {
                 if (data.status == 'success') {
                     $('#file-upload').val('');
@@ -126,8 +151,6 @@ function uploadFile() {
 
 function resetattachmentForm(action) {
     switch (action) {
-        case 'cancel':
-            break;
         case 'cancelModal':
             $('#text-file-description, #name-file-upload, #file-upload').val('');
             $('#addFileModal').modal('hide').data('bs.modal', null);
@@ -135,8 +158,6 @@ function resetattachmentForm(action) {
             break;
         case 'reset':
             $('#text-file-description, #name-file-upload, #file-upload').val('');
-            $('#addFileModal').modal('hide').data('bs.modal', null);
-            Command: toastr['error']('Proceso cancelado');
             break;
     }
 }
