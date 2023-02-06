@@ -149,7 +149,7 @@ class MarketingController extends Controller
 
             $row_id = $wpdb->get_row("SELECT max(am_row_id) as am_row_id FROM wpl_advertising_marketing", OBJECT);
             $row_type_id = $wpdb->get_row("SELECT mime_row_id FROM wpl_mime_type WHERE mime_type ='" . $type . "'", OBJECT);
-            $folders_upload = $wpdb->get_row("SELECT folder_name_in_server,subfolder_n1_name_in_server FROM vw_wpl_folders WHERE folder_row_id ='" . $data['name-folder-upload'] . "' and subfolder_n1_row_id='" . $data['name-subfolder-upload'] . "'", OBJECT);
+            $folders_upload = $wpdb->get_row("SELECT DISTINCT folder_name_in_server,subfolder_n1_name_in_server FROM vw_wpl_folders WHERE folder_row_id ='" . $data['name-folder-upload'] . "' and subfolder_n1_row_id='" . $data['name-subfolder-upload'] . "'", OBJECT);
 
             $pathFolderParent = get_template_directory() . '/template-parts/uploads/files/' . $folders_upload->folder_name_in_server;
 

@@ -49,11 +49,11 @@ $(document).ready(function () {
             });
         },
         columns: [
-            { data: 'am_row_id' },
+            { data: 'qu_row_id' },
             { data: 'div_path_id' },
-            { data: 'am_description' },
-            { data: 'am_text_information' },
-            { data: 'am_status' },
+            { data: 'qu_description' },
+            { data: 'qu_text_information' },
+            { data: 'qu_status' },
             { data: 'created_at' },
             { data: 'updated_at' },
             { data: 'user_login_id_create' },
@@ -103,23 +103,17 @@ $(document).ready(function () {
 function showModalAddFile() {
     $('#addFileModal').modal('show');
     resetattachmentForm('reset');
+    $('#subfolder_n1_row_id-upload').trigger('change');
+    resetattachmentForm('reset');
 }
 function uploadFile() {
     file_data = $('#file-upload')[0].files[0];
     form_data = new FormData();
     form_data.append('file', file_data);
-    form_data.append('controller', 'MarketingController');
-    form_data.append('action', 'marketing_upload_files');
-    form_data.append('function', 'uploadFilesMarketing');
-    form_data.append('params',
-        JSON.stringify(
-            [{
-                'text-file-description': $('#text-file-description').val(),
-                'name-file-upload': $('#name-file-upload').val(),
-                'name-folder-upload': $('#name-folder-upload').val(),
-                'name-subfolder-upload': $('#name-subfolder-upload').val()
-            }])
-    );
+    form_data.append('controller', 'QualityController');
+    form_data.append('action', 'quality_upload_files');
+    form_data.append('function', 'uploadFilesQuality');
+    form_data.append('params',JSON.stringify($("#attachment-form").serializeArray()));
     $.ajax({
         url: '../wp-admin/admin-ajax.php',
         type: 'POST',
@@ -129,17 +123,18 @@ function uploadFile() {
         processData: false,
         data: form_data,
         success: function (data) {
-            setTimeout(function () {
-                if (data.status == 'success') {
-                    $('#file-upload').val('');
-                    $('#addFileModal').modal('hide').data('bs.modal', null);
-                    $('#marketing-file-listing').DataTable().ajax.reload(null, false);
-                    Command: toastr[data.status](data.msg);
-                } else {
-                    $('#file-upload').val('');
-                    Command: toastr[data.status](data.msg);
-                }
-            }, 500);
+            console.log(data);
+            // setTimeout(function () {
+            //     if (data.status == 'success') {
+            //         $('#file-upload').val('');
+            //         $('#addFileModal').modal('hide').data('bs.modal', null);
+            //         $('#marketing-file-listing').DataTable().ajax.reload(null, false);
+            //         Command: toastr[data.status](data.msg);
+            //     } else {
+            //         $('#file-upload').val('');
+            //         Command: toastr[data.status](data.msg);
+            //     }
+            // }, 500);
         },
         error: function (msg) {
             setTimeout(function () {
@@ -153,11 +148,76 @@ function resetattachmentForm(action) {
     switch (action) {
         case 'cancelModal':
             $('#text-file-description, #name-file-upload, #file-upload').val('');
+            $('#html-options-subfolder_n1_row_id-upload, #html-options-subfolder_n2_row_id-upload, #html-options-subfolder_n3_row_id-upload, #html-options-subfolder_n4_row_id-upload, #html-options-subfolder_n5_row_id-upload').val('').html('').trigger('change');
             $('#addFileModal').modal('hide').data('bs.modal', null);
             Command: toastr['error']('Proceso cancelado');
             break;
         case 'reset':
             $('#text-file-description, #name-file-upload, #file-upload').val('');
+            $('#html-options-subfolder_n1_row_id-upload, #html-options-subfolder_n2_row_id-upload, #html-options-subfolder_n3_row_id-upload, #html-options-subfolder_n4_row_id-upload, #html-options-subfolder_n5_row_id-upload').val('').html('').trigger('change');
             break;
     }
+}
+
+function onChangeSelect(id) {
+    let processModal = bootbox.dialog({
+        title: '<h6 class="text-white twentyseventeen-font-size-theme-15-5">Se está procesando la solicitud.</h6>',
+        message: '<p class="twentyseventeen-font-size-theme-15-5"><i class="fa fa-spin fa-spinner"></i> Procesando...</p>',
+        centerVertical: true,
+        closeButton: false
+    });
+    processModal.init(function () {
+        processModal.attr("id", "processModal_select");
+        $.ajax({
+            url: '../wp-admin/admin-ajax.php',
+            type: 'POST',
+            cache: false,
+            dataType: 'json',
+            data: {
+                controller: 'QualityController',
+                action: 'quality',
+                function: 'selectDependentCreateFile',
+                params: {
+                    select: id,
+                    id: $('#' + id).val(),
+                    formData: JSON.stringify($("#attachment-form").serializeArray())
+                }
+            },
+            success: function (data) {
+                setTimeout(function () {
+                    switch (id) {
+                        case 'subfolder_n1_row_id-upload':
+                            $('#html-options-subfolder_n2_row_id-upload, #html-options-subfolder_n3_row_id-upload, #html-options-subfolder_n4_row_id-upload, #html-options-subfolder_n5_row_id-upload').val('').html('');
+                            break;
+                        case 'subfolder_n2_row_id-upload':
+                            $('#html-options-subfolder_n3_row_id-upload, #html-options-subfolder_n4_row_id-upload, #html-options-subfolder_n5_row_id-upload').val('').html('');
+                            break;
+                        case 'subfolder_n3_row_id-upload':
+                            $('#html-options-subfolder_n4_row_id-upload, #html-options-subfolder_n5_row_id-upload').val('').html('');
+                            break;
+                        case 'subfolder_n4_row_id-upload':
+                            $('#html-options-subfolder_n5_row_id-upload').val('').html('');
+                            break;
+                        case 'subfolder_n5_row_id-upload':
+                            break;
+                    }
+                    if (data.status == 'success') {
+                        $("#" + data.span_id).html(data.html);
+                        $("#" + data.child).trigger('change');
+                    } else {
+                        $("#" + data.span_id).html(data.html);
+                    }
+                    if ($("#processModal_select")) {
+                        processModal.modal('hide');
+                    }                    
+                }, 100);
+            },
+            error: function (msg) {
+                setTimeout(function () {
+                    Command: toastr['error']('No es posible procesar la solicitud, por favor comunicarse con el administrador');
+                    processModal.modal('hide');
+                }, 500);
+            }
+        });
+    });
 }

@@ -123,7 +123,7 @@ function uploadFile() {
     $.ajax({
         url: '../wp-admin/admin-ajax.php',
         type: 'POST',
-        cashe: false,
+        cache: false,
         dataType: 'json',
         contentType: false,
         processData: false,

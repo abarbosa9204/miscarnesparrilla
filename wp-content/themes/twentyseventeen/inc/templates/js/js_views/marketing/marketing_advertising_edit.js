@@ -2,7 +2,7 @@ function showModalEditFile(id) {
     $.ajax({
         url: '../wp-admin/admin-ajax.php',
         type: 'POST',
-        cashe: false,
+        cache: false,
         dataType: 'json',
         data: {
             controller: 'MarketingController',
@@ -54,7 +54,7 @@ function uploadFileEdit() {
     $.ajax({
         url: '../wp-admin/admin-ajax.php',
         type: 'POST',
-        cashe: false,
+        cache: false,
         dataType: 'json',
         contentType: false,
         processData: false,

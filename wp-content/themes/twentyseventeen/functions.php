@@ -550,12 +550,26 @@ add_action('wp_enqueue_scripts', 'aw_scripts');
 add_action('wp_ajax_marketing_upload_files', 'marketing_upload_files');
 add_action('wp_ajax_nopriv_marketing_upload_files', 'marketing_upload_files');
 
+/**
+ * Cargar ficheros del módulo de Mercadeo
+ */
 function marketing_upload_files()
 {
 	echo process_request($_POST, $_FILES);
 	die;
 }
 
+add_action('wp_ajax_quality_upload_files', 'quality_upload_files');
+add_action('wp_ajax_nopriv_quality_upload_files', 'quality_upload_files');
+
+/**
+ * Cargar ficheros del módulo de Calidad
+ */
+function quality_upload_files()
+{
+	echo process_request($_POST, $_FILES);
+	die;
+}
 /**
  * Enqueues scripts and styles.
  */
