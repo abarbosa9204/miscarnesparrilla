@@ -46,70 +46,17 @@
 
 					</ul>
 				</div>
-				<div class="col-lg-3 col-md-12 col-sm-12 pl-45 md-pl-15 md-mb-30">
-					<h3 class="widget-title">IT Services</h3>
-					<ul class="site-map">
-						<li><a href="software-development.html">Software Development</a></li>
-						<li><a href="web-development.html">Web Development</a></li>
-						<li><a href="analytic-solutions.html">Analytic Solutions</a></li>
-						<li><a href="cloud-and-devops.html">Cloud and DevOps</a></li>
-						<li><a href="product-design.html">Product Design</a></li>
-					</ul>
-				</div>
-				<div class="col-lg-3 col-md-12 col-sm-12 md-mb-30">
-					<h3 class="widget-title">Contact Info</h3>
-					<ul class="address-widget">
-						<li>
-							<i class="flaticon-location"></i>
-							<div class="desc">374 FA Tower, William S Blvd 2721, IL, USA</div>
-						</li>
-						<li>
-							<i class="flaticon-call"></i>
-							<div class="desc">
-								<a href="tel:(+880)155-69569">(+880)155-69569</a>
-							</div>
-						</li>
-						<li>
-							<i class="flaticon-email"></i>
-							<div class="desc">
-								<a href="mailto:support@rstheme.com">support@rstheme.com</a>
-							</div>
-						</li>
-						<li>
-							<i class="flaticon-clock-1"></i>
-							<div class="desc">
-								Opening Hours: 10:00 - 18:00
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="col-lg-3 col-md-12 col-sm-12">
-					<h3 class="widget-title">Newsletter</h3>
-					<p class="widget-desc">We denounce with righteous and in and dislike men who are so beguiled and demo realized.</p>
-					<p>
-						<input type="email" name="EMAIL" placeholder="Your email address" required="">
-						<em class="paper-plane"><input type="submit" value="Sign up"></em>
-						<i class="flaticon-send"></i>
-					</p>
-				</div>
+				
+				
 			</div>
 		</div>
 	</div>
 	<div class="footer-bottom">
 		<div class="container">
 			<div class="row y-middle">
-				<div class="col-lg-6 text-right md-mb-10 order-last">
-					<ul class="copy-right-menu">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="about.html">About</a></li>
-						<li><a href="blog.html">Blog</a></li>
-						<li><a href="shop.html">Shop</a></li>
-						<li><a href="faq.html">FAQs</a></li>
-					</ul>
-				</div>
 				<div class="col-lg-6">
 					<div class="copyright">
-						<p>&copy; 2021 All Rights Reserved. Developed By <a href="http://rstheme.com/">RSTheme</a></p>
+						<p>&copy; 2022 All Rights Reserved. Developed By Theme C&AGEMASOFT</p>
 					</div>
 				</div>
 			</div>
@@ -142,6 +89,35 @@
 	</div>
 </div>
 <!-- Search Modal End -->
+<!-- Modal Arbol Start-->
+<div class="modal fade bd-example-modal-xl" id="modal_detalle" tabindex="-1" role="dialog" aria-labelledby="modal_detalle" data-backdrop="static">
+	<div class="modal-content modal-dialog modal-xl" role="document" style="border-radius: 5px;">
+		<div class="modal-header box box-primary">
+			<h5 class="modal-title">Detalle Carpeta</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="box-title item-titulo text-muted"></h4>
+		</div>
+		<div class="modal-body">
+			<div class="row" style="padding: 2px">
+				<div class="col-sm-12" id="tablaDetalleCarpeta">
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer" style="margin-top:0px">
+			<div class="col-lg-12">
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-6">
+						<button type="reset" class="btn btn-primary btn-sm btn-block" data-dismiss='modal'>Cerrar</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal Arbol End -->
 <!-- modernizr js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/modernizr-2.8.3.min.js"></script>
 <!-- jquery latest version -->
@@ -149,10 +125,89 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <!-- Bootstrap v4.4.1 js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/bootstrap.min.js"></script>
+<!--script src="<?php bloginfo('template_directory') ?>/assets/tree/jstree.min.js"></script-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
 <script>
 	$(function() {
-		$('[data-toggle="tooltip"]').tooltip()
-	})
+		$('[data-toggle="tooltip"]').tooltip();
+
+	});
+
+
+	function detalle(carpeta) {
+		if (carpeta > 0) {
+			arbol = 1;
+			$("#tablaDetalleCarpeta").empty();
+			$("#tablaDetalleCarpeta").append('<div id="' + arbol + '"></div>');
+			$('#' + arbol).jstree({
+				"animation": 0,
+				"themes": {
+					"stripes": true
+				},
+				"core": {
+					"themes": {
+						"responsive": true
+					},
+					"data": {
+						type: "POST",
+						url: ajax_var.url,
+						dataType: "json",
+						data: {
+							id: arbol,
+							node: 'parentNode',
+							search: 1,
+							action: ajax_var.action,
+							nonce: ajax_var.nonce
+
+						},
+						success: function(data) {}
+					},
+					'callback': true,
+					"plugins": [
+						"contextmenu", "dnd", "search",
+						"state", "types", "wholerow"
+					]
+				}
+			});
+			$('#' + arbol).on("select_node.jstree", function(e, data) {
+				//createNode(1, "last", arbol);
+				console.log(data.node.children.length);
+				e.preventDefault();
+			});
+
+			function createNode(parent_node, position, arbol) {
+				//console.log("hola");
+				parent_node=1;
+				//return;
+				$.ajax({
+					url: ajax_var.url,
+					type: "post",
+					dataType: "json",
+					data: {
+						action: ajax_var.action,
+						nonce: ajax_var.nonce,
+						id: parent_node,
+						node: 'childNode'
+					},
+					success: function(data) {
+						//console.log(data);
+						//if (data.status == 'success') {
+							$.each(data.child, function(index, value) {
+								$("#" + arbol).jstree(true).delete_node(value.id);
+								$('#' + arbol).jstree('create_node', $('#' + parent_node), value, position, false, false);
+								$("#" + arbol).jstree("open_node", $('#' + parent_node));
+							});
+					//	}
+					},
+					error: function(data) {
+						//Command: toastr['error']('No es posible procesar la solicitud, por favor comunicarse con el administrador');
+					}
+				});
+			}
+		}
+	}
 </script>
 <!-- Menu js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/rsmenu-main.js"></script>
