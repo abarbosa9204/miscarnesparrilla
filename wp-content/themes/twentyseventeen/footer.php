@@ -125,10 +125,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <!-- Bootstrap v4.4.1 js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/bootstrap.min.js"></script>
-<!--script src="<?php bloginfo('template_directory') ?>/assets/tree/jstree.min.js"></script-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-
+<script src="<?php bloginfo('template_directory') ?>/assets/tree/jstree.min.js"></script>
 <script>
 	$(function() {
 		$('[data-toggle="tooltip"]').tooltip();
