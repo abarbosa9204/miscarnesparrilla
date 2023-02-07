@@ -59,7 +59,8 @@
     <!-- style css -->
     <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory') ?>/style.css"> <!-- This stylesheet dynamically changed from style.less -->
 </head>
-
+<style>
+</style>
 <body class="defult-home">
     <div class="offwrap"></div>
     <!--Preloader area start here-->
@@ -100,7 +101,7 @@
                                                 <li class="menu-item-has-children current-menu-item">
                                                     <!-- <a href="index.html">Home</a> -->
                                                     <?php
-                                                    wp_nav_menu(
+                                                    /*wp_nav_menu(
                                                         array(
                                                             'theme_location' => 'menu_header',
                                                             'items_wrap'     => '%3$s<ul id="%1$s" class="sub-menu"><li class="menu-item-has-children current-menu-item">%3$s</li></ul>',
@@ -110,7 +111,7 @@
                                                             // 'link_after'     => '</span>',
                                                             // 'fallback_cb'    => false,
                                                         )
-                                                    );
+                                                    );*/
                                                     ?>
                                                     <!-- <ul class="sub-menu">
                                                         <li class="menu-item-has-children current-menu-item">
@@ -151,6 +152,7 @@
                                                         </li>
                                                     </ul> -->
                                                 </li>
+                                                <!--
                                                 <li>
                                                     <a href="about.html">About</a>
                                                 </li>
@@ -222,12 +224,13 @@
                                                 <li>
                                                     <a href="contact.html">Contact</a>
                                                 </li>
+                                                -->
                                             </ul> <!-- //.nav-menu -->
                                         </nav>
                                     </div> <!-- //.main-menu -->
                                 </div>
                             </div>
-                            <div class="cell-col">
+                            <!--div class="cell-col">
                                 <div class="expand-btn-inner search-icon hidden-md">
                                     <ul>
                                         <li class="sidebarmenu-search">
@@ -329,19 +332,29 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="banner-content">
-                            <span class="sub-text wow fadeinup2">Branding Agency</span>
-                            <h1 class="title wow fadeinup">The Unifying Power of Branding</h1>
+                            <span class="sub-text wow fadeinup2"></span>
+                            <h1 class="title wow fadeinup">Bienvenido a su canal oficial institucional</h1>
                             <p class="desc wow fadeinup">
-                                We Are Modern Creative Agency, We Create Your Drem & Creating Consistency in Professional Services Branding
+                                
                             </p>
                             <div class="btn-part">
-                                <a class="readon more-about" href="about.html">More About</a>
+                                <?php
+                            if(is_user_logged_in()){
+                                $href='wp-login.php?action=logout&wpnonce=3ae86f3016';
+                                $text="Salir";
+                            }
+                            else{
+                                $href="wp-login.php";
+                                $text="Ingresar";
+                            }
+                            ?>
+                                <a class="readon more-about" href="<?=$href?>"><?=$text?></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="images-part wow fadeInRight">
-                            <img src="<?php bloginfo('template_directory') ?>/assets/images/banner/style4/image.png" alt="">
+                            <img src="<?php bloginfo('template_directory') ?>/assets/images/banner/style4/LogoMCP.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -356,15 +369,15 @@
                 <div class="bnr-animate three">
                     <img class="horizontal" src="<?php bloginfo('template_directory') ?>/assets/images/banner/style4/circle-3.png" alt="">
                 </div>
-                <div class="bnr-animate four">
+                <!--div class="bnr-animate four">
                     <img class="vertical" src="<?php bloginfo('template_directory') ?>/assets/images/banner/style4/shape-1.png" alt="">
-                </div>
-                <div class="bnr-animate five">
+                </div-->
+                <!--div class="bnr-animate five">
                     <img class="horizontal new-style" src="<?php bloginfo('template_directory') ?>/assets/images/banner/style4/shape-2.png" alt="">
                 </div>
                 <div class="bnr-animate six">
                     <img class="horizontal" src="<?php bloginfo('template_directory') ?>/assets/images/banner/style4/shape-2.png" alt="">
-                </div>
+                </div-->
             </div>
         </div>
 

@@ -28,7 +28,7 @@ if (is_user_logged_in()) {
 <div class="container">
 	<div class="sec-title2 text-center mb-50">
 		<h2 class="title testi-title">
-			Calidad
+			
 		</h2>
 		<p class="desc desc3">
 			<!--Perspiciatis unde omnis iste natus error sit voluptatem accus antium doloremque laudantium, totam rem aperiam,
@@ -38,35 +38,20 @@ if (is_user_logged_in()) {
 	<div class="row row align-items-center">
 	<div class="col-lg-1">
 	</div>
+	<?php
+	global $wpdb;
+	$folders = $wpdb->get_results( "SELECT * FROM  wpl_folder_files order by folder_row_id_order ASC");
+	foreach ( (array) $folders as $folder ){
+	?>
 		<div class="col-lg-2">
 			<div class="btn-part">
-				<a class="readon more-calidad"  style="height: 85px;padding-top: 16%;" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(23)">Manuales<br></a>
+				<a class="readon more-calidad"  style="height: 85px;padding-top: 16%;" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(<?=$folder->folder_row_id?>)"><?=$folder->folder_name?></a>
 			</div>
 
 		</div>
-		<div class="col-lg-2">
-			<div class="btn-part">
-				<a class="readon more-calidad" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(23)">Procedimientos e Instructivos</a>
-			</div>
-
-		</div>
-		<div class="col-lg-2">
-			<div class="btn-part">
-				<a class="readon more-calidad" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(23)">Fichas Técnicas</a>
-			</div>
-		</div>
-		<div class="col-lg-2">
-			<div class="btn-part">
-				<a class="readon more-calidad" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(23)">Capacitaciones y Evaluaciones</a>
-			</div>
-
-		</div>
-		<div class="col-lg-2">
-			<div class="btn-part">
-				<a class="readon more-calidad" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(23)">Documentación legal</a>
-			</div>
-
-		</div>
+		<?php
+	}
+		?>
 		<div class="col-lg-1">
 	</div>
 	</div>
