@@ -40,7 +40,7 @@ class QualityController extends Controller
         $resulset = $wpdb->get_results("SELECT 
         *
         FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%' order by " . ((($columnName == 'qu_row_id') ? 'qu_description' : $columnName) . ' ' . $columnSortOrder) . " limit " . $rows . ',' . $rowperpage, OBJECT);
-        
+
         $resulset2 = $wpdb->get_results("SELECT 
                                         *
         FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%'order by " . ((($columnName == 'qu_row_id') ? 'qu_description' : $columnName) . ' ' . $columnSortOrder), OBJECT);
@@ -51,56 +51,68 @@ class QualityController extends Controller
             $jstree = [];
             if ($row->folder_row_id != null) {
                 $jstree[] = [
-                    "id" => $row->folder_row_id . '@' . $row->folder_name,
-                    "parent" => '#',
-                    "text" => $row->folder_name,
-                    "type" => ($row->folder_row_id == null ? 'file' : 'folder'),
-                    ["selected" => true, "opened" => true]
+                    "id"        =>  $row->folder_row_id . '@' . $row->folder_name_in_server,
+                    "parent"    =>  '#',
+                    "text"      =>  $row->folder_name,
+                    "icon"      => ($row->folder_row_id == null ? $row->mime_icon : 'fa fa-folder'),
+                    "type"      => ($row->folder_row_id == null ? 'file' : 'folder'),
+                    "a_attr"    => ["class" => ($row->folder_row_id == null ? 'icon-' . str_replace('.', '', $row->mime_extension) : 'not-icon')],
+                    ["selected" =>  true, "opened" => true]
                 ];
             }
             if ($row->subfolder_n1_row_id != null) {
                 $jstree[] = [
-                    "id" => $row->subfolder_n1_row_id . '@' . $row->subfolder_n1_name,
-                    "parent" => $row->folder_row_id . '@' . $row->folder_name,
+                    "id" => $row->subfolder_n1_row_id . '@' . $row->subfolder_n1_name_in_server,
+                    "parent" => $row->folder_row_id . '@' . $row->folder_name_in_server,
                     "text" => $row->subfolder_n1_name,
-                    "type" => ($row->subfolder_n2_row_id == null ? 'file' : 'folder'),
-                    ["selected" => true, "opened" => true]
+                    "icon"      => ($row->subfolder_n2_row_id == null ? $row->mime_icon : 'fa fa-folder'),
+                    "type"      => ($row->subfolder_n2_row_id == null ? 'file' : 'folder'),
+                    "a_attr"    => ["class" => ($row->subfolder_n2_row_id == null ? 'icon-' . str_replace('.', '', $row->mime_extension) : 'not-icon')],
+
                 ];
             }
             if ($row->subfolder_n2_row_id != null) {
                 $jstree[] = [
-                    "id" => $row->subfolder_n2_row_id . '@' . $row->subfolder_n2_name,
-                    "parent" => $row->subfolder_n1_row_id . '@' . $row->subfolder_n1_name,
+                    "id" => $row->subfolder_n2_row_id . '@' . $row->subfolder_n2_name_in_server,
+                    "parent" => $row->subfolder_n1_row_id . '@' . $row->subfolder_n1_name_in_server,
                     "text" => $row->subfolder_n2_name,
-                    "type" => ($row->subfolder_n3_row_id == null ? 'file' : 'folder'),                    
-                    ["selected" => true, "opened" => true]
+                    "icon"      => ($row->subfolder_n3_row_id == null ? $row->mime_icon : 'fa fa-folder'),
+                    "type"      => ($row->subfolder_n3_row_id == null ? 'file' : 'folder'),
+                    "a_attr"    => ["class" => ($row->subfolder_n3_row_id == null ? 'icon-' . str_replace('.', '', $row->mime_extension) : 'not-icon')],
+
                 ];
             }
             if ($row->subfolder_n3_row_id != null) {
                 $jstree[] = [
-                    "id" => $row->subfolder_n3_row_id . '@' . $row->subfolder_n3_name,
-                    "parent" => $row->subfolder_n2_row_id . '@' . $row->subfolder_n2_name,
+                    "id" => $row->subfolder_n3_row_id . '@' . $row->subfolder_n3_name_in_server,
+                    "parent" => $row->subfolder_n2_row_id . '@' . $row->subfolder_n2_name_in_server,
                     "text" => $row->subfolder_n3_name,
-                    "type" => ($row->subfolder_n4_row_id == null ? 'file' : 'folder'),
-                    ["selected" => true, "opened" => true]
+                    "icon"      => ($row->subfolder_n4_row_id == null ? $row->mime_icon : 'fa fa-folder'),
+                    "type"      => ($row->subfolder_n4_row_id == null ? 'file' : 'folder'),
+                    "a_attr"    => ["class" => ($row->subfolder_n4_row_id == null ? 'icon-' . str_replace('.', '', $row->mime_extension) : 'not-icon')],
+
                 ];
             }
             if ($row->subfolder_n4_row_id != null) {
                 $jstree[] = [
-                    "id" => $row->subfolder_n4_row_id . '@' . $row->subfolder_n4_name,
-                    "parent" => $row->subfolder_n3_row_id . '@' . $row->subfolder_n3_name,
-                    "text" => $row->subfolder_n4_name,                    
-                    "type" => ($row->subfolder_n5_row_id == null ? 'file' : 'folder'),
-                    ["selected" => true, "opened" => true]
+                    "id" => $row->subfolder_n4_row_id . '@' . $row->subfolder_n4_name_in_server,
+                    "parent" => $row->subfolder_n3_row_id . '@' . $row->subfolder_n3_name_in_server,
+                    "text" => $row->subfolder_n4_name,
+                    "icon"      => ($row->subfolder_n5_row_id == null ? $row->mime_icon : 'fa fa-folder'),
+                    "type"      => ($row->subfolder_n5_row_id == null ? 'file' : 'folder'),
+                    "a_attr"    => ["class" => ($row->subfolder_n5_row_id == null ? 'icon-' . str_replace('.', '', $row->mime_extension) : 'not-icon')],
+
                 ];
             }
             if ($row->subfolder_n5_row_id != null) {
                 $jstree[] = [
-                    "id" => $row->subfolder_n5_row_id . '@' . $row->subfolder_n5_name,
-                    "parent" => $row->subfolder_n4_row_id . '@' . $row->subfolder_n4_name,
+                    "id" => $row->subfolder_n5_row_id . '@' . $row->subfolder_n5_name_in_server,
+                    "parent" => $row->subfolder_n4_row_id . '@' . $row->subfolder_n4_name_in_server,
                     "text" => $row->subfolder_n5_name,
+                    "icon"      => $row->mime_icon,
+                    "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
                     "type" => 'file',
-                    ["selected" => true, "opened" => true]
+
                 ];
             }
             $data[] = array(
@@ -185,7 +197,7 @@ class QualityController extends Controller
 		            and vwf.subfolder_n1_row_id =" . $this->request['params']['id'],
                     OBJECT
                 );
-                return $this->createHtmlSelect($htmlOptions, 'subfolder_n1_row_id-upload', 'subfolder_n2_row_id-upload', $this->request['params']['id']);
+                return $this->createHtmlSelect($htmlOptions, 'subfolder_n1_row_id-upload', 'subfolder_n2_row_id-upload', $this->request['params']['id'], false);
                 break;
             case 'subfolder_n2_row_id-upload':
                 $htmlOptions = $wpdb->get_results(
@@ -201,7 +213,7 @@ class QualityController extends Controller
                     and vwf.subfolder_n2_row_id =" . $this->request['params']['id'],
                     OBJECT
                 );
-                return $this->createHtmlSelect($htmlOptions, 'subfolder_n2_row_id-upload', 'subfolder_n3_row_id-upload', $this->request['params']['id']);
+                return $this->createHtmlSelect($htmlOptions, 'subfolder_n2_row_id-upload', 'subfolder_n3_row_id-upload', $this->request['params']['id'], false);
                 break;
             case 'subfolder_n3_row_id-upload':
                 $htmlOptions = $wpdb->get_results(
@@ -218,7 +230,7 @@ class QualityController extends Controller
                     and vwf.subfolder_n3_row_id =" . $this->request['params']['id'],
                     OBJECT
                 );
-                return $this->createHtmlSelect($htmlOptions, 'subfolder_n3_row_id-upload', 'subfolder_n4_row_id-upload', $this->request['params']['id']);
+                return $this->createHtmlSelect($htmlOptions, 'subfolder_n3_row_id-upload', 'subfolder_n4_row_id-upload', $this->request['params']['id'], false);
                 break;
             case 'subfolder_n4_row_id-upload':
                 $htmlOptions = $wpdb->get_results(
@@ -236,7 +248,7 @@ class QualityController extends Controller
                     and vwf.subfolder_n4_row_id =" . $this->request['params']['id'],
                     OBJECT
                 );
-                return $this->createHtmlSelect($htmlOptions, 'subfolder_n4_row_id-upload', 'subfolder_n5_row_id-upload', $this->request['params']['id']);
+                return $this->createHtmlSelect($htmlOptions, 'subfolder_n4_row_id-upload', 'subfolder_n5_row_id-upload', $this->request['params']['id'], false);
                 break;
             case 'subfolder_n5_row_id-upload':
                 break;
@@ -245,7 +257,7 @@ class QualityController extends Controller
     /**
      * Crear nodos hijos en select dependiente
      */
-    function createHtmlSelect($query, $idParent, $idChild, $idOption)
+    function createHtmlSelect($query, $idParent, $idChild, $idOption, $selected = false)
     {
         $html = '';
         $countOptions = 0;
@@ -260,7 +272,58 @@ class QualityController extends Controller
         $html .= '<select id="' . $idChild . '" name="' . $idChild . '" onchange="onChangeSelect(' . "'" . $idChild . "'" . ')" class="form-control form-control-sm input-xs text-center validateText" placeholder="Carpeta" style="max-width: inherit;">';
         foreach ($query as $damenu) {
             if ($damenu->hijo_id != null) {
-                $html .= '<option value="' . $damenu->hijo_id . '">' . $damenu->hijo_name .  '</option>';
+                $html .= '<option value="' . $damenu->hijo_id . '"' . ($selected ? " selected" : '') . '>' . $damenu->hijo_name .  '</option>';
+                $countOptions++;
+            }
+        }
+        if ($countOptions == 0) {
+            return [
+                'status'    =>  'warning',
+                'msg'       =>  'No existen más nodos',
+                'span_id'   =>  'html-options-' . $idParent,
+                'html'      =>  ''
+            ];
+        }
+
+        $html .= "</select>";
+        $fnHtml = '<div class="row">
+                        <div class="col-xl-12 col-md-12 col-sm-12">
+                            <div class="mb-2">
+                                <label for="' . $idChild . '" class="col-form-label text-dark m-0" style="font-weight:bold;padding:0">Sub carpeta<span class="required">*</span></label>
+                                ' . $html . '
+                                <small id="' . $idChild . 'Error" class="form-text text-danger font-weight-bold"></small>
+                            </div>
+                        </div>
+                    </div>';
+
+        return [
+            'status'    =>  'success',
+            'msg'       =>  'Procesado correctamente',
+            'span_id'   =>  'html-options-' . $idParent,
+            'child'     =>  $idChild,
+            'html'      =>  $fnHtml
+        ];
+    }
+
+    /**
+     * Crear nodos hijos en select dependiente para edicion
+     */
+    function createHtmlSelectEdit($query, $idParent, $idChild, $idOption, $selected = false)
+    {
+        $html = '';
+        $countOptions = 0;
+        if (count($query) == 0) {
+            return [
+                'status'    =>  'warning',
+                'msg'       =>  'No existen más nodos',
+                'span_id'   =>  'html-options-' . $idParent,
+                'html'      =>  ''
+            ];
+        }
+        $html .= '<select id="' . $idChild . '" name="' . $idChild . '" onchange="onChangeSelect(' . "'" . $idChild . "'" . ')" class="form-control form-control-sm input-xs text-center validateText" placeholder="Carpeta" style="max-width: inherit;">';
+        foreach ($query as $damenu) {
+            if ($damenu->hijo_id != null) {
+                $html .= '<option value="' . $damenu->hijo_id . '"' . ($selected ? " selected" : '') . '>' . $damenu->hijo_name .  '</option>';
                 $countOptions++;
             }
         }
@@ -416,7 +479,7 @@ class QualityController extends Controller
                         'qu_description'                =>  $name_file_upload,
                         'qu_text_information'           =>  $text_file_description,
                         'qu_name_file'                  =>  $path_save  . $fileName,
-                        'qu_url'                        =>  get_template_directory_uri() . $file_path_save . '/' . $path_save,
+                        'qu_url'                        =>  get_template_directory_uri() . $file_path_save . '/' . $path_save . $fileName,
                         'qu_status'                     =>  1,
                         'created_at'                    =>  date('Y-m-d H:i:s'),
                         'user_login_id_create'          =>  get_current_user_id()
@@ -455,5 +518,110 @@ class QualityController extends Controller
                 'msg'       =>  'El archivo con extención ' . $type . ' que se quiere cargar no está permitido'
             ];
         }
+    }
+    /*  
+    * @arguments Consultar datos de archivos cargados para precargar en el formulario de edición
+    * @params $_POST, JSON
+    * @return JSON
+    */
+    function preloadDataFileQualityEdit()
+    {
+        global $wpdb;
+        $dataFile = $wpdb->get_row("SELECT * FROM vw_wpl_quality WHERE qu_row_id ='" . $this->decryption($this->param) . "'", OBJECT);
+
+        if (!$dataFile) {
+            return [
+                'status'    =>  'error',
+                'msg'       =>  'El registro no exist en la base de datos'
+            ];
+        }
+        $response = [
+            'status'    =>  'sucess',
+            'msg'       =>  'Procesado correctamente',
+            'data'      =>  []
+        ];
+
+        if ($dataFile->subfolder_n1_row_id != null) {
+            $htmlOptions = $wpdb->get_results(
+                "SELECT DISTINCT
+                vwf.subfolder_n1_row_id as padre_id
+                ,vwf.subfolder_n1_name as padre_name
+                ,vwf.subfolder_n2_row_id as hijo_id
+                ,vwf.subfolder_n2_name as hijo_name
+            FROM vw_wpl_folders vwf 
+            WHERE 
+                vwf.folder_row_id =" . $dataFile->folder_row_id . "
+                and vwf.subfolder_n1_row_id =" . $dataFile->subfolder_n1_row_id,
+                OBJECT
+            );
+            $response['data'][] = [
+                'html-options-subfolder_n1_row_id-upload-edit' =>
+                $this->createHtmlSelect($htmlOptions, 'subfolder_n1_row_id-upload-edit', 'subfolder_n2_row_id-upload-edit', $this->request['params']['id'], false)
+            ];
+        }
+
+        if ($dataFile->subfolder_n2_row_id != null) {
+            $htmlOptions = $wpdb->get_results(
+                "SELECT DISTINCT
+                vwf.subfolder_n2_row_id as padre_id
+                ,vwf.subfolder_n2_name as padre_name
+                ,vwf.subfolder_n3_row_id as hijo_id
+                ,vwf.subfolder_n3_name as hijo_name
+            FROM vw_wpl_folders vwf 
+            WHERE 
+                vwf.folder_row_id =" . $dataFile->folder_row_id . "
+                and vwf.subfolder_n1_row_id =" . $dataFile->subfolder_n1_row_id . " 
+                and vwf.subfolder_n2_row_id =" . $dataFile->subfolder_n2_row_id,
+                OBJECT
+            );
+            $response['data'][] = [
+                'html-options-subfolder_n2_row_id-upload-edit' =>
+                $this->createHtmlSelect($htmlOptions, 'subfolder_n2_row_id-upload-edit', 'subfolder_n3_row_id-upload-edit', $dataFile->subfolder_n2_row_id, false)
+            ];
+        }
+        if ($dataFile->subfolder_n3_row_id != null) {
+            $htmlOptions = $wpdb->get_results(
+                "SELECT DISTINCT
+                vwf.subfolder_n3_row_id as padre_id
+                ,vwf.subfolder_n3_name as padre_name
+                ,vwf.subfolder_n4_row_id as hijo_id
+                ,vwf.subfolder_n4_name as hijo_name
+            FROM vw_wpl_folders vwf 
+            WHERE 
+                vwf.folder_row_id =" . $dataFile->folder_row_id . "
+                and vwf.subfolder_n1_row_id =" . $dataFile->subfolder_n1_row_id . " 
+                and vwf.subfolder_n2_row_id =" . $dataFile->subfolder_n2_row_id . " 
+                and vwf.subfolder_n3_row_id =" . $dataFile->subfolder_n3_row_id,
+                OBJECT
+            );
+            $response['data'][] = [
+                'html-options-subfolder_n3_row_id-upload-edit' =>
+                $this->createHtmlSelect($htmlOptions, 'subfolder_n3_row_id-upload-edit', 'subfolder_n4_row_id-upload-edit', $dataFile->subfolder_n3_row_id, false)
+            ];
+        }
+        if ($dataFile->subfolder_n4_row_id != null) {
+            $htmlOptions = $wpdb->get_results(
+                "SELECT DISTINCT
+                vwf.subfolder_n4_row_id as padre_id
+                ,vwf.subfolder_n4_name as padre_name
+                ,vwf.subfolder_n5_row_id as hijo_id
+                ,vwf.subfolder_n5_name as hijo_name
+            FROM vw_wpl_folders vwf 
+            WHERE 
+                vwf.folder_row_id =" . $dataFile->folder_row_id . "
+                and vwf.subfolder_n1_row_id =" . $dataFile->subfolder_n1_row_id . " 
+                and vwf.subfolder_n2_row_id =" . $dataFile->subfolder_n2_row_id . " 
+                and vwf.subfolder_n3_row_id =" . $dataFile->subfolder_n3_row_id . " 
+                and vwf.subfolder_n4_row_id =" . $dataFile->subfolder_n4_row_id,
+                OBJECT
+            );
+            $response['data'][] = [
+                'html-options-subfolder_n4_row_id-upload-edit' =>
+                $this->createHtmlSelect($htmlOptions, 'subfolder_n4_row_id-upload-edit', 'subfolder_n5_row_id-upload-edit', $dataFile->subfolder_n4_row_id, false)
+            ];
+        }
+        if ($dataFile->subfolder_n5_row_id != null) {
+        }
+        return $response;
     }
 }

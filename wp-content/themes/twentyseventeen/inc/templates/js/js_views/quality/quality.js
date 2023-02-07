@@ -2,7 +2,7 @@ $(document).ready(function () {
     /**@augments 
      * Datatable paginación ajax, listado de archivos mercadeo
      */
-    let table = $('#quality-file-listing').DataTable({        
+    let table = $('#quality-file-listing').DataTable({
         destroy: true,
         processing: true,
         serverSide: true,
@@ -32,13 +32,13 @@ $(document).ready(function () {
                     'core': {
                         'themes': {
                             //'name': 'proton',
-                            'responsive': true,                            
+                            'responsive': true,
                         },
                         'data': index.path_json
                     },
                     'types': {
-                        'default' : {
-                            'icon' : 'fa fa-folder text-warning'
+                        'default': {
+                            'icon': 'fa fa-folder text-warning'
                         },
                         "file": {
                             "icon": "fa fa-file text-warning"
@@ -114,28 +114,27 @@ function uploadFile() {
     form_data.append('controller', 'QualityController');
     form_data.append('action', 'quality_upload_files');
     form_data.append('function', 'uploadFilesQuality');
-    form_data.append('params',JSON.stringify($("#attachment-form").serializeArray()));
+    form_data.append('params', JSON.stringify($("#attachment-form").serializeArray()));
     $.ajax({
         url: '../wp-admin/admin-ajax.php',
         type: 'POST',
         cashe: false,
         dataType: 'json',
         contentType: false,
-        processData: false,
+        processData: false, 
         data: form_data,
         success: function (data) {
-            console.log(data);
-            // setTimeout(function () {
-            //     if (data.status == 'success') {
-            //         $('#file-upload').val('');
-            //         $('#addFileModal').modal('hide').data('bs.modal', null);
-            //         $('#marketing-file-listing').DataTable().ajax.reload(null, false);
-            //         Command: toastr[data.status](data.msg);
-            //     } else {
-            //         $('#file-upload').val('');
-            //         Command: toastr[data.status](data.msg);
-            //     }
-            // }, 500);
+            setTimeout(function () {
+                if (data.status == 'success') {
+                    $('#file-upload').val('');
+                    $('#addFileModal').modal('hide').data('bs.modal', null);
+                    $('#quality-file-listing').DataTable().ajax.reload(null, false);
+                    Command: toastr[data.status](data.msg);
+                } else {
+                    $('#file-upload').val('');
+                    Command: toastr[data.status](data.msg);
+                }
+            }, 500);
         },
         error: function (msg) {
             setTimeout(function () {
@@ -210,7 +209,7 @@ function onChangeSelect(id) {
                     }
                     if ($("#processModal_select")) {
                         processModal.modal('hide');
-                    }                    
+                    }
                 }, 100);
             },
             error: function (msg) {
