@@ -18,9 +18,9 @@ $(document).ready(function () {
                 function: 'list_quality',
             },
             //continue: 'post',
-            success: function(data) {
-                 console.log(data);
-            }
+            // success: function(data) {
+            //      console.log(data);
+            // }
         },
         drawCallback: function (settings) {
             let api = this.api();

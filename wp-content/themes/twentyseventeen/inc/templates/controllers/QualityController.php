@@ -38,71 +38,11 @@ class QualityController extends Controller
         $searchValue = $this->request['search']['value'];
 
         $resulset = $wpdb->get_results("SELECT 
-                                        qu_row_id
-                                        ,qu_description
-                                        ,qu_text_information
-                                        ,qu_name_file
-                                        ,mime_row_id
-                                        ,mime_icon
-                                        ,mime_icon_color 
-                                        ,qu_url
-                                        ,folder_row_id 
-                                        ,folder_name 
-                                        ,folder_name_in_server
-                                        ,subfolder_n1_row_id
-                                        ,subfolder_n1_name
-                                        ,subfolder_n1_name_in_server
-                                        ,subfolder_n2_row_id
-                                        ,subfolder_n2_name
-                                        ,subfolder_n2_name_in_server
-                                        ,subfolder_n3_row_id
-                                        ,subfolder_n3_name
-                                        ,subfolder_n3_name_in_server
-                                        ,subfolder_n4_row_id
-                                        ,subfolder_n4_name
-                                        ,subfolder_n4_name_in_server
-                                        ,subfolder_n5_row_id
-                                        ,subfolder_n5_name
-                                        ,subfolder_n5_name_in_server
-                                        ,filter_field
-                                        ,qu_status
-                                        ,user_login_id_create
-                                        ,created_at 
-	                                    ,COALESCE(updated_at,'') as updated_at
+        *
         FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%' order by " . ((($columnName == 'qu_row_id') ? 'qu_description' : $columnName) . ' ' . $columnSortOrder) . " limit " . $rows . ',' . $rowperpage, OBJECT);
-        return [$resulset,$rows];
+        
         $resulset2 = $wpdb->get_results("SELECT 
-                                        qu_row_id
-                                        ,qu_description
-                                        ,qu_text_information
-                                        ,qu_name_file
-                                        ,mime_row_id
-                                        ,mime_icon
-                                        ,mime_icon_color 
-                                        ,qu_url
-                                        ,folder_row_id 
-                                        ,folder_name 
-                                        ,folder_name_in_server
-                                        ,subfolder_n1_row_id
-                                        ,subfolder_n1_name
-                                        ,subfolder_n1_name_in_server
-                                        ,subfolder_n2_row_id
-                                        ,subfolder_n2_name
-                                        ,subfolder_n2_name_in_server
-                                        ,subfolder_n3_row_id
-                                        ,subfolder_n3_name
-                                        ,subfolder_n3_name_in_server
-                                        ,subfolder_n4_row_id
-                                        ,subfolder_n4_name
-                                        ,subfolder_n4_name_in_server
-                                        ,subfolder_n5_row_id
-                                        ,subfolder_n5_name
-                                        ,subfolder_n5_name_in_server
-                                        ,filter_field
-                                        ,qu_status
-                                        ,user_login_id_create
-                                        ,created_at 
-	                                    ,COALESCE(updated_at,'') as updated_at
+                                        *
         FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%'order by " . ((($columnName == 'qu_row_id') ? 'qu_description' : $columnName) . ' ' . $columnSortOrder), OBJECT);
 
         $data = array();
