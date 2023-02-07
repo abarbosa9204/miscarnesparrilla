@@ -19,7 +19,7 @@ $(document).ready(function () {
             },
             //continue: 'post',
             // success: function(data) {
-            //     console.log(data);
+            //      console.log(data);
             // }
         },
         drawCallback: function (settings) {
@@ -27,6 +27,7 @@ $(document).ready(function () {
             api.rows({
                 page: 'current'
             }).data().each(function (index, id, row) {
+                console.log(index.path_json);
                 $('#' + index.path_id).jstree({
                     'core': {
                         'themes': {
