@@ -56,7 +56,7 @@
 			<div class="row y-middle">
 				<div class="col-lg-6">
 					<div class="copyright">
-						<p>&copy; 2022 All Rights Reserved. Developed By Theme C&AGEMASOFT</p>
+						<p>&copy; 2022 All Rights Reserved. Developed By Theme C&A GEMASOFT</p>
 					</div>
 				</div>
 			</div>
@@ -138,7 +138,7 @@
 
 	function detalle(carpeta) {
 		if (carpeta > 0) {
-			arbol = 1;
+			arbol = carpeta;
 			$("#tablaDetalleCarpeta").empty();
 			$("#tablaDetalleCarpeta").append('<div id="' + arbol + '"></div>');
 			$('#' + arbol).jstree({

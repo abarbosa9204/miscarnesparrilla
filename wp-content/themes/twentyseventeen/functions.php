@@ -794,116 +794,172 @@ require get_parent_theme_file_path('/inc/icon-functions.php');
  * Block Patterns.
  */
 require get_template_directory() . '/inc/block-patterns.php';
-function quitar_menus () {
-  
-   
-    $user = wp_get_current_user(); //Obtenemos los datos del usuario actual
-    if ($user->has_cap( 'read' ) ) { // Si es que el usuario no tiene rol de administrador
-        remove_menu_page('index.php'); // Removemos el ítem Entradas
-        remove_menu_page('profile.php'); // Removemos el ítem comentarios
+function quitar_menus()
+{
+
+
+	$user = wp_get_current_user(); //Obtenemos los datos del usuario actual
+	if ($user->has_cap('read')) { // Si es que el usuario no tiene rol de administrador
+		remove_menu_page('index.php'); // Removemos el ítem Entradas
+		remove_menu_page('profile.php'); // Removemos el ítem comentarios
 		remove_menu_page('about.php'); // Removemos el ítem comentarios
-	
-    }
-		
-    }
-    add_action('admin_menu', 'quitar_menus');
-	add_action('after_setup_theme', 'remove_admin_bar');
-function remove_admin_bar() {
-if ((!current_user_can('administrator') && !is_admin()) && (!current_user_can('super_administrator'))) {
-  show_admin_bar(false);
+
+	}
 }
+add_action('admin_menu', 'quitar_menus');
+add_action('after_setup_theme', 'remove_admin_bar');
+function remove_admin_bar()
+{
+	if ((!current_user_can('administrator') && !is_admin()) && (!current_user_can('super_administrator'))) {
+		show_admin_bar(false);
+	}
 }
-add_action('wp_logout','cerrar_sesion');
+add_action('wp_logout', 'cerrar_sesion');
 function cerrar_sesion()
 {
-    wp_redirect(home_url());
-   exit();
+	wp_redirect(home_url());
+	exit();
 }
-function my_event_arbol_cb() {
-    // Check for nonce security
-    $nonce = sanitize_text_field( $_POST['nonce'] );
+function my_event_arbol_cb()
+{
+	// Check for nonce security
+	$nonce = sanitize_text_field($_POST['nonce']);
 	global $wpdb;
-	$options = $wpdb->get_results( "SELECT * FROM  folders" );
+	$niveles1 = $wpdb->get_results("
+		SELECT * FROM (SELECT DISTINCT  subfolder_n1_row_id,subfolder_n1_name
+		FROM  vw_wpl_folders WHERE folder_row_id=" . $_POST["id"] . ") AS nivel1
+		ORDER BY subfolder_n1_row_id
+	");
+	foreach ((array) $niveles1 as $nivel1) {
+		if ($nivel1->subfolder_n1_row_id > 0) {
+			$parentid = "#";
+		$icon = "fa fa-folder fa-1x";
+		$selected = false;
+		$opened = false;
+		$arregloRetorno[] = array(
+			"id" => $nivel1->subfolder_n1_row_id,
+			"parent" => $parentid,
+			"text" => $nivel1->subfolder_n1_name,
+			"state" => array("selected" => $selected, "opened" => $opened),
+			"icon" => $icon
+		);
+		$archivosNivel1 = $wpdb->get_results("
+				SELECT am_id,am_description,am_url FROM wpl_advertising_marketing
+				WHERE folder_row_id=" . $_POST["id"] . " AND subfolder_n1_row_id=".$nivel1->subfolder_n1_row_id. "
+				ORDER BY am_description
+			");
+			foreach ((array) $archivosNivel1 as $archivoNivel1) {
+				$parentid = $nivel1->subfolder_n1_row_id;
+				$icon = "fa fa-file fa-1x";
+				$selected = false;
+				$opened = false;
+				$arregloRetorno[] = array(
+				"id" => "F@".$archivoNivel1->am_id,
+				"parent" => $parentid,
+				"text" => "<a href='".$archivoNivel1->am_url."'>".$archivoNivel1->am_description."</a>",
+				"state" => array("selected" => $selected, "opened" => $opened),
+				"icon" => $icon
+		);
 
+			}
 
-foreach ( (array) $options as $option ){
-	$parentid = $option->parentid;
-      if($parentid == '0'){
-		$parentid = "#";
-		$icon="fa fa-folder fa-1x";
-	  }
-	  else{
-		$icon="fa fa-file fa-1x";
-	  } 
-      $selected = false;$opened = false;    
-      $arregloRetorno[] = array(
-         "id" => $option->id,
-         "parent" => $parentid,
-         "text" => $option->name,
-         "state" => array("selected" => $selected,"opened"=>$opened) ,
-		 "icon"=>$icon
-      );
-}
-	//$arregloRetorno=[];
-	/*if($_POST["node"]=="parentNode"){
-		$child=[];
-		array_push($child, [
-			'id'    => "2",
-			'text'  =>  "xxx",
-			'icon'  =>"fa fa-folder fa-3x",
-			'state' => [
-				'opened' => false,
-				'disabled'=>false
-			]
-		]);
-		$arregloRetorno[]=[
-			'id'=>$_POST['id'],
-			'text'=>" CARPETA",
-			'icon'=>"fa fa-folder fa-3x",
-			'state'=>[
-				"opened"    =>false,  // is the node open
-				"disabled"   => false,  // is the node disabled
-				"selected"   => true, // is the node selected
-				"children" =>$child 
-			]];
+		}
+		else{
+			//
+			
+		}
+		
+		$niveles2 = $wpdb->get_results("SELECT DISTINCT subfolder_n2_row_id ,subfolder_n2_name
+	  FROM  vw_wpl_folders WHERE folder_row_id=" . $_POST["id"] . " AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
+	  ORDER BY subfolder_n2_row_id");
+		foreach ((array) $niveles2 as $nivel2) {
+			$soloArchivosNV2=1;
+			if ($nivel2->subfolder_n2_row_id > 0) {
+				$parentid = $nivel1->subfolder_n1_row_id;
+				$icon = "fa fa-folder fa-1x";
+				$selected = false;
+				$opened = false;
+				$id = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id;
+				$arregloRetorno[] = array(
+					"id" => $id,
+					"parent" => $parentid,
+					"text" => $nivel2->subfolder_n2_name,
+					"state" => array("selected" => $selected, "opened" => $opened),
+					"icon" => $icon
+				);
+			} else {
+				/*$parentid = $nivel1->subfolder_n1_row_id;
+				$icon = "fa fa-video-camera fa-1x";
+				$selected = false;
+				$opened = false;
+				$id = $nivel1->subfolder_n1_row_id . "@" . $soloArchivosNV2;
+				$arregloRetorno[] = array(
+					"id" => $id,
+					"parent" => $parentid,
+					"text" => '<a href>Video 1</a>',
+					"state" => array("selected" => $selected, "opened" => $opened),
+					"icon" => $icon
+				);*/
+				$archivosNivel2 = $wpdb->get_results("
+				SELECT am_id,am_descripcion FROM wpl_advertising_markenting
+				WHERE folder_row_id=" . $_POST["id"] . " AND subfolder_n1_row_id=".$nivel1->subfolder_n1_row_id. "
+				ORDER BY am_descripcion
+			");
+			foreach ((array) $archivosNivel2 as $archivoNivel2) {
+				$parentid = $nivel2->subfolder_n1_row_id;
+				$icon = "fa fa-file fa-1x";
+				$selected = false;
+				$opened = false;
+				$arregloRetorno[] = array(
+				"id" => $archivoNivel2->am_id,
+				"parent" => $parentid,
+				"text" => $archivoNivel2->am_descripcion,
+				"state" => array("selected" => $selected, "opened" => $opened),
+				"icon" => $icon
+		);
 
+			}
+			}
+			$niveles3 = $wpdb->get_results("SELECT DISTINCT subfolder_n3_row_id ,subfolder_n3_name
+			FROM  vw_wpl_folders WHERE folder_row_id=" . $_POST["id"] . " AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
+			AND subfolder_n2_row_id=" . $nivel2->subfolder_n2_row_id . "
+			ORDER BY subfolder_n3_row_id");
+			//if(count((array)$niveles2)>0){
+			foreach ((array) $niveles3 as $nivel3) {
+				if ($nivel3->subfolder_n3_row_id > 0) {
+					$parentid = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id;
+					$icon = "fa fa-folder fa-1x";
+					$selected = false;
+					$opened = false;
+					$id = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $nivel3->subfolder_n3_row_id;
+					$arregloRetorno[] = array(
+						"id" => $id,
+						"parent" => $parentid,
+						"text" => $nivel3->subfolder_n3_name,
+						"state" => array("selected" => $selected, "opened" => $opened),
+						"icon" => $icon
+					);
+				} else {
+					//van los archivos
+				}
+				
+			}
+			$soloArchivosNV2++;
+		}
 	}
-	if($_POST["node"]=="childNode"){
-		$child=[];
-		array_push($child, [
-			'id'    => "21",
-			'text'  =>  "xxx",
-			'icon'  =>"fa fa-file fa-3x",
-			'state' => [
-				'opened' => false,
-				'disabled'=>false
-			]
-		]);
-		$arregloRetorno[]=[
-			'id'=>$_POST['id'],
-			'text'=>" CARPETA",
-			'icon'=>"fa fa-folder fa-3x",
-			'state'=>[
-				"opened"    =>false,  // is the node open
-				"disabled"   => false,  // is the node disabled
-				"selected"   => true, // is the node selected
-				"children" =>$child 
-			]];
-
-	}
-	*/
 	echo json_encode($arregloRetorno);
-    wp_die();
+	wp_die();
 }
-add_action( 'wp_ajax_nopriv_event-arbol', 'my_event_arbol_cb' );
-add_action( 'wp_ajax_event-arbol', 'my_event_arbol_cb' );
-function my_load_scripts() {
-    wp_enqueue_script( 'my_js', get_theme_file_uri( 'js/eventos.js'), array('jquery') );
+add_action('wp_ajax_nopriv_event-arbol', 'my_event_arbol_cb');
+add_action('wp_ajax_event-arbol', 'my_event_arbol_cb');
+function my_load_scripts()
+{
+	wp_enqueue_script('my_js', get_theme_file_uri('js/eventos.js'), array('jquery'));
 
-    wp_localize_script( 'my_js', 'ajax_var', array(
-        'url'    => admin_url( 'admin-ajax.php' ),
-        'nonce'  => wp_create_nonce( 'my-ajax-nonce' ),
-        'action' => 'event-arbol'
-    ) );
+	wp_localize_script('my_js', 'ajax_var', array(
+		'url'    => admin_url('admin-ajax.php'),
+		'nonce'  => wp_create_nonce('my-ajax-nonce'),
+		'action' => 'event-arbol'
+	));
 }
-add_action( 'wp_enqueue_scripts', 'my_load_scripts' );
+add_action('wp_enqueue_scripts', 'my_load_scripts');
