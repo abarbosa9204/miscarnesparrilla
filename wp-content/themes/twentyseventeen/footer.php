@@ -93,7 +93,7 @@
 <div class="modal fade bd-example-modal-xl" id="modal_detalle" tabindex="-1" role="dialog" aria-labelledby="modal_detalle" data-backdrop="static">
 	<div class="modal-content modal-dialog modal-xl" role="document" style="border-radius: 5px;">
 		<div class="modal-header box box-primary">
-			<h5 class="modal-title">Detalle Carpeta</h5>
+			<h5 class="modal-title" id="tituloCarpeta"></h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
@@ -133,9 +133,12 @@
 	});
 
 
-	function detalle(carpeta) {
+	function detalle(carpeta,titulo) {
 		if (carpeta > 0) {
 			arbol = carpeta;
+			$("#tituloCarpeta").empty();
+			console.log(titulo);
+			$("#tituloCarpeta").html(titulo);
 			$("#tablaDetalleCarpeta").empty();
 			$("#tablaDetalleCarpeta").append('<div id="' + arbol + '"></div>');
 			$('#' + arbol).jstree({
