@@ -56,7 +56,7 @@
 			<div class="row y-middle">
 				<div class="col-lg-6">
 					<div class="copyright">
-						<p>&copy; 2022 All Rights Reserved. Developed By Theme C&AGEMASOFT</p>
+						<p>&copy; 2022 All Rights Reserved. Developed By Theme C&A GEMASOFT</p>
 					</div>
 				</div>
 			</div>
@@ -125,10 +125,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <!-- Bootstrap v4.4.1 js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/bootstrap.min.js"></script>
-<!--script src="<?php bloginfo('template_directory') ?>/assets/tree/jstree.min.js"></script-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-
+<script src="<?php bloginfo('template_directory') ?>/assets/tree/jstree.min.js"></script>
 <script>
 	$(function() {
 		$('[data-toggle="tooltip"]').tooltip();
@@ -138,7 +135,7 @@
 
 	function detalle(carpeta) {
 		if (carpeta > 0) {
-			arbol = 1;
+			arbol = carpeta;
 			$("#tablaDetalleCarpeta").empty();
 			$("#tablaDetalleCarpeta").append('<div id="' + arbol + '"></div>');
 			$('#' + arbol).jstree({
