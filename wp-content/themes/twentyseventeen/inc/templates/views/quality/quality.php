@@ -96,7 +96,7 @@
                                                     <small id="subfolder_n1_row_id-uploadError" class="form-text text-danger font-weight-bold"></small>
                                                 </div>
                                             </div>
-                                            <span id="html-options-subfolder_n1_row_id-upload">                                                
+                                            <span id="html-options-subfolder_n1_row_id-upload">
                                             </span>
                                             <span id="html-options-subfolder_n2_row_id-upload">
                                             </span>
@@ -138,8 +138,115 @@
         </div>
     </div>
     <!-- Modal - Cargar archivos -->
+
+    <!-- Modal - Editar archivos -->
+    <div class="modal fade" id="editFileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editFileModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editFileModalTitle"><i class="ti-cloud-up" style="color:#063970;font-size:22px;cursor:pointer"></i> Cargar archivo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="resetattachmentFormEdit('cancelModal')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="" id="attachment-form-edit" name="attachment-form-edit" enctype="multipart/form-data">
+                        <div class="form-group row">
+                            <div class="col-xl-12">
+                                <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border twentyseventeen-font-size-theme-16">
+                                        <div class="alert alert-warning" role="alert">
+                                            Los campos con <span class="required">*</span> son obligatorios
+                                        </div>
+                                    </legend>
+                                    <div class="control-group">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12">
+                                                <div class="mb-2">
+                                                    <label for="file-upload-edit" class="col-form-label text-dark m-0">Cargar archivo<span class="required">*</span></label>
+                                                    <input type="file" class="form-control form-control-sm p-1 px-2" id="file-upload-edit" name="file-upload-edit" accept="*" capture="document" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12 col-sm-12">
+                                                <div class="mb-2">
+                                                    <label for="folder_row_id-upload-edit" class="col-form-label text-dark m-0" style="font-weight:bold;padding:0">Carpeta principal<span class="required">*</span></label>
+                                                    <?php
+                                                    global $wpdb;
+                                                    $data = $wpdb->get_results("SELECT DISTINCT folder_row_id,folder_name FROM vw_wpl_folders WHERE folder_row_id=2");
+                                                    echo '<select id="folder_row_id-upload-edit" name="folder_row_id-upload-edit" class="form-control form-control-sm input-xs text-center validateText" placeholder="Carpeta" style="max-width: inherit;">';
+                                                    foreach ($data as $damenu) {
+                                                        echo '<option value="' . $damenu->folder_row_id . '">' . $damenu->folder_name . '</option>';
+                                                    }
+                                                    echo "</select>";
+                                                    ?>
+                                                    <small id="folder_row_id-uploadError-edit" class="form-text text-danger font-weight-bold"></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12 col-sm-12">
+                                                <div class="mb-2">
+                                                    <label for="subfolder_n1_row_id-upload-edit" class="col-form-label text-dark m-0" style="font-weight:bold;padding:0">Sub carpeta<span class="required">*</span></label>
+                                                    <?php
+                                                    global $wpdb;
+                                                    $data = $wpdb->get_results("SELECT DISTINCT subfolder_n1_row_id,subfolder_n1_name FROM vw_wpl_folders WHERE folder_row_id=2 ORDER BY subfolder_n1_row_id ASC");
+                                                    echo '<select id="subfolder_n1_row_id-upload-edit" name="subfolder_n1_row_id-upload-edit" onchange="onChangeSelectEdit(' . "'subfolder_n1_row_id-upload-edit'" . ')" class="form-control form-control-sm input-xs text-center validateText" placeholder="Carpeta" style="max-width: inherit;">';
+                                                    foreach ($data as $damenu) {
+                                                        echo '<option value="' . $damenu->subfolder_n1_row_id . '">' . $damenu->subfolder_n1_name . '</option>';
+                                                    }
+                                                    echo "</select>";
+                                                    ?>
+                                                    <small id="subfolder_n1_row_id-uploadError-edit" class="form-text text-danger font-weight-bold"></small>
+                                                </div>
+                                            </div>
+                                            <span id="html-options-subfolder_n1_row_id-upload-edit">
+                                            </span>
+                                            <span id="html-options-subfolder_n2_row_id-upload-edit">
+                                            </span>
+                                            <span id="html-options-subfolder_n3_row_id-upload-edit">
+                                            </span>
+                                            <span id="html-options-subfolder_n4_row_id-upload-edit">
+                                            </span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12">
+                                                <div class="mb-2">
+                                                    <label for="name-file-upload-edit" class="col-form-label text-dark m-0" style="font-weight:bold;padding:0">Nombre del archivo<span class="required">*</span></label>
+                                                    <input type="text" id="name-file-upload-edit" name="name-file-upload-edit" class="form-control form-control-sm input-xs text-center validateText" placeholder="Nombre del archivo">
+                                                    <small id="name-file-upload-editError" class="form-text text-danger font-weight-bold"></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12">
+                                                <div class="mb-2">
+                                                    <label for="text-file-description-edit" class="col-form-label text-dark m-0" style="font-weight:bold;padding:0">Texto descriptivo<span class="required">*</span></label>
+                                                    <textarea style="width:100%" class="form-control form-control-sm text-left validateText" aria-describedby="udmByHelp" rows="3" cols="50" placeholder="Texto descriptivo" id="text-file-description-edit" name="text-file-description-edit"></textarea>
+                                                    <small id="text-file-description-editError" class="form-text text-danger font-weight-bold"></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <button type="submit" id="save-attachments-edit" class="btn btn-lg btn-success btn-xs" style="display: none;"><i class="fa fa-upload"></i></button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="min-width: 90px;" class="btn btn-secondary btn-sm twentyseventeen-font-size-theme-15-5" data-dismiss="modal" onclick="resetattachmentFormEdit('cancelModal')">Cancelar</button>
+                    <button type="button" style="min-width: 90px;" class="btn btn-danger btn-sm twentyseventeen-font-size-theme-15-5" onclick="uploadFileEdit()">Subir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal - Editar archivos -->
     <?php get_footer_admin() ?>
     <script src="<?php bloginfo('template_directory') ?>/inc/templates/js/js_views/quality/quality.js"></script>
+    <script src="<?php bloginfo('template_directory') ?>/inc/templates/js/js_views/quality/quality_edit.js"></script>
 </body>
 
 </html>
