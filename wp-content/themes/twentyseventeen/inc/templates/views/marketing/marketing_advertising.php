@@ -9,7 +9,7 @@
     <h4>Publicidad & Mercadeo</h4>
     <div class="container-fluid">
         <div class="mb-2">
-            <a href="javascript:void(0);" type="button" class="btn btn-sm btn-outline-danger twentyseventeen-font-size-theme-15-5" style="min-width: 112px;" onclick="showModalAddFile()"><i class="fa fa-plus"></i> Nuevo</button>
+            <a href="javascript:void(0);" type="button" class="btn btn-sm btn-outline-danger twentyseventeen-font-size-theme-15-5" style="min-width: 112px;" onclick="showModalAddFile()"><i class="fa fa-plus"></i> Nuevo
             </a>
         </div>
         <div class="table-responsive">            
