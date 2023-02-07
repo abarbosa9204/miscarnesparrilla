@@ -41,7 +41,10 @@ class QualityController extends Controller
                                         qu_row_id
                                         ,qu_description
                                         ,qu_text_information
-                                        ,qu_name_file 
+                                        ,qu_name_file
+                                        ,mime_row_id
+                                        ,mime_icon
+                                        ,mime_icon_color 
                                         ,qu_url
                                         ,folder_row_id 
                                         ,folder_name 
@@ -61,17 +64,21 @@ class QualityController extends Controller
                                         ,subfolder_n5_row_id
                                         ,subfolder_n5_name
                                         ,subfolder_n5_name_in_server
+                                        ,filter_field
                                         ,qu_status
                                         ,user_login_id_create
                                         ,created_at 
 	                                    ,COALESCE(updated_at,'') as updated_at
-        FROM vw_wpl_quality where CONCAT(folder_name,subfolder_n1_name,subfolder_n2_name,subfolder_n3_name,IFNULL(subfolder_n4_name,''),IFNULL(subfolder_n5_name,''),IFNULL(qu_description,'')) like '%" . $searchValue . "%' order by " . ((($columnName == 'qu_row_id') ? 'qu_description' : $columnName) . ' ' . $columnSortOrder) . " limit " . $rows . ',' . $rowperpage, OBJECT);
-
+        FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%' order by " . ((($columnName == 'qu_row_id') ? 'qu_description' : $columnName) . ' ' . $columnSortOrder) . " limit " . $rows . ',' . $rowperpage, OBJECT);
+        return [$resulset,$rows];
         $resulset2 = $wpdb->get_results("SELECT 
                                         qu_row_id
                                         ,qu_description
                                         ,qu_text_information
-                                        ,qu_name_file 
+                                        ,qu_name_file
+                                        ,mime_row_id
+                                        ,mime_icon
+                                        ,mime_icon_color 
                                         ,qu_url
                                         ,folder_row_id 
                                         ,folder_name 
@@ -91,36 +98,71 @@ class QualityController extends Controller
                                         ,subfolder_n5_row_id
                                         ,subfolder_n5_name
                                         ,subfolder_n5_name_in_server
+                                        ,filter_field
                                         ,qu_status
                                         ,user_login_id_create
                                         ,created_at 
 	                                    ,COALESCE(updated_at,'') as updated_at
-        FROM vw_wpl_quality where CONCAT(folder_name,subfolder_n1_name,subfolder_n2_name,subfolder_n3_name,IFNULL(subfolder_n4_name,''),IFNULL(subfolder_n5_name,''),IFNULL(qu_description,'')) like '%" . $searchValue . "%'order by " . ((($columnName == 'qu_row_id') ? 'qu_description' : $columnName) . ' ' . $columnSortOrder), OBJECT);
+        FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%'order by " . ((($columnName == 'qu_row_id') ? 'qu_description' : $columnName) . ' ' . $columnSortOrder), OBJECT);
 
         $data = array();
+        $jstree = [];
         foreach ($resulset as $row) {
-            $folder_name    =   ($row->folder_name != null ? ['text' => $row->folder_name] : '');
-            $subfolder_n1   =   ($row->subfolder_n1_row_id != null ? '' : '');
-            $subfolder_n2   =   ($row->subfolder_n2_row_id != null ? '' : '');
-            $subfolder_n3   =   ($row->subfolder_n3_row_id != null ? '' : '');
-            $subfolder_n4   =   ($row->subfolder_n4_row_id != null ? '' : '');
-            $subfolder_n5   =   ($row->subfolder_n5_row_id != null ? '' : '');
-
-            $jstree = [
-                $folder_name
-                //  'text' => $row->folder_name,
-                //  'children' => [
-                //      [
-                //          'text' => $row->subfolder_n1_name,
-                //         'children' => [
-                //             [
-                //                 'text' => $row->qu_description,
-                //                 'type' => 'file',
-                //             ],
-                //         ]
-                //     ],
-                // ]
-            ];
+            $jstree = [];
+            if ($row->folder_row_id != null) {
+                $jstree[] = [
+                    "id" => $row->folder_row_id . '@' . $row->folder_name,
+                    "parent" => '#',
+                    "text" => $row->folder_name,
+                    "type" => ($row->folder_row_id == null ? 'file' : 'folder'),
+                    ["selected" => true, "opened" => true]
+                ];
+            }
+            if ($row->subfolder_n1_row_id != null) {
+                $jstree[] = [
+                    "id" => $row->subfolder_n1_row_id . '@' . $row->subfolder_n1_name,
+                    "parent" => $row->folder_row_id . '@' . $row->folder_name,
+                    "text" => $row->subfolder_n1_name,
+                    "type" => ($row->subfolder_n2_row_id == null ? 'file' : 'folder'),
+                    ["selected" => true, "opened" => true]
+                ];
+            }
+            if ($row->subfolder_n2_row_id != null) {
+                $jstree[] = [
+                    "id" => $row->subfolder_n2_row_id . '@' . $row->subfolder_n2_name,
+                    "parent" => $row->subfolder_n1_row_id . '@' . $row->subfolder_n1_name,
+                    "text" => $row->subfolder_n2_name,
+                    "type" => ($row->subfolder_n3_row_id == null ? 'file' : 'folder'),                    
+                    ["selected" => true, "opened" => true]
+                ];
+            }
+            if ($row->subfolder_n3_row_id != null) {
+                $jstree[] = [
+                    "id" => $row->subfolder_n3_row_id . '@' . $row->subfolder_n3_name,
+                    "parent" => $row->subfolder_n2_row_id . '@' . $row->subfolder_n2_name,
+                    "text" => $row->subfolder_n3_name,
+                    "type" => ($row->subfolder_n4_row_id == null ? 'file' : 'folder'),
+                    ["selected" => true, "opened" => true]
+                ];
+            }
+            if ($row->subfolder_n4_row_id != null) {
+                $jstree[] = [
+                    "id" => $row->subfolder_n4_row_id . '@' . $row->subfolder_n4_name,
+                    "parent" => $row->subfolder_n3_row_id . '@' . $row->subfolder_n3_name,
+                    "text" => $row->subfolder_n4_name,                    
+                    "type" => ($row->subfolder_n5_row_id == null ? 'file' : 'folder'),
+                    ["selected" => true, "opened" => true]
+                ];
+            }
+            if ($row->subfolder_n5_row_id != null) {
+                $jstree[] = [
+                    "id" => $row->subfolder_n5_row_id . '@' . $row->subfolder_n5_name,
+                    "parent" => $row->subfolder_n4_row_id . '@' . $row->subfolder_n4_name,
+                    "text" => $row->subfolder_n5_name,
+                    "type" => 'file',
+                    ["selected" => true, "opened" => true]
+                ];
+            }
             $data[] = array(
                 'qu_row_id' => $row->qu_row_id,
                 'folder_name' => $row->folder_name,
@@ -143,7 +185,8 @@ class QualityController extends Controller
             'draw' => intval($draw),
             'recordsTotal' => count($resulset2),
             'recordsFiltered' => count($resulset2),
-            'data' => $data
+            'data' => $data,
+            'jstree' => $jstree
         );
 
         return $response;

@@ -18,15 +18,16 @@ $(document).ready(function () {
                 function: 'list_quality',
             },
             //continue: 'post',
-            // success: function(data) {
-            //     console.log(data);
-            // }
+            success: function(data) {
+                 console.log(data);
+            }
         },
         drawCallback: function (settings) {
             let api = this.api();
             api.rows({
                 page: 'current'
             }).data().each(function (index, id, row) {
+                console.log(index.path_json);
                 $('#' + index.path_id).jstree({
                     'core': {
                         'themes': {
