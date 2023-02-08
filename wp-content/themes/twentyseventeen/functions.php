@@ -856,17 +856,20 @@ function my_event_arbol_cb()
 	global $wpdb;
 	$queryArchivos="";
 	$orderBy="";
+	$carpeta="";
 	switch($_POST["id"]){
 		case "1": $queryArchivos="SELECT am_id AS id,am_description AS description,
 									t.mime_icon,t.mime_icon_color,am_url AS ulr FROM wpl_advertising_markenting q
 									INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
-									$orderBy=" AND am_status=1  ORDER BY am_description";				
-break;
-				break;
+				  $orderBy=" AND am_status=1  ORDER BY am_description";
+				  $carpeta="MERCADEO";				
+				  break;
+				
 		case "2":$queryArchivos="SELECT qu_id AS id,qu_description AS description,
 								t.mime_icon,t.mime_icon_color,qu_url FROM wpl_quality q
 								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
-				$orderBy=" AND qu_status=1  ORDER BY qu_description";				
+				$orderBy=" AND qu_status=1  ORDER BY qu_description";
+				$carpeta="CALIDAD";					
 				break;						
 	}
 	$niveles1 = $wpdb->get_results("
@@ -897,7 +900,7 @@ break;
 													AND subfolder_n5_row_id IS NULL
 													 ".$orderBy);
 			foreach ((array) $archivosNivel1 as $archivoNivel1) {
-				$parentid = $nivel1->subfolder_n1_row_id;
+				$parentid = $nivel1->subfolder_n1_row_id.$carpeta;
 				$icon = $archivoNivel1->mime_icon;
 				$selected = false;
 				$opened = false;
