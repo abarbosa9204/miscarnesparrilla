@@ -900,12 +900,12 @@ function my_event_arbol_cb()
 													AND subfolder_n5_row_id IS NULL
 													 ".$orderBy);
 			foreach ((array) $archivosNivel1 as $archivoNivel1) {
-				$parentid = $nivel1->subfolder_n1_row_id.$carpeta;
+				$parentid = $nivel1->subfolder_n1_row_id;
 				$icon = $archivoNivel1->mime_icon;
 				$selected = false;
 				$opened = false;
 				$arregloRetorno[] = array(
-					"id" => $archivoNivel1->id,
+					"id" => $archivoNivel1->id.$carpeta,
 					"parent" => $parentid,
 					"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel1->url . '" title="Descargar" download="">' . $archivoNivel1->description . '</a>',
 					"state" => array("selected" => $selected, "opened" => $opened),
@@ -944,7 +944,7 @@ function my_event_arbol_cb()
 					$selected = false;
 					$opened = false;
 					$arregloRetorno[] = array(
-						"id" => $id = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $archivoNivel2->id,
+						"id" => $archivoNivel2->id.$carpeta,
 						"parent" => $parentid,
 						"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel2->url . '" title="Descargar" download="">' . $archivoNivel2->description . '</a>',
 						"state" => array("selected" => $selected, "opened" => $opened),
@@ -986,7 +986,7 @@ function my_event_arbol_cb()
 						$selected = false;
 						$opened = false;
 						$arregloRetorno[] = array(
-							"id" => $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $nivel3->subfolder_n3_row_id . "@" . $archivoNivel3->id,
+							"id" => $archivoNivel3->id.$carpeta,
 							"parent" => $parentid,
 							"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel3->url . '" title="Descargar" download="">' . $archivoNivel3->description . '</a>',
 							"state" => array("selected" => $selected, "opened" => $opened),
@@ -1028,7 +1028,7 @@ function my_event_arbol_cb()
 							$selected = false;
 							$opened = false;
 							$arregloRetorno[] = array(
-								"id" => $id = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $nivel3->subfolder_n3_row_id . "@" . $nivel4->subfolder_n4_row_id . '@' . $archivoNivel4->id,
+								"id" => $archivoNivel4->id.$carpeta,
 								"parent" => $parentid,
 								"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel4->url . '" title="Descargar" download="">' . $archivoNivel4->description . '</a>',
 								"state" => array("selected" => $selected, "opened" => $opened),
@@ -1072,7 +1072,7 @@ function my_event_arbol_cb()
 								$selected = false;
 								$opened = false;
 								$arregloRetorno[] = array(
-									"id" => $id = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $nivel3->subfolder_n3_row_id . "@" . $nivel4->subfolder_n4_row_id . '@' . $nivel5->subfolder_n4_row_id . '@' . $archivoNivel5->id,
+									"id" =>$archivoNivel5->id.$carpeta,
 									"parent" => $parentid,
 									"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel3->url . '" title="Descargar" download="">' . $archivoNivel3->description . '</a>',
 									"state" => array("selected" => $selected, "opened" => $opened),
