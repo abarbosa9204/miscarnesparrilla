@@ -471,8 +471,8 @@ function mcp_manager()
 				$menus->MenuTitle, // Titulo del menu
 				$menus->Capability, // Capability
 				$menus->MenuSlug, //slug
-				function () use ($folderView,$menuSlug) {
-					home_render_view($folderView,$menuSlug);
+				function () use ($folderView, $menuSlug) {
+					home_render_view($folderView, $menuSlug);
 				},
 				get_template_directory() . '/assets/icons/' . $menus->IconUrl, //icono,
 				null
@@ -487,19 +487,18 @@ function mcp_manager()
 				$menus->MenuTitle, // Titulo del menu
 				$menus->Capability, // Capability
 				$menus->MenuSlug, //slug				
-				function () use ($folderView,$menuSlug) {
-					home_render_view($folderView,$menuSlug);
+				function () use ($folderView, $menuSlug) {
+					home_render_view($folderView, $menuSlug);
 				}
 				//$menus->FunctionMenu, //function del contenido*/
 			);
 		}
 	}
-
 }
 add_action('admin_menu', 'mcp_manager');
 
-function home_render_view($folderView,$menuSlug)
-{	
+function home_render_view($folderView, $menuSlug)
+{
 	require_once(get_template_directory() . '/inc/templates/views/' . $folderView . '/' . $menuSlug . '.php');
 }
 
@@ -849,11 +848,27 @@ function cerrar_sesion()
 	wp_redirect(home_url());
 	exit();
 }
+
 function my_event_arbol_cb()
 {
 	// Check for nonce security
 	$nonce = sanitize_text_field($_POST['nonce']);
 	global $wpdb;
+	$queryArchivos="";
+	$orderBy="";
+	switch($_POST["id"]){
+		case "1": $queryArchivos="SELECT am_id AS id,am_description AS description,
+									t.mime_icon,t.mime_icon_color,am_url AS ulr FROM wpl_advertising_markenting q
+									INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
+									$orderBy=" AND am_status=1  ORDER BY am_description";				
+break;
+				break;
+		case "2":$queryArchivos="SELECT qu_id AS id,qu_description AS description,
+								t.mime_icon,t.mime_icon_color,qu_url FROM wpl_quality q
+								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
+				$orderBy=" AND qu_status=1  ORDER BY qu_description";				
+				break;						
+	}
 	$niveles1 = $wpdb->get_results("
 		SELECT * FROM (SELECT DISTINCT  subfolder_n1_row_id,subfolder_n1_name
 		FROM  vw_wpl_folders WHERE folder_row_id=" . $_POST["id"] . ") AS nivel1
@@ -862,47 +877,43 @@ function my_event_arbol_cb()
 	foreach ((array) $niveles1 as $nivel1) {
 		if ($nivel1->subfolder_n1_row_id > 0) {
 			$parentid = "#";
-		$icon = "fa fa-folder fa-1x";
-		$selected = false;
-		$opened = false;
-		$arregloRetorno[] = array(
-			"id" => $nivel1->subfolder_n1_row_id,
-			"parent" => $parentid,
-			"text" => $nivel1->subfolder_n1_name,
-			"state" => array("selected" => $selected, "opened" => $opened),
-			"icon" => $icon
-		);
-		$archivosNivel1 = $wpdb->get_results("
-				SELECT am_id,am_description,am_url FROM wpl_advertising_marketing
-				WHERE folder_row_id=" . $_POST["id"] . " AND subfolder_n1_row_id=".$nivel1->subfolder_n1_row_id. "
-				ORDER BY am_description
-			");
+			$icon = "fa fa-folder fa-1x";
+			$selected = false;
+			$opened = false;
+			$arregloRetorno[] = array(
+				"id" => $nivel1->subfolder_n1_row_id,
+				"parent" => $parentid,
+				"text" => $nivel1->subfolder_n1_name,
+				"state" => array("selected" => $selected, "opened" => $opened),
+				"icon" => $icon
+			);
+			//se consultan los archivos
+			$archivosNivel1 = $wpdb->get_results($queryArchivos."
+													WHERE folder_row_id=" . $_POST["id"] . " 
+													AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
+													AND subfolder_n2_row_id IS NULL
+													AND subfolder_n3_row_id IS NULL
+													AND subfolder_n4_row_id IS NULL
+													AND subfolder_n5_row_id IS NULL
+													 ".$orderBy);
 			foreach ((array) $archivosNivel1 as $archivoNivel1) {
 				$parentid = $nivel1->subfolder_n1_row_id;
-				$icon = "fa fa-file fa-1x";
+				$icon = $archivoNivel1->mime_icon;
 				$selected = false;
 				$opened = false;
 				$arregloRetorno[] = array(
-				"id" => "F@".$archivoNivel1->am_id,
-				"parent" => $parentid,
-				"text" => "<a href='".$archivoNivel1->am_url."'>".$archivoNivel1->am_description."</a>",
-				"state" => array("selected" => $selected, "opened" => $opened),
-				"icon" => $icon
-		);
-
+					"id" => $archivoNivel1->id,
+					"parent" => $parentid,
+					"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel1->url . '" title="Descargar" download="">' . $archivoNivel1->description . '</a>',
+					"state" => array("selected" => $selected, "opened" => $opened),
+					"icon" => $icon
+				);
 			}
-
 		}
-		else{
-			//
-			
-		}
-		
 		$niveles2 = $wpdb->get_results("SELECT DISTINCT subfolder_n2_row_id ,subfolder_n2_name
 	  FROM  vw_wpl_folders WHERE folder_row_id=" . $_POST["id"] . " AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
 	  ORDER BY subfolder_n2_row_id");
 		foreach ((array) $niveles2 as $nivel2) {
-			$soloArchivosNV2=1;
 			if ($nivel2->subfolder_n2_row_id > 0) {
 				$parentid = $nivel1->subfolder_n1_row_id;
 				$icon = "fa fa-folder fa-1x";
@@ -916,38 +927,27 @@ function my_event_arbol_cb()
 					"state" => array("selected" => $selected, "opened" => $opened),
 					"icon" => $icon
 				);
-			} else {
-				/*$parentid = $nivel1->subfolder_n1_row_id;
-				$icon = "fa fa-video-camera fa-1x";
-				$selected = false;
-				$opened = false;
-				$id = $nivel1->subfolder_n1_row_id . "@" . $soloArchivosNV2;
-				$arregloRetorno[] = array(
-					"id" => $id,
-					"parent" => $parentid,
-					"text" => '<a href>Video 1</a>',
-					"state" => array("selected" => $selected, "opened" => $opened),
-					"icon" => $icon
-				);*/
-				$archivosNivel2 = $wpdb->get_results("
-				SELECT am_id,am_descripcion FROM wpl_advertising_markenting
-				WHERE folder_row_id=" . $_POST["id"] . " AND subfolder_n1_row_id=".$nivel1->subfolder_n1_row_id. "
-				ORDER BY am_descripcion
-			");
-			foreach ((array) $archivosNivel2 as $archivoNivel2) {
-				$parentid = $nivel2->subfolder_n1_row_id;
-				$icon = "fa fa-file fa-1x";
-				$selected = false;
-				$opened = false;
-				$arregloRetorno[] = array(
-				"id" => $archivoNivel2->am_id,
-				"parent" => $parentid,
-				"text" => $archivoNivel2->am_descripcion,
-				"state" => array("selected" => $selected, "opened" => $opened),
-				"icon" => $icon
-		);
-
-			}
+				//se consultan los archivos
+				$archivosNivel2 = $wpdb->get_results($queryArchivos."
+						WHERE folder_row_id=" . $_POST["id"] . " 
+						AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
+						AND subfolder_n2_row_id=" . $nivel2->subfolder_n2_row_id . "
+						AND subfolder_n3_row_id IS NULL
+						AND subfolder_n4_row_id IS NULL
+						AND subfolder_n5_row_id IS NULL ".$orderBy);
+				foreach ((array) $archivosNivel2 as $archivoNivel2) {
+					$parentid = $id;
+					$icon = $archivoNivel2->mime_icon;
+					$selected = false;
+					$opened = false;
+					$arregloRetorno[] = array(
+						"id" => $id = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $archivoNivel2->id,
+						"parent" => $parentid,
+						"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel2->url . '" title="Descargar" download="">' . $archivoNivel2->description . '</a>',
+						"state" => array("selected" => $selected, "opened" => $opened),
+						"icon" => $icon
+					);
+				}
 			}
 			$niveles3 = $wpdb->get_results("SELECT DISTINCT subfolder_n3_row_id ,subfolder_n3_name
 			FROM  vw_wpl_folders WHERE folder_row_id=" . $_POST["id"] . " AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
@@ -968,12 +968,118 @@ function my_event_arbol_cb()
 						"state" => array("selected" => $selected, "opened" => $opened),
 						"icon" => $icon
 					);
-				} else {
-					//van los archivos
+					//se consultan los archivos
+					$archivosNivel3 = $wpdb->get_results($queryArchivos."
+										WHERE folder_row_id=" . $_POST["id"] . " 
+										AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
+										AND subfolder_n2_row_id=" . $nivel2->subfolder_n2_row_id . "
+										AND subfolder_n3_row_id=" . $nivel3->subfolder_n3_row_id . "
+										AND subfolder_n4_row_id IS NULL
+										AND subfolder_n5_row_id IS NULL ".$orderBy);
+					foreach ((array) $archivosNivel3 as $archivoNivel3) {
+						$parentid = $id;
+						$icon = $archivoNivel3->mime_icon;
+						//$icon="fa fa-folder fa-1x";
+						$selected = false;
+						$opened = false;
+						$arregloRetorno[] = array(
+							"id" => $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $nivel3->subfolder_n3_row_id . "@" . $archivoNivel3->id,
+							"parent" => $parentid,
+							"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel3->url . '" title="Descargar" download="">' . $archivoNivel3->description . '</a>',
+							"state" => array("selected" => $selected, "opened" => $opened),
+							"icon" => $icon
+						);
+					}
 				}
-				
+				$niveles4 = $wpdb->get_results("SELECT DISTINCT subfolder_n4_row_id ,subfolder_n4_name
+			FROM  vw_wpl_folders WHERE folder_row_id=" . $_POST["id"] . " AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
+			AND subfolder_n2_row_id=" . $nivel2->subfolder_n2_row_id . " AND subfolder_n3_row_id=" . $nivel3->subfolder_n3_row_id . "
+			ORDER BY subfolder_n4_row_id");
+				//if(count((array)$niveles2)>0){
+				foreach ((array) $niveles4 as $nivel4) {
+					if ($nivel4->subfolder_n4_row_id > 0) {
+						$parentid = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $nivel3->subfolder_n3_row_id;
+						$icon = "fa fa-folder fa-1x";
+						$selected = false;
+						$opened = false;
+						$id = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $nivel3->subfolder_n3_row_id . "@" . $nivel4->subfolder_n4_row_id;
+						$arregloRetorno[] = array(
+							"id" => $id,
+							"parent" => $parentid,
+							"text" => $nivel4->subfolder_n4_name,
+							"state" => array("selected" => $selected, "opened" => $opened),
+							"icon" => $icon
+						);
+						//se consultan los archivos
+						$archivosNivel4 = $wpdb->get_results($queryArchivos."
+										WHERE folder_row_id=" . $_POST["id"] . " 
+										AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
+										AND subfolder_n2_row_id=" . $nivel2->subfolder_n2_row_id . "
+										AND subfolder_n3_row_id=" . $nivel3->subfolder_n3_row_id . "
+										AND subfolder_n4_row_id=" . $nivel3->subfolder_n4_row_id . "
+										AND subfolder_n5_row_id IS NULL ".$orderBy);
+						foreach ((array) $archivosNivel4 as $archivoNivel4) {
+							$parentid = $id;
+							$icon = $archivoNivel4->mime_icon;
+							//$icon="fa fa-folder fa-1x";
+							$selected = false;
+							$opened = false;
+							$arregloRetorno[] = array(
+								"id" => $id = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $nivel3->subfolder_n3_row_id . "@" . $nivel4->subfolder_n4_row_id . '@' . $archivoNivel4->id,
+								"parent" => $parentid,
+								"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel4->url . '" title="Descargar" download="">' . $archivoNivel4->description . '</a>',
+								"state" => array("selected" => $selected, "opened" => $opened),
+								"icon" => $icon
+							);
+						}
+					}
+					$niveles5 = $wpdb->get_results("SELECT DISTINCT subfolder_n5_row_id ,subfolder_n5_name
+			FROM  vw_wpl_folders WHERE folder_row_id=" . $_POST["id"] . " AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
+			AND subfolder_n2_row_id=" . $nivel2->subfolder_n2_row_id . " AND subfolder_n3_row_id=" . $nivel3->subfolder_n3_row_id . "
+			AND subfolder_n4_row_id=" . $nivel3->subfolder_n4_row_id . "
+			ORDER BY subfolder_n5_row_id");
+					//if(count((array)$niveles2)>0){
+					foreach ((array) $niveles5 as $nivel5) {
+						if ($nivel5->subfolder_n5_row_id > 0) {
+							$parentid = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $nivel3->subfolder_n3_row_id . "@" . $nivel4->subfolder_n4_row_id;
+							$icon = "fa fa-folder fa-1x";
+							$selected = false;
+							$opened = false;
+							$id = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $nivel3->subfolder_n3_row_id . "@" . $nivel4->subfolder_n4_row_id . "@" . $nivel5->subfolder_n5_row_id;
+							$arregloRetorno[] = array(
+								"id" => $id,
+								"parent" => $parentid,
+								"text" => $nivel3->subfolder_n3_name,
+								"state" => array("selected" => $selected, "opened" => $opened),
+								"icon" => $icon
+							);
+							//se consultan los archivos
+							$archivosNivel5 = $wpdb->get_results($queryArchivos."
+										WHERE folder_row_id=" . $_POST["id"] . " 
+										AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
+										AND subfolder_n2_row_id=" . $nivel2->subfolder_n2_row_id . "
+										AND subfolder_n3_row_id=" . $nivel3->subfolder_n3_row_id . "
+										AND subfolder_n4_row_id=" . $nivel3->subfolder_n4_row_id . "
+										AND subfolder_n5_row_id=" . $nivel3->subfolder_n5_row_id . "
+										".$orderBy);
+							foreach ((array) $archivosNivel5 as $archivoNivel5) {
+								$parentid = $id;
+								$icon = $archivoNivel4->mime_icon;
+								//$icon="fa fa-folder fa-1x";
+								$selected = false;
+								$opened = false;
+								$arregloRetorno[] = array(
+									"id" => $id = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id . "@" . $nivel3->subfolder_n3_row_id . "@" . $nivel4->subfolder_n4_row_id . '@' . $nivel5->subfolder_n4_row_id . '@' . $archivoNivel5->id,
+									"parent" => $parentid,
+									"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel3->url . '" title="Descargar" download="">' . $archivoNivel3->description . '</a>',
+									"state" => array("selected" => $selected, "opened" => $opened),
+									"icon" => $icon
+								);
+							}
+						}
+					}
+				}
 			}
-			$soloArchivosNV2++;
 		}
 	}
 	echo json_encode($arregloRetorno);
@@ -988,7 +1094,9 @@ function my_load_scripts()
 	wp_localize_script('my_js', 'ajax_var', array(
 		'url'    => admin_url('admin-ajax.php'),
 		'nonce'  => wp_create_nonce('my-ajax-nonce'),
-		'action' => 'event-arbol'
+		'action' => 'event-arbol',
+		
 	));
 }
+
 add_action('wp_enqueue_scripts', 'my_load_scripts');
