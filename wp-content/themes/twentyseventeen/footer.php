@@ -27,21 +27,21 @@
 						<a href="index.html"><img src="<?php bloginfo('template_directory') ?>/assets/images/logo-dark.webp" alt=""></a>
 					</div>
 					<div class="textwidget pb-30">
-						<p>Sedut perspiciatis unde omnis iste natus error sitlutem acc usantium doloremque denounce with illo inventore veritatis</p>
+						<!--p>Sedut perspiciatis unde omnis iste natus error sitlutem acc usantium doloremque denounce with illo inventore veritatis</p-->
 					</div>
 					<ul class="footer-social md-mb-30">
 						<li>
-							<a href="#" target="_blank"><span><i class="fa fa-facebook"></i></span></a>
+							<a href="https://m.facebook.com/miscarnes" target="_blank"><span><i class="fa fa-facebook"></i></span></a>
 						</li>
 						<li>
-							<a href="# " target="_blank"><span><i class="fa fa-twitter"></i></span></a>
+							<a href="https://twitter.com/MisCarnesP" target="_blank"><span><i class="fa fa-twitter"></i></span></a>
 						</li>
 
-						<li>
+						<!--li>
 							<a href="# " target="_blank"><span><i class="fa fa-pinterest-p"></i></span></a>
-						</li>
+						</li-->
 						<li>
-							<a href="# " target="_blank"><span><i class="fa fa-instagram"></i></span></a>
+							<a href="https:www.instagram.com/miscarnesparrilla" target="_blank"><span><i class="fa fa-instagram"></i></span></a>
 						</li>
 
 					</ul>
@@ -125,7 +125,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <!-- Bootstrap v4.4.1 js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/bootstrap.min.js"></script>
-<script src="<?php bloginfo('template_directory') ?>/assets/tree/jstree.min.js"></script>
+<!--script src="<?php bloginfo('template_directory') ?>/assets/tree/jstree.min.js"></script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.14/jstree.min.js"></script>
 <script>
 	$(function() {
 		$('[data-toggle="tooltip"]').tooltip();
@@ -137,7 +138,6 @@
 		if (carpeta > 0) {
 			arbol = carpeta;
 			$("#tituloCarpeta").empty();
-			console.log(titulo);
 			$("#tituloCarpeta").html(titulo);
 			$("#tablaDetalleCarpeta").empty();
 			$("#tablaDetalleCarpeta").append('<div id="' + arbol + '"></div>');
@@ -173,39 +173,10 @@
 			});
 			$('#' + arbol).on("select_node.jstree", function(e, data) {
 				//createNode(1, "last", arbol);
-				console.log(data.node.children.length);
+				//console.log("sas");
+				//console.log(data.node.children.length);
 				e.preventDefault();
 			});
-
-			function createNode(parent_node, position, arbol) {
-				//console.log("hola");
-				parent_node=1;
-				//return;
-				$.ajax({
-					url: ajax_var.url,
-					type: "post",
-					dataType: "json",
-					data: {
-						action: ajax_var.action,
-						nonce: ajax_var.nonce,
-						id: parent_node,
-						node: 'childNode'
-					},
-					success: function(data) {
-						//console.log(data);
-						//if (data.status == 'success') {
-							$.each(data.child, function(index, value) {
-								$("#" + arbol).jstree(true).delete_node(value.id);
-								$('#' + arbol).jstree('create_node', $('#' + parent_node), value, position, false, false);
-								$("#" + arbol).jstree("open_node", $('#' + parent_node));
-							});
-					//	}
-					},
-					error: function(data) {
-						//Command: toastr['error']('No es posible procesar la solicitud, por favor comunicarse con el administrador');
-					}
-				});
-			}
 		}
 	}
 </script>
