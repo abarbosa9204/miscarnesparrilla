@@ -38,56 +38,136 @@ class MarketingController extends Controller
         $searchValue = $this->request['search']['value'];
 
         $resulset = $wpdb->get_results("SELECT 
-                                        am_row_id
-                                        ,am_description
-                                        ,am_text_information
-                                        ,am_name_file 
-                                        ,am_url
-                                        ,folder_row_id 
-                                        ,folder_name 
-                                        ,folder_name_in_server
-                                        ,subfolder_n1_row_id
-                                        ,subfolder_n1_name
-                                        ,subfolder_n1_name_in_server
-                                        ,am_status
-                                        ,user_login_id_create
-                                        ,created_at 
-	                                    ,COALESCE(updated_at,'') as updated_at
+                                        *
         FROM vw_wpl_advertising_marketing where CONCAT(folder_name,subfolder_n1_name,am_description) like '%" . $searchValue . "%' order by " . ((($columnName == 'am_row_id') ? 'am_description' : $columnName) . ' ' . $columnSortOrder) . " limit " . $rows . ',' . $rowperpage, OBJECT);
 
         $resulset2 = $wpdb->get_results("SELECT 
-                                        am_row_id
-                                        ,am_description
-                                        ,am_text_information
-                                        ,am_name_file 
-                                        ,am_url
-                                        ,folder_row_id 
-                                        ,folder_name 
-                                        ,folder_name_in_server
-                                        ,subfolder_n1_row_id
-                                        ,subfolder_n1_name
-                                        ,subfolder_n1_name_in_server
-                                        ,user_login_id_create
-                                        ,created_at
-	                                    ,COALESCE(updated_at,'') as updated_at
+                                        *
         FROM vw_wpl_advertising_marketing where CONCAT(folder_name,subfolder_n1_name,am_description) like '%" . $searchValue . "%'order by " . ((($columnName == 'am_row_id') ? 'am_description' : $columnName) . ' ' . $columnSortOrder), OBJECT);
 
         $data = array();
         foreach ($resulset as $row) {
-            $jstree = [
-                'text' => $row->folder_name,
-                'children' => [
-                    [
-                        'text' => $row->subfolder_n1_name,
-                        'children' => [
-                            [
-                                'text' => $row->am_description,
-                                'type' => 'file',
-                            ],
-                        ]
-                    ],
-                ]
-            ];
+            $jstree = [];
+            //principal
+            if ($row->folder_row_id != null) {
+                $jstree[] = [
+                    "id"        =>  $row->folder_row_id . '@' . $row->folder_name_in_server,
+                    "parent"    =>  '#',
+                    "text"      =>  $row->folder_name,
+                    "icon"      => 'fa fa-folder',
+                    "type"      => 'folder',
+                    "a_attr"    => ["class" => 'not-icon'],
+                    ["selected" =>  true, "opened" => true]
+                ];
+                if ($row->folder_row_id == null) {
+                    $jstree[] = [
+                        "id"        => $row->folder_row_id . '@@' . $row->folder_name_in_server,
+                        "parent"    => $row->folder_row_id . '@' . $row->folder_name_in_server,
+                        "text"      => $row->am_description,
+                        "icon"      => $row->mime_icon,
+                        "type"      => 'file',
+                        "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                    ];
+                }
+            }
+            //nivel 1
+            if ($row->subfolder_n1_row_id != null) {
+                $jstree[] = [
+                    "id" => $row->subfolder_n1_row_id . '@' . $row->subfolder_n1_name_in_server,
+                    "parent"    => $row->folder_row_id . '@' . $row->folder_name_in_server,
+                    "text"      => $row->subfolder_n1_name,
+                    "icon"      => 'fa fa-folder',
+                    "type"      => 'folder',
+                    "a_attr"    => ["class" => 'not-icon'],
+                ];
+                if ($row->subfolder_n2_row_id == null) {
+                    $jstree[] = [
+                        "id"        => $row->subfolder_n1_row_id . '@@' . $row->subfolder_n1_name_in_server,
+                        "parent"    => $row->subfolder_n1_row_id . '@' . $row->subfolder_n1_name_in_server,
+                        "text"      => $row->am_description,
+                        "icon"      => $row->mime_icon,
+                        "type"      => 'file',
+                        "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                    ];
+                }
+            }
+            //nivel 2
+            if ($row->subfolder_n2_row_id != null) {
+                $jstree[] = [
+                    "id" => $row->subfolder_n2_row_id . '@' . $row->subfolder_n2_name_in_server,
+                    "parent" => $row->subfolder_n1_row_id . '@' . $row->subfolder_n1_name_in_server,
+                    "text" => $row->subfolder_n2_name,
+                    "icon"      => 'fa fa-folder',
+                    "type"      => 'folder',
+                    "a_attr"    => ["class" => 'not-icon'],
+
+                ];
+                if ($row->subfolder_n3_row_id == null) {
+                    $jstree[] = [
+                        "id"        => $row->subfolder_n2_row_id . '@@' . $row->subfolder_n2_name_in_server,
+                        "parent"    => $row->subfolder_n2_row_id . '@' . $row->subfolder_n2_name_in_server,
+                        "text"      => $row->am_description,
+                        "icon"      => $row->mime_icon,
+                        "type"      => 'file',
+                        "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                    ];
+                }
+            }
+
+            //nivel 3
+            if ($row->subfolder_n3_row_id != null) {
+                $jstree[] = [
+                    "id" => $row->subfolder_n3_row_id . '@' . $row->subfolder_n3_name_in_server,
+                    "parent" => $row->subfolder_n2_row_id . '@' . $row->subfolder_n2_name_in_server,
+                    "text" => $row->subfolder_n3_name,
+                    "icon"      => 'fa fa-folder',
+                    "type"      => 'folder',
+                    "a_attr"    => ["class" => 'not-icon'],
+
+                ];
+                if ($row->subfolder_n4_row_id == null) {
+                    $jstree[] = [
+                        "id"        => $row->subfolder_n3_row_id . '@@' . $row->subfolder_n3_name_in_server,
+                        "parent"    => $row->subfolder_n3_row_id . '@' . $row->subfolder_n3_name_in_server,
+                        "text"      => $row->am_description,
+                        "icon"      => $row->mime_icon,
+                        "type"      => 'file',
+                        "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                    ];
+                }
+            }
+            //nivel 4
+            if ($row->subfolder_n4_row_id != null) {
+                $jstree[] = [
+                    "id"        => $row->subfolder_n4_row_id . '@' . $row->subfolder_n4_name_in_server,
+                    "parent"    => $row->subfolder_n3_row_id . '@' . $row->subfolder_n3_name_in_server,
+                    "text"      => $row->subfolder_n4_name,
+                    "icon"      => 'fa fa-folder',
+                    "type"      => 'folder',
+                    "a_attr"    => ["class" => 'not-icon'],
+                ];
+                if ($row->subfolder_n5_row_id == null) {
+                    $jstree[] = [
+                        "id"        => $row->subfolder_n4_row_id . '@@' . $row->subfolder_n4_name_in_server,
+                        "parent"    => $row->subfolder_n4_row_id . '@' . $row->subfolder_n4_name_in_server,
+                        "text"      => $row->am_description,
+                        "icon"      => $row->mime_icon,
+                        "type"      => 'file',
+                        "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                    ];
+                }
+            }
+            //nivel 5
+            if ($row->subfolder_n5_row_id != null) {
+                $jstree[] = [
+                    "id" => $row->subfolder_n5_row_id . '@' . $row->subfolder_n5_name_in_server,
+                    "parent" => $row->subfolder_n4_row_id . '@' . $row->subfolder_n4_name_in_server,
+                    "text" => $row->subfolder_n5_name,
+                    "icon"      => $row->mime_icon,
+                    "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                    "type" => 'file',
+                ];
+            }
             $data[] = array(
                 'am_row_id' => $row->am_row_id,
                 'folder_name' => $row->folder_name,
@@ -110,7 +190,8 @@ class MarketingController extends Controller
             'draw' => intval($draw),
             'recordsTotal' => count($resulset2),
             'recordsFiltered' => count($resulset2),
-            'data' => $data
+            'data' => $data,
+            'jstree' => $jstree
         );
 
         return $response;
@@ -322,6 +403,7 @@ class MarketingController extends Controller
                         $update = $wpdb->update(
                             'wpl_advertising_marketing',
                             [
+                                'mime_row_id'           =>  $row_type_id->mime_row_id,
                                 'am_text_information'   =>  $data['text-file-description'],
                                 'am_name_file'          =>  $folders_upload->subfolder_n1_name_in_server . '_' . $fileName,
                                 'am_url'                =>  get_template_directory_uri() . '/template-parts/uploads/files/' . $folders_upload->folder_name_in_server . '/' . $folders_upload->subfolder_n1_name_in_server . '_' . $fileName,
