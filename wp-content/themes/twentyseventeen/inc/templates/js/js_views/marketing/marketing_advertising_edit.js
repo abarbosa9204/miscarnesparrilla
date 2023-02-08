@@ -10,8 +10,7 @@ function showModalEditFile(id) {
             function: 'preloadDataFileMarketingEdit',
             param: id
         },
-        success: function (data) {
-            console.log(data.data.am_status);
+        success: function (data) {            
             if (data.status == 'success') {
                 $('#editFileModal').modal('show');
                 $('#id-file-edit').val(data.data.id);                
