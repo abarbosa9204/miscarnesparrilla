@@ -160,7 +160,19 @@
                                         </div>
                                     </legend>
                                     <div class="control-group">
-                                        <div class="row">
+                                    <input type="hidden" value="" id="id-file-edit" name="id-file-edit">
+                                        <div class="d-inline-flex mt-2">
+                                            <div class="mr-2">
+                                                <label for="file-upload-status">Estado </label>
+                                            </div>
+                                            <div>
+                                                <select name="file-upload-status" class="form-control form-control-sm" id="file-upload-status">
+                                                    <option value="1">Activo</option>
+                                                    <option value="0">Inactivo</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                    <div class="row">
                                             <div class="col-xl-12 col-md-12">
                                                 <div class="mb-2">
                                                     <label for="file-upload-edit" class="col-form-label text-dark m-0">Cargar archivo<span class="required">*</span></label>

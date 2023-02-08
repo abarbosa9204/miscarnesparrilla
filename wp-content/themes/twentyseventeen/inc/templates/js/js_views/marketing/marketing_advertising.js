@@ -31,13 +31,13 @@ $(document).ready(function () {
                     'core': {
                         'themes': {
                             //'name': 'proton',
-                            'responsive': true,                            
+                            'responsive': true,
                         },
                         'data': index.path_json
                     },
                     'types': {
-                        'default' : {
-                            'icon' : 'fa fa-folder text-warning'
+                        'default': {
+                            'icon': 'fa fa-folder text-warning'
                         },
                         "file": {
                             "icon": "fa fa-file text-warning"
