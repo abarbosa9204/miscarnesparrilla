@@ -209,6 +209,7 @@
 				break;
 		}
 	}
+	
 </script>
 <!-- Menu js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/rsmenu-main.js"></script>
