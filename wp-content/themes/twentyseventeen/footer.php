@@ -182,9 +182,18 @@
 	function downloadFile(url,status){
 		if(status===true){
 			$('.download-file-jstree').attr('href', url);
-			window.location.href = $('.download-file-jstree').attr('href');
-		}
+			let extFile=url.substr(-4);
+			extFile=extFile.toLowerCase();
+			if(extFile==".pdf"){
+						window.open(url);
+					}
+					else{
+						window.location.href = $('.download-file-jstree').attr('href');
+					}
+				}
+			
 	}
+	
 </script>
 <!-- Menu js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/rsmenu-main.js"></script>
