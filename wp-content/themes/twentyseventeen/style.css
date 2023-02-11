@@ -4267,6 +4267,7 @@ body .search-modal .close:hover {
   right: 3%;
   max-width: 650px;
   transform: translateY(20%);
+  padding-bottom: 76px;
 }
 .rs-banner.style9 .banner-animation .bnr-animate {
   position: absolute;
@@ -9404,7 +9405,7 @@ body .search-modal .close:hover {
   background-position: center;
 }
 .rs-footer .footer-top {
-  padding: 92px 0 65px;
+  padding: 40px 0 0px;
 }
 .rs-footer .footer-top .footer-logo img {
   height: 40px;
@@ -10321,4 +10322,7 @@ a.readon .fa.fa-check-circle {
 .btn-danger,
 .bg-danger {
   background-color: #a5151d !important;
+}
+.title.wow.fadeinup {
+  text-shadow: 0 0 0.2em #000, 0 0 0.2em #000, 0 0 0.2em #000;
 }

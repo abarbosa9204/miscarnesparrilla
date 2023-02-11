@@ -55,6 +55,8 @@
     <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory') ?>/assets/css/responsive.css">
     <!-- jstree -->
     <link rel="stylesheet" href="<?php bloginfo('template_directory') ?>/assets/jstree/vendor/vakata/jstree/dist/themes/default/style.min.css" />
+    
+    <link href="<?php bloginfo('template_directory') ?>/assets/hover/hover.css" rel="stylesheet" media="all">		
     <!-- style css -->
     <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory') ?>/style.css"> <!-- This stylesheet dynamically changed from style.less -->
 </head>
@@ -333,7 +335,7 @@
                     <div class="col-lg-6">
                         <div class="banner-content">
                             <span class="sub-text wow fadeinup2"></span>
-                            <h1 class="title wow fadeinup">Bienvenido a su canal oficial institucional</h1>
+                            <h1 class="title wow fadeinup hvr-float-shadow">Bienvenido a su canal oficial institucional</h1>
                             <p class="desc wow fadeinup">
 
                             </p>
@@ -348,13 +350,13 @@
                                     $text = "Ingresar";
                                 }
                                 ?>
-                                <a class="readon more-about" data-toggle="modal" href="<?= $href ?>"><?= $text ?></a>
+                                <a class="readon more-about hvr-bob" href="<?= $href ?>"><?= $text ?></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="images-part wow fadeInRight">
-                            <img src="<?php bloginfo('template_directory') ?>/assets/images/banner/style4/LogoMCP.png" alt="">
+                            <img src="<?php bloginfo('template_directory') ?>/assets/images/banner/style4/LogoMCP.png" alt="Logo miscarnesparrilla" style="width: 100%; height: auto;">
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,7 @@
 
 # ignore db
 wp-config.php
+wp-content/themes/twentyseventeen/template-parts/uploads/files/*
 
 # ignore these plugins
 #wp-content/plugins/hello.php

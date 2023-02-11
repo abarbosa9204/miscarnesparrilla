@@ -417,7 +417,8 @@ class QualityController extends Controller
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'application/vnd.ms-excel.sheet.macroEnabled.12',
-            'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'video/mp4'
         ];
         if (in_array($type, $arr_img_ext)) {
 
@@ -880,7 +881,8 @@ class QualityController extends Controller
                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                 'application/vnd.ms-excel.sheet.macroEnabled.12',
-                'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'video/mp4'
             ];
             if (in_array($type, $arr_img_ext)) {
                 $old_url = $path_origin . $dataFile->folder_name_in_server . '/' . $dataFile->qu_name_file;

@@ -24,9 +24,9 @@
 			<div class="row">
 				<div class="col-lg-3 col-md-12 col-sm-12 footer-widget">
 					<div class="footer-logo mb-30">
-						<a href="index.html"><img src="<?php bloginfo('template_directory') ?>/assets/images/logo-dark.webp" alt=""></a>
+						<a href="index.html"><img src="<?php bloginfo('template_directory') ?>/assets/images/logo-dark.webp" alt="" width="150px" style="height:auto"></a>
 					</div>
-					<div class="textwidget pb-30">
+					<div class="textwidget">
 						<!--p>Sedut perspiciatis unde omnis iste natus error sitlutem acc usantium doloremque denounce with illo inventore veritatis</p-->
 					</div>
 					<ul class="footer-social md-mb-30">
@@ -100,6 +100,7 @@
 			<h4 class="box-title item-titulo text-muted"></h4>
 		</div>
 		<div class="modal-body">
+			<a href="#" class="download-file-jstree" target="_blank" style="display: none;" download></a>
 			<div class="row" style="padding: 2px">
 				<div class="col-sm-12" id="tablaDetalleCarpeta">
 				</div>
@@ -175,6 +176,13 @@
 				//console.log(data.node.children.length);
 				e.preventDefault();
 			});
+		}
+	}
+
+	function downloadFile(url,status){
+		if(status===true){
+			$('.download-file-jstree').attr('href', url);
+			window.location.href = $('.download-file-jstree').attr('href');
 		}
 	}
 </script>
