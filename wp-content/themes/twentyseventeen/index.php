@@ -45,7 +45,7 @@ if (is_user_logged_in()) {
 	?>
 		<div class="col-lg-2">
 			<div class="btn-part">
-				<a class="readon more-calidad" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(<?=$folder->folder_row_id?>,'<?=$folder->folder_name?>')"><?=$folder->folder_name?></a>
+				<a class="readon more-calidad" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(<?=$folder->folder_row_id?>,'<?=$folder->folder_name?>')"><?=$folder->folder_name?><i class="fa fa-check-circle" aria-hidden="true"></i></a>				
 			</div>
 			<br>
 		</div>

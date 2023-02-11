@@ -92,8 +92,8 @@
 <!-- Modal Arbol Start-->
 <div class="modal fade bd-example-modal-xl" id="modal_detalle" tabindex="-1" role="dialog" aria-labelledby="modal_detalle" data-backdrop="static">
 	<div class="modal-content modal-dialog modal-xl" role="document" style="border-radius: 5px;">
-		<div class="modal-header box box-primary">
-			<h5 class="modal-title" id="tituloCarpeta"></h5>
+		<div class="modal-header box bg-danger">
+			<h5 class="modal-title text-white" id="tituloCarpeta"></h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
@@ -109,9 +109,8 @@
 			<div class="col-lg-12">
 				<div class="row">
 					<div class="col-sm-6 col-sm-offset-6">
-						<button type="reset" class="btn btn-primary btn-sm btn-block" data-dismiss='modal'>Cerrar</button>
+						<button type="reset" class="btn btn-danger btn-sm btn-block twentyseventeen-font-size-theme-15-5" data-dismiss='modal' style="width: 100px;">Cerrar</button>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -126,11 +125,10 @@
 <!-- Bootstrap v4.4.1 js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/bootstrap.min.js"></script>
 <!--script src="<?php bloginfo('template_directory') ?>/assets/tree/jstree.min.js"></script-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.14/jstree.min.js"></script>
+<script src="<?php bloginfo('template_directory') ?>/assets/jstree/vendor/vakata/jstree/dist/jstree.min.js"></script>
 <script>
 	$(function() {
 		$('[data-toggle="tooltip"]').tooltip();
-
 	});
 
 
