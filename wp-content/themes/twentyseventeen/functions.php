@@ -912,7 +912,7 @@ function my_event_arbol_cb()
 					"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel1->url . '" title="Descargar" download="">' . $archivoNivel1->description . '</a>',
 					"state" => array("selected" => $selected, "opened" => $opened),
 					"icon" => $icon,
-					"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel1->url . "',true)", "class" => 'icon-' . str_replace('.', '', $archivoNivel1->mime_extension)]
+					"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel1->url . "',true,'" . $archivoNivel1->mime_extension . "')", "class" => 'icon-' . str_replace('.', '', $archivoNivel1->mime_extension)]
 				);
 			}
 		}
@@ -932,7 +932,7 @@ function my_event_arbol_cb()
 					"text" => $nivel2->subfolder_n2_name,
 					"state" => array("selected" => $selected, "opened" => $opened),
 					"icon" => $icon,
-					"a_attr"  => ["class" => "not-icon"],					
+					"a_attr"  => ["class" => "not-icon"],
 				);
 				//se consultan los archivos
 				$archivosNivel2 = $wpdb->get_results($queryArchivos . "
@@ -952,7 +952,7 @@ function my_event_arbol_cb()
 						"parent" => $parentid,
 						"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel2->url . '" title="Descargar" download="">' . $archivoNivel2->description . '</a>',
 						"state" => array("selected" => $selected, "opened" => $opened),
-						"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel2->url . "',true)", "class" => 'icon-' . str_replace('.', '', $archivoNivel2->mime_extension)],
+						"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel2->url . "',true,'" . $archivoNivel2->mime_extension . "')", "class" => 'icon-' . str_replace('.', '', $archivoNivel2->mime_extension)],
 						"icon" => $icon
 					);
 				}
@@ -996,7 +996,7 @@ function my_event_arbol_cb()
 							"parent" => $parentid,
 							"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel3->url . '" title="Descargar" download="">' . $archivoNivel3->description . '</a>',
 							"state" => array("selected" => $selected, "opened" => $opened),
-							"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel3->url . "',true)", "class" => 'icon-' . str_replace('.', '', $archivoNivel3->mime_extension)],
+							"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel3->url . "',true,'" . $archivoNivel3->mime_extension . "')", "class" => 'icon-' . str_replace('.', '', $archivoNivel3->mime_extension)],
 							"icon" => $icon
 						);
 					}
@@ -1040,7 +1040,7 @@ function my_event_arbol_cb()
 								"parent" => $parentid,
 								"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel4->url . '" title="Descargar" download="">' . $archivoNivel4->description . '</a>',
 								"state" => array("selected" => $selected, "opened" => $opened),
-								"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel4->url . "',true)", "class" => 'icon-' . str_replace('.', '', $archivoNivel4->mime_extension)],
+								"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel4->url . "',true,'" . $archivoNivel4->mime_extension . "')", "class" => 'icon-' . str_replace('.', '', $archivoNivel4->mime_extension)],
 								"icon" => $icon
 							);
 						}
@@ -1086,7 +1086,7 @@ function my_event_arbol_cb()
 									"parent" => $parentid,
 									"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel5->url . '" title="Descargar" download="">' . $archivoNivel5->description . '</a>',
 									"state" => array("selected" => $selected, "opened" => $opened),
-									"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel5->url . "',true)", "class" => 'icon-' . str_replace('.', '', $archivoNivel5->mime_extension)],
+									"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel5->url . "',true,'" . $archivoNivel5->mime_extension . "')", "class" => 'icon-' . str_replace('.', '', $archivoNivel5->mime_extension)],
 									"icon" => $icon
 								);
 							}

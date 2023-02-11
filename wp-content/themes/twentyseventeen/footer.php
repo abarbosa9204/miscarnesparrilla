@@ -46,8 +46,8 @@
 
 					</ul>
 				</div>
-				
-				
+
+
 			</div>
 		</div>
 	</div>
@@ -133,7 +133,7 @@
 	});
 
 
-	function detalle(carpeta,titulo) {
+	function detalle(carpeta, titulo) {
 		if (carpeta > 0) {
 			arbol = carpeta;
 			$("#tituloCarpeta").empty();
@@ -179,19 +179,35 @@
 		}
 	}
 
-	function downloadFile(url,status){
-		if(status===true){
-			$('.download-file-jstree').attr('href', url);
-			let extFile=url.substr(-4);
-			extFile=extFile.toLowerCase();
-			if(extFile==".pdf"){
-						window.open(url);
+	function downloadFile(url, status, ext) {
+		if (status === true) {
+			switch (ext) {
+				case '.pdf':
+					window.open(url);
+					break;
+				case '.php':
+					if ($('#modal_detalle').is(':visible')) {
+						$('#modal_detalle').modal('hide').data('bs.modal', null);
 					}
-					else{
-						window.location.href = $('.download-file-jstree').attr('href');
-					}
-				}
-			
+					$('#iframe-video-view').modal('show')
+					let html = '<iframe class="responsive-video" src="' + url + '" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" webkitallowfullscreen="true" mozallowfullscreen="true" oallowfullscreen="true" msallowfullscreen="true"></iframe>';
+					$('.video-iframe').html(html);
+					break;
+				default:
+					$('.download-file-jstree').attr('href', url);
+					window.location.href = $('.download-file-jstree').attr('href');
+					break;
+			}
+		}
+	}
+
+	function resetIframe(action) {
+		switch (action) {
+			case 'reset':
+				$('#iframe-video-view').modal('hide').data('bs.modal', null);
+				$('.video-iframe').html('');
+				break;
+		}
 	}
 	
 </script>
