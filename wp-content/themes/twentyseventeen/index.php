@@ -80,6 +80,10 @@ if (is_user_logged_in()) {
 			</div>
 		</div>
 	</div>
+	<?php
+	$oculta=0;
+	if($oculta=="1"){
+	?>
 	<div class="rs-services style8 pt-120 pb-120 md-pt-80 md-pb-80">
 		<div class="container">
 			<div class="row align-items-center">
@@ -150,6 +154,7 @@ if (is_user_logged_in()) {
 	</div>
 
 <?php
+	}
 }
 ?>
 <!-- Services Section End -->
