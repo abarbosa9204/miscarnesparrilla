@@ -854,23 +854,24 @@ function my_event_arbol_cb()
 	// Check for nonce security
 	$nonce = sanitize_text_field($_POST['nonce']);
 	global $wpdb;
-	$queryArchivos="";
-	$orderBy="";
-	$carpeta="";
-	switch($_POST["id"]){
-		case "1": $queryArchivos="SELECT am_id AS id,am_description AS description,
-									t.mime_icon,t.mime_icon_color,am_url AS ulr FROM wpl_advertising_markenting q
+	$queryArchivos = "";
+	$orderBy = "";
+	$carpeta = "";
+	switch ($_POST["id"]) {
+		case "1":
+			$queryArchivos = "SELECT am_id AS id,am_description AS description,
+									t.mime_icon,t.mime_icon_color,t.mime_extension,am_url AS ulr FROM wpl_advertising_markenting q
 									INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
-				  $orderBy=" AND am_status=1  ORDER BY am_description";
-				  $carpeta="MERCADEO";				
-				  break;
-				
-		case "2":$queryArchivos="SELECT qu_id AS id,qu_description AS description,
-								t.mime_icon,t.mime_icon_color,qu_url FROM wpl_quality q
+			$orderBy = " AND am_status=1  ORDER BY am_description";
+			$carpeta = "MERCADEO";
+			break;
+		case "2":
+			$queryArchivos = "SELECT qu_id AS id,qu_description AS description,
+								t.mime_icon,t.mime_icon_color,t.mime_extension,qu_url as url FROM wpl_quality q
 								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
-				$orderBy=" AND qu_status=1  ORDER BY qu_description";
-				$carpeta="CALIDAD";					
-				break;						
+			$orderBy = " AND qu_status=1  ORDER BY qu_description";
+			$carpeta = "CALIDAD";
+			break;
 	}
 	$niveles1 = $wpdb->get_results("
 		SELECT * FROM (SELECT DISTINCT  subfolder_n1_row_id,subfolder_n1_name
@@ -888,28 +889,30 @@ function my_event_arbol_cb()
 				"parent" => $parentid,
 				"text" => $nivel1->subfolder_n1_name,
 				"state" => array("selected" => $selected, "opened" => $opened),
-				"icon" => $icon
+				"icon" => $icon,
+				"a_attr"  => ["class" => "not-icon"]
 			);
 			//se consultan los archivos
-			$archivosNivel1 = $wpdb->get_results($queryArchivos."
+			$archivosNivel1 = $wpdb->get_results($queryArchivos . "
 													WHERE folder_row_id=" . $_POST["id"] . " 
 													AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
 													AND subfolder_n2_row_id IS NULL
 													AND subfolder_n3_row_id IS NULL
 													AND subfolder_n4_row_id IS NULL
 													AND subfolder_n5_row_id IS NULL
-													 ".$orderBy);
+													 " . $orderBy);
 			foreach ((array) $archivosNivel1 as $archivoNivel1) {
 				$parentid = $nivel1->subfolder_n1_row_id;
 				$icon = $archivoNivel1->mime_icon;
 				$selected = false;
 				$opened = false;
 				$arregloRetorno[] = array(
-					"id" => $archivoNivel1->id.$carpeta,
+					"id" => $archivoNivel1->id . $carpeta,
 					"parent" => $parentid,
 					"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel1->url . '" title="Descargar" download="">' . $archivoNivel1->description . '</a>',
 					"state" => array("selected" => $selected, "opened" => $opened),
-					"icon" => $icon
+					"icon" => $icon,
+					"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel1->url . "',true)", "class" => 'icon-' . str_replace('.', '', $archivoNivel1->mime_extension)]
 				);
 			}
 		}
@@ -919,7 +922,7 @@ function my_event_arbol_cb()
 		foreach ((array) $niveles2 as $nivel2) {
 			if ($nivel2->subfolder_n2_row_id > 0) {
 				$parentid = $nivel1->subfolder_n1_row_id;
-				$icon = "fa fa-folder fa-1x";
+				$icon = "fa fa-folder fa-1x icon-folder";
 				$selected = false;
 				$opened = false;
 				$id = $nivel1->subfolder_n1_row_id . "@" . $nivel2->subfolder_n2_row_id;
@@ -928,26 +931,28 @@ function my_event_arbol_cb()
 					"parent" => $parentid,
 					"text" => $nivel2->subfolder_n2_name,
 					"state" => array("selected" => $selected, "opened" => $opened),
-					"icon" => $icon
+					"icon" => $icon,
+					"a_attr"  => ["class" => "not-icon"],					
 				);
 				//se consultan los archivos
-				$archivosNivel2 = $wpdb->get_results($queryArchivos."
+				$archivosNivel2 = $wpdb->get_results($queryArchivos . "
 						WHERE folder_row_id=" . $_POST["id"] . " 
 						AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
 						AND subfolder_n2_row_id=" . $nivel2->subfolder_n2_row_id . "
 						AND subfolder_n3_row_id IS NULL
 						AND subfolder_n4_row_id IS NULL
-						AND subfolder_n5_row_id IS NULL ".$orderBy);
+						AND subfolder_n5_row_id IS NULL " . $orderBy);
 				foreach ((array) $archivosNivel2 as $archivoNivel2) {
 					$parentid = $id;
 					$icon = $archivoNivel2->mime_icon;
 					$selected = false;
 					$opened = false;
 					$arregloRetorno[] = array(
-						"id" => $archivoNivel2->id.$carpeta,
+						"id" => $archivoNivel2->id . $carpeta,
 						"parent" => $parentid,
 						"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel2->url . '" title="Descargar" download="">' . $archivoNivel2->description . '</a>',
 						"state" => array("selected" => $selected, "opened" => $opened),
+						"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel2->url . "',true)", "class" => 'icon-' . str_replace('.', '', $archivoNivel2->mime_extension)],
 						"icon" => $icon
 					);
 				}
@@ -969,16 +974,17 @@ function my_event_arbol_cb()
 						"parent" => $parentid,
 						"text" => $nivel3->subfolder_n3_name,
 						"state" => array("selected" => $selected, "opened" => $opened),
-						"icon" => $icon
+						"icon" => $icon,
+						"a_attr"  => ["class" => "not-icon"]
 					);
 					//se consultan los archivos
-					$archivosNivel3 = $wpdb->get_results($queryArchivos."
+					$archivosNivel3 = $wpdb->get_results($queryArchivos . "
 										WHERE folder_row_id=" . $_POST["id"] . " 
 										AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
 										AND subfolder_n2_row_id=" . $nivel2->subfolder_n2_row_id . "
 										AND subfolder_n3_row_id=" . $nivel3->subfolder_n3_row_id . "
 										AND subfolder_n4_row_id IS NULL
-										AND subfolder_n5_row_id IS NULL ".$orderBy);
+										AND subfolder_n5_row_id IS NULL " . $orderBy);
 					foreach ((array) $archivosNivel3 as $archivoNivel3) {
 						$parentid = $id;
 						$icon = $archivoNivel3->mime_icon;
@@ -986,10 +992,11 @@ function my_event_arbol_cb()
 						$selected = false;
 						$opened = false;
 						$arregloRetorno[] = array(
-							"id" => $archivoNivel3->id.$carpeta,
+							"id" => $archivoNivel3->id . $carpeta,
 							"parent" => $parentid,
 							"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel3->url . '" title="Descargar" download="">' . $archivoNivel3->description . '</a>',
 							"state" => array("selected" => $selected, "opened" => $opened),
+							"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel3->url . "',true)", "class" => 'icon-' . str_replace('.', '', $archivoNivel3->mime_extension)],
 							"icon" => $icon
 						);
 					}
@@ -1011,16 +1018,17 @@ function my_event_arbol_cb()
 							"parent" => $parentid,
 							"text" => $nivel4->subfolder_n4_name,
 							"state" => array("selected" => $selected, "opened" => $opened),
-							"icon" => $icon
+							"icon" => $icon,
+							"a_attr"  => ["class" => "not-icon"]
 						);
 						//se consultan los archivos
-						$archivosNivel4 = $wpdb->get_results($queryArchivos."
+						$archivosNivel4 = $wpdb->get_results($queryArchivos . "
 										WHERE folder_row_id=" . $_POST["id"] . " 
 										AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
 										AND subfolder_n2_row_id=" . $nivel2->subfolder_n2_row_id . "
 										AND subfolder_n3_row_id=" . $nivel3->subfolder_n3_row_id . "
 										AND subfolder_n4_row_id=" . $nivel3->subfolder_n4_row_id . "
-										AND subfolder_n5_row_id IS NULL ".$orderBy);
+										AND subfolder_n5_row_id IS NULL " . $orderBy);
 						foreach ((array) $archivosNivel4 as $archivoNivel4) {
 							$parentid = $id;
 							$icon = $archivoNivel4->mime_icon;
@@ -1028,10 +1036,11 @@ function my_event_arbol_cb()
 							$selected = false;
 							$opened = false;
 							$arregloRetorno[] = array(
-								"id" => $archivoNivel4->id.$carpeta,
+								"id" => $archivoNivel4->id . $carpeta,
 								"parent" => $parentid,
 								"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel4->url . '" title="Descargar" download="">' . $archivoNivel4->description . '</a>',
 								"state" => array("selected" => $selected, "opened" => $opened),
+								"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel4->url . "',true)", "class" => 'icon-' . str_replace('.', '', $archivoNivel4->mime_extension)],
 								"icon" => $icon
 							);
 						}
@@ -1054,17 +1063,18 @@ function my_event_arbol_cb()
 								"parent" => $parentid,
 								"text" => $nivel3->subfolder_n3_name,
 								"state" => array("selected" => $selected, "opened" => $opened),
-								"icon" => $icon
+								"icon" => $icon,
+								"a_attr"  => ["class" => "not-icon"]
 							);
 							//se consultan los archivos
-							$archivosNivel5 = $wpdb->get_results($queryArchivos."
+							$archivosNivel5 = $wpdb->get_results($queryArchivos . "
 										WHERE folder_row_id=" . $_POST["id"] . " 
 										AND subfolder_n1_row_id=" . $nivel1->subfolder_n1_row_id . " 
 										AND subfolder_n2_row_id=" . $nivel2->subfolder_n2_row_id . "
 										AND subfolder_n3_row_id=" . $nivel3->subfolder_n3_row_id . "
 										AND subfolder_n4_row_id=" . $nivel3->subfolder_n4_row_id . "
 										AND subfolder_n5_row_id=" . $nivel3->subfolder_n5_row_id . "
-										".$orderBy);
+										" . $orderBy);
 							foreach ((array) $archivosNivel5 as $archivoNivel5) {
 								$parentid = $id;
 								$icon = $archivoNivel4->mime_icon;
@@ -1072,10 +1082,11 @@ function my_event_arbol_cb()
 								$selected = false;
 								$opened = false;
 								$arregloRetorno[] = array(
-									"id" =>$archivoNivel5->id.$carpeta,
+									"id" => $archivoNivel5->id . $carpeta,
 									"parent" => $parentid,
-									"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel3->url . '" title="Descargar" download="">' . $archivoNivel3->description . '</a>',
+									"text" => '<a class="me-2" target="_blank" href="' . $archivoNivel5->url . '" title="Descargar" download="">' . $archivoNivel5->description . '</a>',
 									"state" => array("selected" => $selected, "opened" => $opened),
+									"a_attr"  => ["onclick" => "downloadFile('" . $archivoNivel5->url . "',true)", "class" => 'icon-' . str_replace('.', '', $archivoNivel5->mime_extension)],
 									"icon" => $icon
 								);
 							}
@@ -1098,7 +1109,7 @@ function my_load_scripts()
 		'url'    => admin_url('admin-ajax.php'),
 		'nonce'  => wp_create_nonce('my-ajax-nonce'),
 		'action' => 'event-arbol',
-		
+
 	));
 }
 

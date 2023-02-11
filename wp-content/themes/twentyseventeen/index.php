@@ -45,7 +45,7 @@ if (is_user_logged_in()) {
 	?>
 		<div class="col-lg-2">
 			<div class="btn-part">
-				<a class="readon more-calidad" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(<?=$folder->folder_row_id?>,'<?=$folder->folder_name?>')"><?=$folder->folder_name?><i class="fa fa-check-circle" aria-hidden="true"></i></a>				
+				<a class="readon more-calidad hvr-bob" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(<?=$folder->folder_row_id?>,'<?=$folder->folder_name?>')"><?=$folder->folder_name?><i class="fa fa-check-circle" aria-hidden="true"></i></a>				
 			</div>
 			<br>
 		</div>
@@ -89,7 +89,7 @@ if (is_user_logged_in()) {
 							<div class="text-right">
 								<h6 class="p-0 m-0">Publicado el <?= date("Y-m-d H:i:s a", strtotime($recent['post_modified'])); ?></h6>
 							</div>
-							<div class="services-img">
+							<div class="services-img hvr-bounce-out">
 								<?php
 								$init = strpos($recent['post_content'], '<figure');
 								if ($init > 0) {
