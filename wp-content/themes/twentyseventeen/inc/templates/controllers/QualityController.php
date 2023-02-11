@@ -39,16 +39,18 @@ class QualityController extends Controller
 
         $resulset = $wpdb->get_results("SELECT 
         *
-        FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%' order by " . ((($columnName == 'qu_row_id') ? 'qu_description' : $columnName) . ' ' . $columnSortOrder) . " limit " . $rows . ',' . $rowperpage, OBJECT);
+        FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%' order by " . ((($columnName == 'qu_row_id') ? 'qu_row_id' : $columnName) . ' ' . $columnSortOrder) . " limit " . $rows . ',' . $rowperpage, OBJECT);
 
         $resulset2 = $wpdb->get_results("SELECT 
                                         *
-        FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%'order by " . ((($columnName == 'qu_row_id') ? 'qu_description' : $columnName) . ' ' . $columnSortOrder), OBJECT);
+        FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%'order by " . ((($columnName == 'qu_row_id') ? 'qu_row_id' : $columnName) . ' ' . $columnSortOrder), OBJECT);
 
         $data = array();
         $jstree = [];
+        $action='';
         foreach ($resulset as $row) {
             $jstree = [];
+            $action='';
             //principal
             if ($row->folder_row_id != null) {
                 $jstree[] = [
@@ -169,6 +171,13 @@ class QualityController extends Controller
                     "type" => 'file',
                 ];
             }
+
+            if (!in_array($row->mime_extension, ['.html', '.php'])) {
+                $action = '<div class="col-md-12 d-flex justify-content-center" style="min-width: 100%;max-width: 100%;">
+                <a class="me-2" href="' . $row->qu_url . '" title="Descargar" download=""><i class="ti-cloud-down" style="color:#063970;font-size:22px;cursor:pointer"></i></a>
+                <a class="ms-2" href="javascript:void(0);" onclick="showModalEditFile(' . "'" . $this->encryption($row->qu_row_id) . "'" . ')" title="Editar"><i class="ti-pencil-alt" style="color:#B61020;font-size:22px;cursor:pointer"></i></a>
+                </div>';
+            }
             $data[] = array(
                 'qu_row_id' => $row->qu_row_id,
                 'folder_name' => $row->folder_name,
@@ -181,10 +190,7 @@ class QualityController extends Controller
                 'created_at' => date('Y-m-d h:i A', strtotime($row->created_at)),
                 'updated_at' => ($row->updated_at == '' ? '-' : date('Y-m-d h:i A', strtotime($row->updated_at))),
                 'user_login_id_create' => $row->user_login_id_create,
-                'accion' => '<div class="col-md-12 d-flex justify-content-center" style="min-width: 100%;max-width: 100%;">
-                    <a class="me-2" href="' . $row->qu_url . '" title="Descargar" download=""><i class="ti-cloud-down" style="color:#063970;font-size:22px;cursor:pointer"></i></a>
-                    <a class="ms-2" href="javascript:void(0);" onclick="showModalEditFile(' . "'" . $this->encryption($row->qu_row_id) . "'" . ')" title="Editar"><i class="ti-pencil-alt" style="color:#B61020;font-size:22px;cursor:pointer"></i></a>
-                    </div>'
+                'accion' => $action
             );
         }
         $response = array(
@@ -418,7 +424,8 @@ class QualityController extends Controller
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'application/vnd.ms-excel.sheet.macroEnabled.12',
             'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-            'video/mp4'
+            'video/mp4',
+            'application/zip'
         ];
         if (in_array($type, $arr_img_ext)) {
 
@@ -882,7 +889,8 @@ class QualityController extends Controller
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                 'application/vnd.ms-excel.sheet.macroEnabled.12',
                 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-                'video/mp4'
+                'video/mp4',
+                'application/zip'
             ];
             if (in_array($type, $arr_img_ext)) {
                 $old_url = $path_origin . $dataFile->folder_name_in_server . '/' . $dataFile->qu_name_file;

@@ -39,14 +39,16 @@ class MarketingController extends Controller
 
         $resulset = $wpdb->get_results("SELECT 
                                         *
-        FROM vw_wpl_advertising_marketing where CONCAT(folder_name,subfolder_n1_name,am_description) like '%" . $searchValue . "%' order by " . ((($columnName == 'am_row_id') ? 'am_description' : $columnName) . ' ' . $columnSortOrder) . " limit " . $rows . ',' . $rowperpage, OBJECT);
+        FROM vw_wpl_advertising_marketing where CONCAT(folder_name,subfolder_n1_name,am_description) like '%" . $searchValue . "%' order by " . ((($columnName == 'am_row_id') ? 'am_row_id' : $columnName) . ' ' . $columnSortOrder) . " limit " . $rows . ',' . $rowperpage, OBJECT);
 
         $resulset2 = $wpdb->get_results("SELECT 
                                         *
-        FROM vw_wpl_advertising_marketing where CONCAT(folder_name,subfolder_n1_name,am_description) like '%" . $searchValue . "%'order by " . ((($columnName == 'am_row_id') ? 'am_description' : $columnName) . ' ' . $columnSortOrder), OBJECT);
+        FROM vw_wpl_advertising_marketing where CONCAT(folder_name,subfolder_n1_name,am_description) like '%" . $searchValue . "%'order by " . ((($columnName == 'am_row_id') ? 'am_row_id' : $columnName) . ' ' . $columnSortOrder), OBJECT);
 
         $data = array();
+        $action = '';
         foreach ($resulset as $row) {
+            $action = '';
             $jstree = [];
             //principal
             if ($row->folder_row_id != null) {
@@ -168,6 +170,14 @@ class MarketingController extends Controller
                     "type" => 'file',
                 ];
             }
+
+            if (!in_array($row->mime_extension, ['.html', '.php'])) {
+                $action = '<div class="col-md-12 d-flex justify-content-center" style="min-width: 100%;max-width: 100%;">
+                <a class="me-2" href="' . $row->am_url . '" title="Descargar" download=""><i class="ti-cloud-down" style="color:#063970;font-size:22px;cursor:pointer"></i></a>
+                <a class="ms-2" href="javascript:void(0);" onclick="showModalEditFile(' . "'" . $this->encryption($row->am_row_id) . "'" . ')" title="Editar"><i class="ti-pencil-alt" style="color:#B61020;font-size:22px;cursor:pointer"></i></a>
+                </div>';
+            }
+
             $data[] = array(
                 'am_row_id' => $row->am_row_id,
                 'folder_name' => $row->folder_name,
@@ -180,10 +190,7 @@ class MarketingController extends Controller
                 'created_at' => date('Y-m-d h:i A', strtotime($row->created_at)),
                 'updated_at' => ($row->updated_at == '' ? '-' : date('Y-m-d h:i A', strtotime($row->updated_at))),
                 'user_login_id_create' => $row->user_login_id_create,
-                'accion' => '<div class="col-md-12 d-flex justify-content-center" style="min-width: 100%;max-width: 100%;">
-                    <a class="me-2" href="' . $row->am_url . '" title="Descargar" download=""><i class="ti-cloud-down" style="color:#063970;font-size:22px;cursor:pointer"></i></a>
-                    <a class="ms-2" href="javascript:void(0);" onclick="showModalEditFile(' . "'" . $this->encryption($row->am_row_id) . "'" . ')" title="Editar"><i class="ti-pencil-alt" style="color:#B61020;font-size:22px;cursor:pointer"></i></a>
-                    </div>'
+                'accion' => $action
             );
         }
         $response = array(
@@ -225,7 +232,8 @@ class MarketingController extends Controller
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'application/vnd.ms-excel.sheet.macroEnabled.12',
             'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-            'video/mp4'
+            'video/mp4',
+            'application/zip'
         ];
         if (in_array($type, $arr_img_ext)) {
 
@@ -374,7 +382,8 @@ class MarketingController extends Controller
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                 'application/vnd.ms-excel.sheet.macroEnabled.12',
                 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-                'video/mp4'
+                'video/mp4',
+                'application/zip'
             ];
             if (in_array($type, $arr_img_ext)) {
                 $old_url = $path_origin . $dataFile->folder_name_in_server . '/' . $dataFile->am_name_file;
