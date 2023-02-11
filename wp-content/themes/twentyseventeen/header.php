@@ -55,12 +55,12 @@
     <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory') ?>/assets/css/responsive.css">
     <!-- jstree -->
     <link rel="stylesheet" href="<?php bloginfo('template_directory') ?>/assets/jstree/vendor/vakata/jstree/dist/themes/default/style.min.css" />
-    <script src="<?php bloginfo('template_directory') ?>/assets/jstree/vendor/vakata/jstree/dist/jstree.min.js"></script>
     <!-- style css -->
     <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory') ?>/style.css"> <!-- This stylesheet dynamically changed from style.less -->
 </head>
 <style>
 </style>
+
 <body class="defult-home">
     <div class="offwrap"></div>
     <!--Preloader area start here-->
@@ -335,20 +335,20 @@
                             <span class="sub-text wow fadeinup2"></span>
                             <h1 class="title wow fadeinup">Bienvenido a su canal oficial institucional</h1>
                             <p class="desc wow fadeinup">
-                                
+
                             </p>
+
                             <div class="btn-part">
                                 <?php
-                            if(is_user_logged_in()){
-                                $href='wp-login.php?action=logout&wpnonce=3ae86f3016';
-                                $text="Salir";
-                            }
-                            else{
-                                $href="wp-login.php";
-                                $text="Ingresar";
-                            }
-                            ?>
-                                <a class="readon more-about" href="<?=$href?>"><?=$text?></a>
+                                if (is_user_logged_in()) {
+                                    $href = 'wp-login.php?action=logout&wpnonce=3ae86f3016';
+                                    $text = "Salir";
+                                } else {
+                                    $href = "wp-login.php";
+                                    $text = "Ingresar";
+                                }
+                                ?>
+                                <a class="readon more-about" data-toggle="modal" href="<?= $href ?>"><?= $text ?></a>
                             </div>
                         </div>
                     </div>
