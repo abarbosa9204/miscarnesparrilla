@@ -39,7 +39,7 @@ if (is_user_logged_in()) {
 		
 		<!-- Modal - Editar archivos -->
 		<!-- Modal -->
-		<div class="modal fade main-content" id="iframe-video-view" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="iframe-video-viewLabel" aria-hidden="true">
+		<div class="modal fade main-content" id="iframe-video-view" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="iframe-video-viewLabel" aria-hidden="true" data-backdrop="static">
 			<div class="modal-dialog modal-dialog-centered modal-xl">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -47,7 +47,7 @@ if (is_user_logged_in()) {
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" style="height: 72vh;">
 						<div class="row video-iframe">
 						</div>
 					</div>
