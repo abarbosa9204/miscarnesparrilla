@@ -187,7 +187,7 @@
                                                     <label for="folder_row_id-upload-edit" class="col-form-label text-dark m-0" style="font-weight:bold;padding:0">Carpeta principal<span class="required">*</span></label>
                                                     <?php
                                                     global $wpdb;
-                                                    $data = $wpdb->get_results("SELECT DISTINCT folder_row_id,folder_name FROM vw_wpl_folders WHERE folder_row_id=2");
+                                                    $data = $wpdb->get_results("SELECT DISTINCT folder_row_id,folder_name FROM vw_wpl_folders WHERE folder_row_id=3");
                                                     echo '<select id="folder_row_id-upload-edit" name="folder_row_id-upload-edit" class="form-control form-control-sm input-xs text-center validateText" placeholder="Carpeta" style="max-width: inherit;">';
                                                     foreach ($data as $damenu) {
                                                         echo '<option value="' . $damenu->folder_row_id . '">' . $damenu->folder_name . '</option>';
@@ -204,7 +204,7 @@
                                                     <label for="subfolder_n1_row_id-upload-edit" class="col-form-label text-dark m-0" style="font-weight:bold;padding:0">Sub carpeta<span class="required">*</span></label>
                                                     <?php
                                                     global $wpdb;
-                                                    $data = $wpdb->get_results("SELECT DISTINCT subfolder_n1_row_id,subfolder_n1_name FROM vw_wpl_folders WHERE folder_row_id=2 ORDER BY subfolder_n1_row_id ASC");
+                                                    $data = $wpdb->get_results("SELECT DISTINCT subfolder_n1_row_id,subfolder_n1_name FROM vw_wpl_folders WHERE folder_row_id=3 ORDER BY subfolder_n1_row_id ASC");
                                                     echo '<select id="subfolder_n1_row_id-upload-edit" name="subfolder_n1_row_id-upload-edit" onchange="onChangeSelectEdit(' . "'subfolder_n1_row_id-upload-edit'" . ')" class="form-control form-control-sm input-xs text-center validateText" placeholder="Carpeta" style="max-width: inherit;">';
                                                     foreach ($data as $damenu) {
                                                         echo '<option value="' . $damenu->subfolder_n1_row_id . '">' . $damenu->subfolder_n1_name . '</option>';
