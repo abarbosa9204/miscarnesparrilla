@@ -516,6 +516,10 @@ add_action('wp_ajax_nopriv_quality', 'quality');
 add_action('wp_ajax_pqr', 'pqr');
 add_action('wp_ajax_nopriv_pqr', 'pqr');
 
+//Talento Humano
+add_action('wp_ajax_human_talent', 'human_talent');
+add_action('wp_ajax_nopriv_human_talent', 'human_talent');
+
 
 // Function Mercadeo
 function marketing_advertising()
@@ -532,6 +536,13 @@ function quality()
 
 // Function PQR
 function pqr()
+{
+	echo process_request($_POST);
+	die;
+}
+
+// Function Talento Humano
+function human_talent()
 {
 	echo process_request($_POST);
 	die;
@@ -589,6 +600,19 @@ add_action('wp_ajax_nopriv_pqr_upload_files', 'pqr_upload_files');
  * Cargar ficheros del módulo de PQR
  */
 function pqr_upload_files()
+{
+	echo process_request($_POST, $_FILES);
+	die;
+}
+
+
+add_action('wp_ajax_human_talent_upload_files', 'human_talent_upload_files');
+add_action('wp_ajax_nopriv_human_talent_upload_files', 'human_talent_upload_files');
+
+/**
+ * Cargar ficheros del módulo de Talento Humano
+ */
+function human_talent_upload_files()
 {
 	echo process_request($_POST, $_FILES);
 	die;
