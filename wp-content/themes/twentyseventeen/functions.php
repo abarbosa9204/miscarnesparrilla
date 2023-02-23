@@ -512,6 +512,11 @@ add_action('wp_ajax_nopriv_marketing_advertising', 'marketing_advertising');
 add_action('wp_ajax_quality', 'quality');
 add_action('wp_ajax_nopriv_quality', 'quality');
 
+//PQR
+add_action('wp_ajax_pqr', 'pqr');
+add_action('wp_ajax_nopriv_pqr', 'pqr');
+
+
 // Function Mercadeo
 function marketing_advertising()
 {
@@ -520,6 +525,13 @@ function marketing_advertising()
 }
 // Function Calidad
 function quality()
+{
+	echo process_request($_POST);
+	die;
+}
+
+// Function PQR
+function pqr()
 {
 	echo process_request($_POST);
 	die;
@@ -565,6 +577,18 @@ add_action('wp_ajax_nopriv_quality_upload_files', 'quality_upload_files');
  * Cargar ficheros del módulo de Calidad
  */
 function quality_upload_files()
+{
+	echo process_request($_POST, $_FILES);
+	die;
+}
+
+add_action('wp_ajax_pqr_upload_files', 'pqr_upload_files');
+add_action('wp_ajax_nopriv_pqr_upload_files', 'pqr_upload_files');
+
+/**
+ * Cargar ficheros del módulo de PQR
+ */
+function pqr_upload_files()
 {
 	echo process_request($_POST, $_FILES);
 	die;
