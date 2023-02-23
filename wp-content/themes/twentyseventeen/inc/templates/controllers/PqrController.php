@@ -52,7 +52,7 @@ class PqrController extends Controller
             $jstree = [];
             $action='';
             //principal
-            if ($row->folder_row_id != null) {
+            if ($row->folder_row_id != null && $row->subfolder_n1_row_id != null) {
                 $jstree[] = [
                     "id"        =>  $row->folder_row_id . '@' . $row->folder_name_in_server,
                     "parent"    =>  '#',
@@ -72,7 +72,17 @@ class PqrController extends Controller
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
                     ];
                 }
-            }
+            }else{            
+                $jstree[] = [
+                    "id"        =>  $row->folder_row_id . '@' . $row->folder_name_in_server,
+                    "parent"    =>  '#',
+                    "text"      =>  $row->ht_description,
+                    "icon"      => $row->mime_icon,
+                    "type"      => 'file',
+                    "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                    ["selected" =>  true, "opened" => true]
+                ];
+            }    
             //nivel 1
             if ($row->subfolder_n1_row_id != null) {
                 $jstree[] = [
@@ -955,11 +965,11 @@ class PqrController extends Controller
                                 'subfolder_n3_row_id'           => ($subfolder_n3_row_id != null ? $subfolder_n3_row_id : null),
                                 'subfolder_n4_row_id'           => ($subfolder_n4_row_id != null ? $subfolder_n4_row_id : null),
                                 'subfolder_n5_row_id'           => ($subfolder_n5_row_id != null ? $subfolder_n5_row_id : null),
-                                'pqr_description'                =>  $name_file_upload,
-                                'pqr_text_information'           =>  $text_file_description,
-                                'pqr_name_file'                  =>  $path_save  . $fileName,
-                                'pqr_url'                        =>  get_template_directory_uri() . $file_path_save . '/' . $path_save . $fileName,
-                                'pqr_status'                     => ($file_upload_status != 1 ? false : true),
+                                'pqr_description'               =>  $name_file_upload,
+                                'pqr_text_information'          =>  $text_file_description,
+                                'pqr_name_file'                 =>  $path_save  . $fileName,
+                                'pqr_url'                       =>  get_template_directory_uri() . $file_path_save . '/' . $path_save . $fileName,
+                                'pqr_status'                    => ($file_upload_status != 1 ? false : true),
                                 'updated_at'                    =>  date('Y-m-d H:i:s'),
                                 'user_login_id_update'          =>  get_current_user_id()
                             ],

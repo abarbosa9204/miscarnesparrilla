@@ -51,7 +51,7 @@ class MarketingController extends Controller
             $action = '';
             $jstree = [];
             //principal
-            if ($row->folder_row_id != null) {
+            if ($row->folder_row_id != null && $row->subfolder_n1_row_id != null) {
                 $jstree[] = [
                     "id"        =>  $row->folder_row_id . '@' . $row->folder_name_in_server,
                     "parent"    =>  '#',
@@ -71,7 +71,17 @@ class MarketingController extends Controller
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
                     ];
                 }
-            }
+            }else{            
+                $jstree[] = [
+                    "id"        =>  $row->folder_row_id . '@' . $row->folder_name_in_server,
+                    "parent"    =>  '#',
+                    "text"      =>  $row->ht_description,
+                    "icon"      => $row->mime_icon,
+                    "type"      => 'file',
+                    "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                    ["selected" =>  true, "opened" => true]
+                ];
+            }    
             //nivel 1
             if ($row->subfolder_n1_row_id != null) {
                 $jstree[] = [

@@ -1,7 +1,7 @@
 <?php
 require_once(get_template_directory() . '/inc/templates/libs/controller.php');
 date_default_timezone_set("America/Bogota");
-class QualityController extends Controller
+class HumanTalentController extends Controller
 {
     private $controller;
     private $action;
@@ -25,10 +25,9 @@ class QualityController extends Controller
     * @params JSON (parametros API datatable)
     * @return JSON
     */
-    function list_quality()
+    function list_human_talent()
     {
-        global $wpdb;
-
+        global $wpdb;        
         $draw = $this->request['draw'];
         $rows = $this->request['start'];
         $rowperpage = $this->request['length'];
@@ -39,11 +38,11 @@ class QualityController extends Controller
 
         $resulset = $wpdb->get_results("SELECT 
         *
-        FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%' order by " . ((($columnName == 'qu_row_id') ? 'qu_row_id' : $columnName) . ' ' . $columnSortOrder) . " limit " . $rows . ',' . $rowperpage, OBJECT);
+        FROM vw_wpl_human_talent where filter_field like '%" . $searchValue . "%' order by " . ((($columnName == 'ht_row_id') ? 'ht_row_id' : $columnName) . ' ' . $columnSortOrder) . " limit " . $rows . ',' . $rowperpage, OBJECT);
 
         $resulset2 = $wpdb->get_results("SELECT 
                                         *
-        FROM vw_wpl_quality where filter_field like '%" . $searchValue . "%'order by " . ((($columnName == 'qu_row_id') ? 'qu_row_id' : $columnName) . ' ' . $columnSortOrder), OBJECT);
+        FROM vw_wpl_human_talent where filter_field like '%" . $searchValue . "%'order by " . ((($columnName == 'ht_row_id') ? 'ht_row_id' : $columnName) . ' ' . $columnSortOrder), OBJECT);
 
         $data = array();
         $jstree = [];
@@ -66,7 +65,7 @@ class QualityController extends Controller
                     $jstree[] = [
                         "id"        => $row->folder_row_id . '@@' . $row->folder_name_in_server,
                         "parent"    => $row->folder_row_id . '@' . $row->folder_name_in_server,
-                        "text"      => $row->qu_description,
+                        "text"      => $row->ht_description,
                         "icon"      => $row->mime_icon,
                         "type"      => 'file',
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
@@ -83,6 +82,7 @@ class QualityController extends Controller
                     ["selected" =>  true, "opened" => true]
                 ];
             }    
+
             //nivel 1
             if ($row->subfolder_n1_row_id != null) {
                 $jstree[] = [
@@ -97,7 +97,7 @@ class QualityController extends Controller
                     $jstree[] = [
                         "id"        => $row->subfolder_n1_row_id . '@@' . $row->subfolder_n1_name_in_server,
                         "parent"    => $row->subfolder_n1_row_id . '@' . $row->subfolder_n1_name_in_server,
-                        "text"      => $row->qu_description,
+                        "text"      => $row->ht_description,
                         "icon"      => $row->mime_icon,
                         "type"      => 'file',
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
@@ -119,7 +119,7 @@ class QualityController extends Controller
                     $jstree[] = [
                         "id"        => $row->subfolder_n2_row_id . '@@' . $row->subfolder_n2_name_in_server,
                         "parent"    => $row->subfolder_n2_row_id . '@' . $row->subfolder_n2_name_in_server,
-                        "text"      => $row->qu_description,
+                        "text"      => $row->ht_description,
                         "icon"      => $row->mime_icon,
                         "type"      => 'file',
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
@@ -142,7 +142,7 @@ class QualityController extends Controller
                     $jstree[] = [
                         "id"        => $row->subfolder_n3_row_id . '@@' . $row->subfolder_n3_name_in_server,
                         "parent"    => $row->subfolder_n3_row_id . '@' . $row->subfolder_n3_name_in_server,
-                        "text"      => $row->qu_description,
+                        "text"      => $row->ht_description,
                         "icon"      => $row->mime_icon,
                         "type"      => 'file',
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
@@ -163,7 +163,7 @@ class QualityController extends Controller
                     $jstree[] = [
                         "id"        => $row->subfolder_n4_row_id . '@@' . $row->subfolder_n4_name_in_server,
                         "parent"    => $row->subfolder_n4_row_id . '@' . $row->subfolder_n4_name_in_server,
-                        "text"      => $row->qu_description,
+                        "text"      => $row->ht_description,
                         "icon"      => $row->mime_icon,
                         "type"      => 'file',
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
@@ -184,19 +184,19 @@ class QualityController extends Controller
 
             if (!in_array($row->mime_extension, ['.html', '.php'])) {
                 $action = '<div class="col-md-12 d-flex justify-content-center" style="min-width: 100%;max-width: 100%;">
-                <a class="me-2" href="' . $row->qu_url . '" title="Descargar" download=""><i class="ti-cloud-down" style="color:#063970;font-size:22px;cursor:pointer"></i></a>
-                <a class="ms-2" href="javascript:void(0);" onclick="showModalEditFile(' . "'" . $this->encryption($row->qu_row_id) . "'" . ')" title="Editar"><i class="ti-pencil-alt" style="color:#B61020;font-size:22px;cursor:pointer"></i></a>
+                <a class="me-2" href="' . $row->ht_url . '" title="Descargar" download=""><i class="ti-cloud-down" style="color:#063970;font-size:22px;cursor:pointer"></i></a>
+                <a class="ms-2" href="javascript:void(0);" onclick="showModalEditFile(' . "'" . $this->encryption($row->ht_row_id) . "'" . ')" title="Editar"><i class="ti-pencil-alt" style="color:#B61020;font-size:22px;cursor:pointer"></i></a>
                 </div>';
             }
             $data[] = array(
-                'qu_row_id' => $row->qu_row_id,
+                'ht_row_id' => $row->ht_row_id,
                 'folder_name' => $row->folder_name,
-                'div_path_id' => '<div id="' . $row->qu_row_id . '_' . $row->folder_name_in_server . '"></div>',
-                'path_id' => $row->qu_row_id . '_' . $row->folder_name_in_server,
+                'div_path_id' => '<div id="' . $row->ht_row_id . '_' . $row->folder_name_in_server . '"></div>',
+                'path_id' => $row->ht_row_id . '_' . $row->folder_name_in_server,
                 'path_json' =>  $jstree,
-                'qu_description' => $row->qu_description,
-                'qu_text_information' => $row->qu_text_information,
-                'qu_status' => ($row->qu_status == 1 ? '<span class="badge bg-success twentyseventeen-font-size-theme-15-5">Activo</span>' : '<span class="badge bg-danger twentyseventeen-font-size-theme-15-5">Inactivo</span>'),
+                'ht_description' => $row->ht_description,
+                'ht_text_information' => $row->ht_text_information,
+                'ht_status' => ($row->ht_status == 1 ? '<span class="badge bg-success twentyseventeen-font-size-theme-15-5">Activo</span>' : '<span class="badge bg-danger twentyseventeen-font-size-theme-15-5">Inactivo</span>'),
                 'created_at' => date('Y-m-d h:i A', strtotime($row->created_at)),
                 'updated_at' => ($row->updated_at == '' ? '-' : date('Y-m-d h:i A', strtotime($row->updated_at))),
                 'user_login_id_create' => $row->user_login_id_create,
@@ -380,7 +380,7 @@ class QualityController extends Controller
     * @params $_POST, $_FILES, JSON
     * @return JSON
     */
-    function uploadFilesQuality()
+    function uploadFilesHumanTalent()
     {
         global $wpdb;
         $data = $this->array_json_stringify($this->request['params']);
@@ -439,7 +439,7 @@ class QualityController extends Controller
         ];
         if (in_array($type, $arr_img_ext)) {
 
-            $row_id = $wpdb->get_row("SELECT max(qu_row_id) as qu_row_id FROM wpl_quality", OBJECT);
+            $row_id = $wpdb->get_row("SELECT max(ht_row_id) as ht_row_id FROM wpl_human_talent", OBJECT);
             $row_type_id = $wpdb->get_row("SELECT mime_row_id FROM wpl_mime_type WHERE mime_type ='" . $type . "'", OBJECT);
             $folders_upload = $wpdb->get_row(
                 "SELECT DISTINCT 
@@ -487,8 +487,8 @@ class QualityController extends Controller
                 $filePath   =   $pathFolderEnd . '/' . $path_save  . $fileName;
                 move_uploaded_file($temp, $filePath);
                 if (file_exists($filePath)) {
-                    $insert = $wpdb->insert('wpl_quality', [
-                        'qu_row_id'                     =>  $row_id->qu_row_id + 1,
+                    $insert = $wpdb->insert('wpl_human_talent', [
+                        'ht_row_id'                     =>  $row_id->ht_row_id + 1,
                         'mime_row_id'                   =>  $row_type_id->mime_row_id,
                         'folder_row_id'                 =>  $folder_row_id,
                         'subfolder_n1_row_id'           => ($subfolder_n1_row_id != null ? $subfolder_n1_row_id : null),
@@ -496,11 +496,11 @@ class QualityController extends Controller
                         'subfolder_n3_row_id'           => ($subfolder_n3_row_id != null ? $subfolder_n3_row_id : null),
                         'subfolder_n4_row_id'           => ($subfolder_n4_row_id != null ? $subfolder_n4_row_id : null),
                         'subfolder_n5_row_id'           => ($subfolder_n5_row_id != null ? $subfolder_n5_row_id : null),
-                        'qu_description'                =>  $name_file_upload,
-                        'qu_text_information'           =>  $text_file_description,
-                        'qu_name_file'                  =>  $path_save  . $fileName,
-                        'qu_url'                        =>  get_template_directory_uri() . $file_path_save . '/' . $path_save . $fileName,
-                        'qu_status'                     =>  1,
+                        'ht_description'                =>  $name_file_upload,
+                        'ht_text_information'           =>  $text_file_description,
+                        'ht_name_file'                  =>  $path_save  . $fileName,
+                        'ht_url'                        =>  get_template_directory_uri() . $file_path_save . '/' . $path_save . $fileName,
+                        'ht_status'                     =>  1,
                         'created_at'                    =>  date('Y-m-d H:i:s'),
                         'user_login_id_create'          =>  get_current_user_id()
                     ]);
@@ -544,10 +544,10 @@ class QualityController extends Controller
     * @params $_POST, JSON
     * @return JSON
     */
-    function preloadDataFileQualityEdit()
+    function preloadDataFileHumanTalentEdit()
     {
         global $wpdb;
-        $dataFile = $wpdb->get_row("SELECT * FROM vw_wpl_quality WHERE qu_row_id ='" . $this->decryption($this->param) . "'", OBJECT);
+        $dataFile = $wpdb->get_row("SELECT * FROM vw_wpl_human_talent WHERE ht_row_id ='" . $this->decryption($this->param) . "'", OBJECT);
         if (!$dataFile) {
             return [
                 'status'    =>  'error',
@@ -558,10 +558,10 @@ class QualityController extends Controller
             'status'    =>  'success',
             'msg'       =>  'Procesado correctamente',
             'data'      =>  [],
-            'id'        =>  $this->encryption($dataFile->qu_row_id),
-            'qu_description'    =>  $dataFile->qu_description,
-            'qu_text_information'    =>  $dataFile->qu_text_information,
-            'qu_status'    =>  $dataFile->qu_status
+            'id'        =>  $this->encryption($dataFile->ht_row_id),
+            'ht_description'    =>  $dataFile->ht_description,
+            'ht_text_information'    =>  $dataFile->ht_text_information,
+            'ht_status'    =>  $dataFile->ht_status
 
         ];
 
@@ -823,7 +823,7 @@ class QualityController extends Controller
     * @params $_POST, $_FILES, JSON
     * @return JSON
     */
-    function uploadFilesQualityEdit()
+    function uploadFilesHumanTalentEdit()
     {
         global $wpdb;
         $data = $this->array_json_stringify($this->request['params']);
@@ -866,7 +866,7 @@ class QualityController extends Controller
             }
         }
 
-        $dataFile = $wpdb->get_row("SELECT * FROM vw_wpl_quality WHERE qu_row_id='" . $id_file_edit . "'", OBJECT);
+        $dataFile = $wpdb->get_row("SELECT * FROM vw_wpl_human_talent WHERE ht_row_id='" . $id_file_edit . "'", OBJECT);
 
         if (!$dataFile) {
             return [
@@ -903,7 +903,7 @@ class QualityController extends Controller
                 'application/zip'
             ];
             if (in_array($type, $arr_img_ext)) {
-                $old_url = $path_origin . $dataFile->folder_name_in_server . '/' . $dataFile->qu_name_file;
+                $old_url = $path_origin . $dataFile->folder_name_in_server . '/' . $dataFile->ht_name_file;
                 $row_type_id = $wpdb->get_row("SELECT mime_row_id FROM wpl_mime_type WHERE mime_type ='" . $type . "'", OBJECT);
                 if (!$row_type_id) {
                     return [
@@ -956,7 +956,7 @@ class QualityController extends Controller
                     move_uploaded_file($temp, $filePath);
                     if (file_exists($filePath)) {
                         $update = $wpdb->update(
-                            'wpl_quality',
+                            'wpl_human_talent',
                             [
                                 'mime_row_id'                   =>  $row_type_id->mime_row_id,
                                 'folder_row_id'                 =>  $folder_row_id,
@@ -965,15 +965,15 @@ class QualityController extends Controller
                                 'subfolder_n3_row_id'           => ($subfolder_n3_row_id != null ? $subfolder_n3_row_id : null),
                                 'subfolder_n4_row_id'           => ($subfolder_n4_row_id != null ? $subfolder_n4_row_id : null),
                                 'subfolder_n5_row_id'           => ($subfolder_n5_row_id != null ? $subfolder_n5_row_id : null),
-                                'qu_description'                =>  $name_file_upload,
-                                'qu_text_information'           =>  $text_file_description,
-                                'qu_name_file'                  =>  $path_save  . $fileName,
-                                'qu_url'                        =>  get_template_directory_uri() . $file_path_save . '/' . $path_save . $fileName,
-                                'qu_status'                     => ($file_upload_status != 1 ? false : true),
+                                'ht_description'                =>  $name_file_upload,
+                                'ht_text_information'           =>  $text_file_description,
+                                'ht_name_file'                  =>  $path_save  . $fileName,
+                                'ht_url'                        =>  get_template_directory_uri() . $file_path_save . '/' . $path_save . $fileName,
+                                'ht_status'                     => ($file_upload_status != 1 ? false : true),
                                 'updated_at'                    =>  date('Y-m-d H:i:s'),
                                 'user_login_id_update'          =>  get_current_user_id()
                             ],
-                            ['qu_row_id' => $dataFile->qu_row_id]
+                            ['ht_row_id' => $dataFile->ht_row_id]
                         );
                         if ($update) {
                             return [
@@ -1003,20 +1003,20 @@ class QualityController extends Controller
 
         //Actualizar datos con el post
         $update = $wpdb->update(
-            'wpl_quality',
+            'wpl_human_talent',
             [
                 'subfolder_n1_row_id'           => ($subfolder_n1_row_id != null ? $subfolder_n1_row_id : null),
                 'subfolder_n2_row_id'           => ($subfolder_n2_row_id != null ? $subfolder_n2_row_id : null),
                 'subfolder_n3_row_id'           => ($subfolder_n3_row_id != null ? $subfolder_n3_row_id : null),
                 'subfolder_n4_row_id'           => ($subfolder_n4_row_id != null ? $subfolder_n4_row_id : null),
                 'subfolder_n5_row_id'           => ($subfolder_n5_row_id != null ? $subfolder_n5_row_id : null),
-                'qu_description'                =>  $name_file_upload,
-                'qu_text_information'           =>  $text_file_description,
-                'qu_status'                     => ($file_upload_status != 1 ? false : true),
+                'ht_description'                =>  $name_file_upload,
+                'ht_text_information'           =>  $text_file_description,
+                'ht_status'                     => ($file_upload_status != 1 ? false : true),
                 'updated_at'                    =>  date('Y-m-d H:i:s'),
                 'user_login_id_update'          =>  get_current_user_id()
             ],
-            ['qu_row_id' => $dataFile->qu_row_id]
+            ['ht_row_id' => $dataFile->ht_row_id]
 
         );
         $old_arrar = [
@@ -1035,10 +1035,10 @@ class QualityController extends Controller
         ];
         if ($update) {
             if ($old_arrar != $new_array) {
-                $file_path_exists = $path_origin . $dataFile->folder_name_in_server . '/' . $dataFile->qu_name_file;
+                $file_path_exists = $path_origin . $dataFile->folder_name_in_server . '/' . $dataFile->ht_name_file;
                 if (file_exists($file_path_exists)) {
                     //Data actualizada
-                    $dataRename = $wpdb->get_row("SELECT * FROM vw_wpl_quality WHERE qu_row_id='" . $dataFile->qu_row_id . "'", OBJECT);
+                    $dataRename = $wpdb->get_row("SELECT * FROM vw_wpl_human_talent WHERE ht_row_id='" . $dataFile->ht_row_id . "'", OBJECT);
 
                     $old_path = '';
                     $old_path .= ($dataFile->subfolder_n1_name_in_server != null ? $dataFile->subfolder_n1_name_in_server . '_'  : '');
@@ -1055,23 +1055,23 @@ class QualityController extends Controller
                     $new_path .= ($dataRename->subfolder_n5_name_in_server != null ? $dataRename->subfolder_n5_name_in_server . '_'  : '');
 
                     //Nuevo nombre
-                    $new_name = str_replace($old_path, $new_path, $dataFile->qu_name_file);
+                    $new_name = str_replace($old_path, $new_path, $dataFile->ht_name_file);
 
                     //Nueva URL
                     $new_url = $path_origin . $dataFile->folder_name_in_server . '/' . $new_name;
 
                     //Nueva Anterior
-                    $old_url = $path_origin . $dataFile->folder_name_in_server . '/' . $dataFile->qu_name_file;
+                    $old_url = $path_origin . $dataFile->folder_name_in_server . '/' . $dataFile->ht_name_file;
 
                     //Renombrar archivo
                     if (rename($old_url, $new_url)) {
                         $updateUrlFiles = $wpdb->update(
-                            'wpl_quality',
+                            'wpl_human_talent',
                             [
-                                'qu_name_file'  =>  $new_name,
-                                'qu_url'        =>  get_template_directory_uri() . '/template-parts/uploads/files/' . $dataFile->folder_name_in_server . '/' . $new_name,
+                                'ht_name_file'  =>  $new_name,
+                                'ht_url'        =>  get_template_directory_uri() . '/template-parts/uploads/files/' . $dataFile->folder_name_in_server . '/' . $new_name,
                             ],
-                            ['qu_row_id' => $dataFile->qu_row_id]
+                            ['ht_row_id' => $dataFile->ht_row_id]
                         );
                         if ($updateUrlFiles) {
                             return [
