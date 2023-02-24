@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <h4>Calidad & Gastronomia</h4>
+    <h4>Talento Humano</h4>
     <div class="container-fluid">
         <div class="mb-2">
             <a href="javascript:void(0);" type="button" class="btn btn-sm btn-outline-danger twentyseventeen-font-size-theme-15-5" style="min-width: 112px;" onclick="showModalAddFile()"><i class="fa fa-plus"></i> Nuevo</button>
