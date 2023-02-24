@@ -10343,3 +10343,19 @@ a.readon .fa.fa-check-circle {
   width: 100%;
   height: 68vh;
 }
+.hvr-bounce-to-right:before {
+  opacity: 0.8;
+}
+.hvr-bounce-to-right:hover a {
+  background: #6967FB !important;
+  border: none;
+}
+.hvr-bounce-to-right:hover a > i {
+  color: #fff !important;
+}
+.hvr-bounce-to-right:hover .card-body .card-title {
+  color: #fff;
+}
+.hvr-bounce-to-right button.btn-danger {
+  border: none;
+}
