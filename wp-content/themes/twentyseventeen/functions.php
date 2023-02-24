@@ -520,6 +520,9 @@ add_action('wp_ajax_nopriv_pqr', 'pqr');
 add_action('wp_ajax_human_talent', 'human_talent');
 add_action('wp_ajax_nopriv_human_talent', 'human_talent');
 
+//Costos y presupuestos
+add_action('wp_ajax_cost_budget', 'cost_budget');
+add_action('wp_ajax_nopriv_cost_budget', 'cost_budget');
 
 // Function Mercadeo
 function marketing_advertising()
@@ -543,7 +546,14 @@ function pqr()
 
 // Function Talento Humano
 function human_talent()
-{
+{	
+	echo process_request($_POST);
+	die;
+}
+
+// Function Costos y presupuestos
+function cost_budget()
+{	
 	echo process_request($_POST);
 	die;
 }
@@ -617,6 +627,19 @@ function human_talent_upload_files()
 	echo process_request($_POST, $_FILES);
 	die;
 }
+
+add_action('wp_ajax_cost_budget_upload_files', 'cost_budget_upload_files');
+add_action('wp_ajax_nopriv_cost_budget_upload_files', 'cost_budget_upload_files');
+
+/**
+ * Cargar ficheros del módulo de Talento Humano
+ */
+function cost_budget_upload_files()
+{
+	echo process_request($_POST, $_FILES);
+	die;
+}
+
 /**
  * Enqueues scripts and styles.
  */
