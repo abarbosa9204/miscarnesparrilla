@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <h4>Calidad & Gastronomia</h4>
+    <h4>Costos y presupuestos</h4>
     <div class="container-fluid">
         <div class="mb-2">
             <a href="javascript:void(0);" type="button" class="btn btn-sm btn-outline-danger twentyseventeen-font-size-theme-15-5" style="min-width: 112px;" onclick="showModalAddFile()"><i class="fa fa-plus"></i> Nuevo</button>
@@ -14,7 +14,7 @@
         </div>
         <div class="table-responsive">
             <!-- wp-list-table widefat fixed -->
-            <table class="table wp-list-table widefat table-striped table-bordered dt-responsive" id="human-talent-file-listing" width="100%" cellspacing="0">
+            <table class="table wp-list-table widefat table-striped table-bordered dt-responsive" id="cost-budget-file-listing" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th style="min-width: 5px">#</th>
@@ -69,7 +69,7 @@
                                                     <label for="folder_row_id-upload" class="col-form-label text-dark m-0" style="font-weight:bold;padding:0">Carpeta principal<span class="required">*</span></label>
                                                     <?php
                                                     global $wpdb;
-                                                    $data = $wpdb->get_results("SELECT DISTINCT folder_row_id,folder_name FROM vw_wpl_folders WHERE folder_row_id=4");
+                                                    $data = $wpdb->get_results("SELECT DISTINCT folder_row_id,folder_name FROM vw_wpl_folders WHERE folder_row_id=5");
                                                     echo '<select id="folder_row_id-upload" name="folder_row_id-upload" class="form-control form-control-sm input-xs text-center validateText" placeholder="Carpeta" style="max-width: inherit;">';
                                                     foreach ($data as $damenu) {
                                                         echo '<option value="' . $damenu->folder_row_id . '">' . $damenu->folder_name . '</option>';
@@ -82,6 +82,19 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-xl-12 col-md-12 col-sm-12">
+                                                <div class="mb-2">
+                                                    <label for="subfolder_n1_row_id-upload" class="col-form-label text-dark m-0" style="font-weight:bold;padding:0">Sub carpeta<span class="required">*</span></label>
+                                                    <?php
+                                                    global $wpdb;
+                                                    $data = $wpdb->get_results("SELECT DISTINCT subfolder_n1_row_id,subfolder_n1_name FROM vw_wpl_folders WHERE folder_row_id=5 ORDER BY subfolder_n1_row_id ASC");
+                                                    echo '<select id="subfolder_n1_row_id-upload" name="subfolder_n1_row_id-upload" onchange="onChangeSelect(' . "'subfolder_n1_row_id-upload'" . ')" class="form-control form-control-sm input-xs text-center validateText" placeholder="Carpeta" style="max-width: inherit;">';
+                                                    foreach ($data as $damenu) {
+                                                        echo '<option value="' . $damenu->subfolder_n1_row_id . '">' . $damenu->subfolder_n1_name . '</option>';
+                                                    }
+                                                    echo "</select>";
+                                                    ?>
+                                                    <small id="subfolder_n1_row_id-uploadError" class="form-text text-danger font-weight-bold"></small>
+                                                </div>
                                             </div>
                                             <span id="html-options-subfolder_n1_row_id-upload">
                                             </span>
@@ -174,7 +187,7 @@
                                                     <label for="folder_row_id-upload-edit" class="col-form-label text-dark m-0" style="font-weight:bold;padding:0">Carpeta principal<span class="required">*</span></label>
                                                     <?php
                                                     global $wpdb;
-                                                    $data = $wpdb->get_results("SELECT DISTINCT folder_row_id,folder_name FROM vw_wpl_folders WHERE folder_row_id=4");
+                                                    $data = $wpdb->get_results("SELECT DISTINCT folder_row_id,folder_name FROM vw_wpl_folders WHERE folder_row_id=5");
                                                     echo '<select id="folder_row_id-upload-edit" name="folder_row_id-upload-edit" class="form-control form-control-sm input-xs text-center validateText" placeholder="Carpeta" style="max-width: inherit;">';
                                                     foreach ($data as $damenu) {
                                                         echo '<option value="' . $damenu->folder_row_id . '">' . $damenu->folder_name . '</option>';
@@ -187,7 +200,19 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-xl-12 col-md-12 col-sm-12">
-                                               
+                                                <div class="mb-2">
+                                                    <label for="subfolder_n1_row_id-upload-edit" class="col-form-label text-dark m-0" style="font-weight:bold;padding:0">Sub carpeta<span class="required">*</span></label>
+                                                    <?php
+                                                    global $wpdb;
+                                                    $data = $wpdb->get_results("SELECT DISTINCT subfolder_n1_row_id,subfolder_n1_name FROM vw_wpl_folders WHERE folder_row_id=5 ORDER BY subfolder_n1_row_id ASC");
+                                                    echo '<select id="subfolder_n1_row_id-upload-edit" name="subfolder_n1_row_id-upload-edit" onchange="onChangeSelectEdit(' . "'subfolder_n1_row_id-upload-edit'" . ')" class="form-control form-control-sm input-xs text-center validateText" placeholder="Carpeta" style="max-width: inherit;">';
+                                                    foreach ($data as $damenu) {
+                                                        echo '<option value="' . $damenu->subfolder_n1_row_id . '">' . $damenu->subfolder_n1_name . '</option>';
+                                                    }
+                                                    echo "</select>";
+                                                    ?>
+                                                    <small id="subfolder_n1_row_id-uploadError-edit" class="form-text text-danger font-weight-bold"></small>
+                                                </div>
                                             </div>
                                             <span id="html-options-subfolder_n1_row_id-upload-edit">
                                             </span>
@@ -232,8 +257,8 @@
     </div>
     <!-- Modal - Editar archivos -->
     <?php get_footer_admin() ?>
-    <script src="<?php bloginfo('template_directory') ?>/inc/templates/js/js_views/human_talent/human_talent.js"></script>
-    <script src="<?php bloginfo('template_directory') ?>/inc/templates/js/js_views/human_talent/human_talent_edit.js"></script>
+    <script src="<?php bloginfo('template_directory') ?>/inc/templates/js/js_views/cost_budget/cost_budget.js"></script>
+    <script src="<?php bloginfo('template_directory') ?>/inc/templates/js/js_views/cost_budget/cost_budget_edit.js"></script>
 </body>
 
 </html>
