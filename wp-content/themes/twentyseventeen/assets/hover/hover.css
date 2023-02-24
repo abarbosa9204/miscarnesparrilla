@@ -1428,7 +1428,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #2098D1;
+  background: #a5151d;
+  opacity: 1;
   -webkit-transform: scaleX(0);
   transform: scaleX(0);
   -webkit-transform-origin: 0 50%;
@@ -1440,6 +1441,7 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
+
 .hvr-bounce-to-right:hover, .hvr-bounce-to-right:focus, .hvr-bounce-to-right:active {
   color: white;
 }
