@@ -943,6 +943,13 @@ function my_event_arbol_cb()
 			$orderBy = " AND qu_status=1  ORDER BY qu_description";
 			$carpeta = "CALIDAD";
 			break;
+		case "3":
+			$queryArchivos = "SELECT pqr_id AS id,pqr_description AS description,
+								t.mime_icon,t.mime_icon_color,t.mime_extension,pqr_url as url FROM wpl_pqr q
+								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
+			$orderBy = " AND pqr_status=1  ORDER BY pqr_description";
+			$carpeta = "PQR";
+			break;	
 	}
 	$niveles1 = $wpdb->get_results("
 		SELECT * FROM (SELECT DISTINCT  subfolder_n1_row_id,subfolder_n1_name
