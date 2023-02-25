@@ -949,7 +949,21 @@ function my_event_arbol_cb()
 								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
 			$orderBy = " AND pqr_status=1  ORDER BY pqr_description";
 			$carpeta = "PQR";
-			break;	
+			break;
+		case "4":
+			$queryArchivos = "SELECT ht_id AS id,ht_description AS description,
+								t.mime_icon,t.mime_icon_color,t.mime_extension,ht_url as url FROM wpl_human_talent q
+								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
+			$orderBy = " AND ht_status=1  ORDER BY ht_description";
+			$carpeta = "TALENTO_HUMANO";
+			break;
+		case "5":
+			$queryArchivos = "SELECT cb_id AS id,cb_description AS description,
+								t.mime_icon,t.mime_icon_color,t.mime_extension,cb_url as url FROM wpl_cost_budget q
+								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
+			$orderBy = " AND cb_status=1  ORDER BY cb_description";
+			$carpeta = "COSTOS_PRESUPUESTOS";
+			break;			
 	}
 	$niveles1 = $wpdb->get_results("
 		SELECT * FROM (SELECT DISTINCT  subfolder_n1_row_id,subfolder_n1_name
