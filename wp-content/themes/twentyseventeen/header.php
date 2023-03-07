@@ -24,10 +24,11 @@
             echo ' | ';
             bloginfo('description'); ?></title>
     <meta name="description" content="">
-    <link rel="preload" as="image" href="<?php bloginfo('template_directory') ?>/assets/images/f3J8GZemXMEKZksK9-200-x.webp">
     <!-- responsive tag -->
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preload" as="image" href="<?php bloginfo('template_directory') ?>/assets/images/f3J8GZemXMEKZksK9-200-x.webp">
+    <script src="<?php bloginfo('template_directory') ?>/assets/js/jquery-3.5.1.js"></script>
     <!-- favicon -->
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="<?php bloginfo('template_directory') ?>/assets/images/GaNWDXBZoSLTR8KNL-150-150.png">
@@ -422,7 +423,7 @@
 	 */
                 if ((is_single() || (is_page() && !twentyseventeen_is_frontpage())) && has_post_thumbnail(get_queried_object_id())) :
                     echo '<div class="single-featured-image-header">';
-                    echo get_the_post_thumbnail(get_queried_object_id(), 'twentyseventeen-featured-image');
+                    //echo get_the_post_thumbnail(get_queried_object_id(), 'twentyseventeen-featured-image');
                     echo '</div><!-- .single-featured-image-header -->';
                 endif;
                 ?>

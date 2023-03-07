@@ -2413,7 +2413,7 @@ function comment_form( $args = array(), $post = null ) {
 			),
 			sprintf(
 				'<label for="wp-comment-cookies-consent">%s</label>',
-				__( 'Save my name, email, and website in this browser for the next time I comment.' )
+				__( 'Guardar mi nombre, correo electrónico en este navegador para la próxima vez que haga un comentario.' )
 			)
 		);
 
@@ -2456,7 +2456,15 @@ function comment_form( $args = array(), $post = null ) {
 			'<p class="logged-in-as">%s%s</p>',
 			sprintf(
 				/* translators: 1: User name, 2: Edit user link, 3: Logout URL. */
-				__( 'Logged in as %1$s. <a href="%2$s">Edit your profile</a>. <a href="%3$s">Log out?</a>' ),
+				__( '<div class="dropdown">Conectado como %1$s.
+											<button class="dropdown-toggle border-0 bg-transparent" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												Opción
+											</button>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item" href="%2$s">Edita tu perfil</a>	
+												<a class="dropdown-item" href="%3$s">Cerrar sesión?</a>
+											</div>
+										</div>'),
 				$user_identity,
 				get_edit_user_link(),
 				/** This filter is documented in wp-includes/link-template.php */
@@ -2482,14 +2490,14 @@ function comment_form( $args = array(), $post = null ) {
 		'name_submit'          => 'submit',
 		'title_reply'          => __( 'Leave a Reply' ),
 		/* translators: %s: Author of the comment being replied to. */
-		'title_reply_to'       => __( 'Leave a Reply to %s' ),
+		'title_reply_to'       => __( 'Deja una respuesta a %s' ),
 		'title_reply_before'   => '<h3 id="reply-title" class="comment-reply-title">',
 		'title_reply_after'    => '</h3>',
 		'cancel_reply_before'  => ' <small>',
 		'cancel_reply_after'   => '</small>',
 		'cancel_reply_link'    => __( 'Cancel reply' ),
 		'label_submit'         => __( 'Post Comment' ),
-		'submit_button'        => '<input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" />',
+		'submit_button'        => '<input class="btn btn-danger" name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" />',
 		'submit_field'         => '<p class="form-submit">%1$s %2$s</p>',
 		'format'               => 'xhtml',
 	);

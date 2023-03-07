@@ -6785,7 +6785,7 @@ msgstr "Borrar datos personales"
 
 #: wp-includes/comment-template.php:2416
 msgid "Save my name, email, and website in this browser for the next time I comment."
-msgstr "Guardar mi nombre, correo electrónico y sitio web en este navegador para la próxima vez que haga un comentario."
+msgstr "Guardar mi nombre, correo electrónico y sitio web- en este navegador para la próxima vez que haga un comentario."
 
 #: wp-includes/user.php:3815
 msgid "User Description"

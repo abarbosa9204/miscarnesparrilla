@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying all pages
  *
@@ -20,24 +21,29 @@ get_header(); ?>
 <div class="wrap">
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main">
+			<div class="container">
+				<div class="row">
+					<!-- Blog entries-->
+					<div class="col-lg-8">
+						<?php
+						while (have_posts()) :
+							the_post();
+							get_template_part('template-parts/page/content', 'page');
 
-			<?php
-			while ( have_posts() ) :
-				the_post();
+							// If comments are open or we have at least one comment, load up the comment template.
+							if (comments_open() || get_comments_number()) :
+								comments_template();
+							endif;
 
-				get_template_part( 'template-parts/page/content', 'page' );
+						endwhile; // End the loop.
+						?>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</div>
 
-				// If comments are open or we have at least one comment, load up the comment template.
-				if ( comments_open() || get_comments_number() ) :
-					comments_template();
-				endif;
-
-			endwhile; // End the loop.
-			?>
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
-</div><!-- .wrap -->
 
 <?php
 get_footer();

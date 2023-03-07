@@ -17,7 +17,6 @@ if (version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
 	require get_template_directory() . '/inc/back-compat.php';
 	return;
 }
-
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -546,14 +545,14 @@ function pqr()
 
 // Function Talento Humano
 function human_talent()
-{	
+{
 	echo process_request($_POST);
 	die;
 }
 
 // Function Costos y presupuestos
 function cost_budget()
-{	
+{
 	echo process_request($_POST);
 	die;
 }
@@ -639,6 +638,79 @@ function cost_budget_upload_files()
 	echo process_request($_POST, $_FILES);
 	die;
 }
+
+
+/**
+ * Related posts
+ *
+ * @global object $post
+ * @param array $args
+ * @return
+ */
+function wcr_related_posts($args = array())
+{
+	global $post;
+
+	// default args
+	$args = wp_parse_args($args, array(
+		'post_id' => !empty($post) ? $post->ID : '',
+		'taxonomy' => 'category',
+		'limit' => 5,
+		'post_type' => !empty($post) ? $post->post_type : 'post',
+		'orderby' => 'date',
+		'order' => 'DESC'
+	));
+
+	// check taxonomy
+	if (!taxonomy_exists($args['taxonomy'])) {
+		return;
+	}
+
+	// post taxonomies
+	$taxonomies = wp_get_post_terms($args['post_id'], $args['taxonomy'], array('fields' => 'ids'));
+
+	if (empty($taxonomies)) {
+		return;
+	}
+
+	// query
+	$related_posts = get_posts(array(
+		'post__not_in' => (array) $args['post_id'],
+		'post_type' => $args['post_type'],
+		'tax_query' => array(
+			array(
+				'taxonomy' => $args['taxonomy'],
+				'field' => 'term_id',
+				'terms' => $taxonomies
+			),
+		),
+		'posts_per_page' => $args['limit'],
+		'orderby' => $args['orderby'],
+		'order' => $args['order']
+	));
+
+	include(locate_template('related-posts-template.php', false, false));
+
+	wp_reset_postdata();
+}
+
+
+/*****functions comments */
+function wpbeginner_remove_comment_url($arg)
+{
+	$arg['url'] = '';
+	return $arg;
+}
+add_filter('comment_form_default_fields', 'wpbeginner_remove_comment_url');
+
+function wpb_comment_reply_text($link)
+{
+	$link = str_replace('Reply', 'Respuesta', $link);
+	return $link;
+}
+add_filter('comment_reply_link', 'wpb_comment_reply_text');
+
+/*****end functions comments */
 
 /**
  * Enqueues scripts and styles.
@@ -949,7 +1021,7 @@ function my_event_arbol_cb()
 								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
 			$orderBy = " AND pqr_status=1  ORDER BY pqr_description";
 			$carpeta = "PQR";
-			break;	
+			break;
 	}
 	$niveles1 = $wpdb->get_results("
 		SELECT * FROM (SELECT DISTINCT  subfolder_n1_row_id,subfolder_n1_name
@@ -1187,8 +1259,8 @@ function my_load_scripts()
 		'url'    => admin_url('admin-ajax.php'),
 		'nonce'  => wp_create_nonce('my-ajax-nonce'),
 		'action' => 'event-arbol',
-
 	));
 }
 
 add_action('wp_enqueue_scripts', 'my_load_scripts');
+require_once get_stylesheet_directory() . '/inc/better-comments.php';
