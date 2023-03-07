@@ -64,16 +64,8 @@ if (is_user_logged_in()) {
 				global $wpdb;
 				$folders = $wpdb->get_results("SELECT * FROM  wpl_folder_files order by folder_row_id_order ASC");
 				foreach ((array) $folders as $folder) {
-				?>
-					<!-- <div class="col-lg-2">
-					<div class="btn-part">
-						<a class="readon more-calidad hvr-bob" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(<?= $folder->folder_row_id ?>,'<?= $folder->folder_name ?>')"><?= $folder->folder_name ?><i class="fa fa-check-circle" aria-hidden="true"></i></a>
-					</div>
-					<br>
-				</div>
-				<br> -->
+				?>					
 					<!-- https://undraw.co/illustrations -->
-
 					<div class="col-xl-6 col-md-6 col-sm-12 col-xs-12" style="cursor:pointer">
 						<div class="card mb-3 m-3 hvr-bounce-to-right" style="overflow:hidden;text-overflow: ellipsis;min-height: 200px;">
 							<a class="btn btn-danger position-absolute m-2 float-righ hvr-bob" title="Ver documentos" style="right:0px;z-index: 100;" data-toggle="modal" data-target="#modal_detalle" onclick="detalle(<?= $folder->folder_row_id ?>,'<?= $folder->folder_name ?>')"><i class="fa fa-eye text-white"></i></a>
@@ -99,7 +91,7 @@ if (is_user_logged_in()) {
 		</div>
 	</div>
 	<?php
-	$oculta = 0;
+	$oculta = 1;
 	if ($oculta == "1") {
 	?>
 		<div class="rs-services style8 pt-120 pb-120 md-pt-80 md-pb-80">

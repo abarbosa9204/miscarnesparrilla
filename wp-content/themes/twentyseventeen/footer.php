@@ -209,7 +209,6 @@
 				break;
 		}
 	}
-	
 </script>
 <!-- Menu js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/rsmenu-main.js"></script>
@@ -239,5 +238,4 @@
 <!-- main js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/main.js"></script>
 </body>
-
 </html>
