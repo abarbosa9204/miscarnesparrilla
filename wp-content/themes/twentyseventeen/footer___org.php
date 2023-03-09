@@ -14,10 +14,12 @@
  */
 
 ?>
-</div><!-- main-content -->
-</div><!-- #content -->
-<!-- <footer id="colophon" class="site-footer"> -->
-<footer id="rs-footer" class="site-footer rs-footer style3">
+
+</div>
+<!-- Main content End -->
+
+<!-- Footer Start -->
+<footer id="rs-footer" class="rs-footer style3">
 	<div class="wrap footer-top">
 		<div class="container">
 			<div class="row">
@@ -37,8 +39,8 @@
 						</li>
 
 						<!--li>
-									<a href="# " target="_blank"><span><i class="fa fa-pinterest-p"></i></span></a>
-								</li-->
+							<a href="# " target="_blank"><span><i class="fa fa-pinterest-p"></i></span></a>
+						</li-->
 						<li>
 							<a href="https:www.instagram.com/miscarnesparrilla" target="_blank"><span><i class="fa fa-instagram"></i></span></a>
 						</li>
@@ -113,8 +115,6 @@
 		</div>
 	</div>
 </div>
-</div><!-- .site-content-contain -->
-</div><!-- #page -->
 <!-- Modal Arbol End -->
 <!-- modernizr js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/modernizr-2.8.3.min.js"></script>
@@ -235,6 +235,6 @@
 <script src="<?php bloginfo('template_directory') ?>/assets/js/contact.form.js"></script>
 <!-- main js -->
 <script src="<?php bloginfo('template_directory') ?>/assets/js/main.js"></script>
-<?php wp_footer(); ?>
 </body>
+
 </html>

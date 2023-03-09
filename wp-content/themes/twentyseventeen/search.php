@@ -64,7 +64,7 @@ get_header(); ?>
 						else :
 						?>
 
-							<p><?php _e('Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'twentyseventeen'); ?></p>
+							<p><?php _e('Lo sentimos, pero nada coincide con sus términos de búsqueda. Inténtelo de nuevo con otras palabras clave.', 'twentyseventeen'); ?></p>
 						<?php
 							get_search_form();
 

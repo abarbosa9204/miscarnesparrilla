@@ -10414,3 +10414,23 @@ pre {
 .forminator-edit-module > * {
   font-size: 16px;
 }
+div[class^="forminator-"] label,
+div[class^="forminator-"] h4 {
+  font-size: 15.5px !important;
+}
+div[class^="forminator-"] > div.forminator-field > button {
+  font-size: 15.5px !important;
+  color: #fff !important;
+  background-color: #a5151d !important;
+  border-color: #CE162A !important;
+}
+.forminator-error-message,
+.forminator-success {
+  font-size: 15.5px !important;
+}
+.select2-selection.select2-selection--single {
+  height: 30px !important;
+}
+span.forminator-description > span {
+  font-size: 15.5px !important;
+}

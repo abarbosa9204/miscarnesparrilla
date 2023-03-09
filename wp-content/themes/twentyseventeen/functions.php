@@ -1277,4 +1277,21 @@ function my_load_scripts()
 }
 
 add_action('wp_enqueue_scripts', 'my_load_scripts');
+
+function custom_search_form( $form ) {
+	$form='<div class="col-lg-6 offset-lg-3"><div class="card mb-4">
+			<div class="card-header primary-background text-white">Buscar</div>
+				<div class="card-body">
+					<form role="search" method="get" class="search-form" action="' . home_url( '/' ) . '">
+						<div class="input-group">
+							<input type="search" class="form-control search-field" value="' . get_search_query() . '" name="s" id="s" />
+							<input type="submit" class="btn btn-danger btn-sm border-0 rounded-0" value="'. esc_attr__( 'Search' ) .'" />
+						</div>
+					</form>
+				</div>
+			</div></div>';
+	return $form;
+  }
+  add_filter( 'get_search_form', 'custom_search_form', 40 );
+
 require_once get_stylesheet_directory() . '/inc/better-comments.php';
