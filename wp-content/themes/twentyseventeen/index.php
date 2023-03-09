@@ -64,7 +64,7 @@ if (is_user_logged_in()) {
 				global $wpdb;
 				$folders = $wpdb->get_results("SELECT * FROM  wpl_folder_files order by folder_row_id_order ASC");
 				foreach ((array) $folders as $folder) {
-				?>					
+				?>
 					<!-- https://undraw.co/illustrations -->
 					<div class="col-xl-6 col-md-6 col-sm-12 col-xs-12" style="cursor:pointer">
 						<div class="card mb-3 m-3 hvr-bounce-to-right" style="overflow:hidden;text-overflow: ellipsis;min-height: 200px;">
@@ -98,10 +98,12 @@ if (is_user_logged_in()) {
 			<div class="container">
 				<div class="row align-items-center">
 					<?php
+					$post_id = 0;
 					$args = [
 						'numberposts' => 3,
 						'offset' => 0,
 						'category' => 0,
+						'category_name' => 'pqr',
 						'cat' => "-10,-4,-14",
 						'orderby' => 'post_date',
 						'order' => 'DESC',
@@ -118,6 +120,7 @@ if (is_user_logged_in()) {
 					];
 					if (count($recent_posts) > 0) {
 						$lineColor = 0;
+						$post_id = $recent_posts[0]['ID'];
 						foreach ($recent_posts as $key => $recent) : $permalink = get_permalink($recent["ID"]);
 							$thumbnail =  get_the_post_thumbnail($recent["ID"], 'slider_small_thumbs');
 					?>
@@ -157,6 +160,72 @@ if (is_user_logged_in()) {
 
 					<?php
 							$lineColor++;
+						endforeach;
+					} ?>
+					<?php //post random										
+
+					$args = [
+						'numberposts' => 3,
+						'offset' => 0,
+						'category' => 0,
+						'cat' => "-10,-4,-14",
+						'orderby' => 'post_date',
+						'order' => 'DESC',
+						'post_type' => 'post',
+						'post_status' => 'publish',
+						'suppress_filters' => true,
+
+					];
+
+					$recent_posts = wp_get_recent_posts($args);
+					$colors = [
+						'gray-light-bg',
+						'pink-bg'
+					];
+					if (count($recent_posts) > 0) {
+						$lineColor = $count = 1;
+						foreach ($recent_posts as $key => $recent) : $permalink = get_permalink($recent["ID"]);
+							$thumbnail =  get_the_post_thumbnail($recent["ID"], 'slider_small_thumbs');
+							if ($recent["post_name"] != 'pqr' && $count<3) {
+								$count++;
+					?>			
+								<div class="col-lg-4 col-md-6 md-mb-30">
+									<div class="services-item <?= $colors[($lineColor > count($colors) - 1 ? $lineColor = 0 : $lineColor)] ?>">
+										<div class="text-right">
+											<h6 class="p-0 m-0">Publicado el <?= date("Y-m-d H:i:s a", strtotime($recent['post_modified'])); ?></h6>
+										</div>
+										<div class="services-img hvr-bounce-out">
+											<?php
+											$init = strpos($recent['post_content'], '<figure');
+											if ($init > 0) {
+												$end = strpos($recent['post_content'], '</figure>');
+												echo explode('</figure>', substr($recent['post_content'], $init, $end))[0];
+											} else {
+											?>
+												<figure class="wp-block-image size-full is-resized is-style-default">
+													<img src="<?php bloginfo('template_directory') ?>/assets/images/sin-imagen.jpg" alt="Sin imagen" class="wp-image-25" width="838" height="513">
+												</figure>
+											<?php
+											}
+											?>
+										</div><br>
+										<div class="services-content">
+											<div class="services-title">
+												<h3 class="title" data-toggle="tooltip" data-placement="top" title="<?php echo $recent["post_title"]; ?>"> <?php echo $recent["post_title"]; ?></h3>
+											</div>
+											<div>
+												<p class="services-txt" data-toggle="tooltip" data-placement="top" title="<?php echo $recent["post_excerpt"]; ?>"> <?php echo $recent["post_excerpt"]; ?>
+											</div>
+											<div>
+												<a href="<?php echo $permalink; ?>" class="read-more-post">Leer más...</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+					<?php
+								$lineColor++;
+							}
 						endforeach;
 					} ?>
 				</div>

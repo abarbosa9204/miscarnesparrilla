@@ -35,7 +35,7 @@ get_header(); ?>
 			<div class="container">
 				<div class="row">
 					<!-- Blog entries-->
-					<div class="col-lg-12">
+					<div class="col-lg-8">
 						<?php
 						if (have_posts()) :
 						?>
