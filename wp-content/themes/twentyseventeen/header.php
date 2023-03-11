@@ -184,7 +184,7 @@
 
 								</p>
 
-								<div class="btn-part">
+								<div class="btn-part btn-group">
 									<?php
 									if (is_user_logged_in()) {
 										$href = 'wp-login.php?action=logout&wpnonce=3ae86f3016';
@@ -196,6 +196,11 @@
 									?>
 									<a class="readon more-about hvr-bob" href="<?= $href ?>"><?= $text ?></a>
 								</div>
+								<?php if (!is_home()) { ?>
+									<a class="readon more-about hvr-bob" href="<?= home_url() ?>">
+										<li class="fa fa-home"></li>&nbsp;Inicio
+									</a>
+								<?php } ?>
 							</div>
 						</div>
 						<div class="col-lg-6">
@@ -217,7 +222,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<?php
 
 			/*
@@ -225,9 +230,9 @@
 			* Using get_queried_object_id() here since the $post global may not be set before a call to the_post().
 			*/
 			if ((is_single() || (is_page() && !twentyseventeen_is_frontpage())) && has_post_thumbnail(get_queried_object_id())) :
-				//echo '<div class="single-featured-image-header">';
-				//echo get_the_post_thumbnail(get_queried_object_id(), 'twentyseventeen-featured-image');
-				//echo '</div><!-- .single-featured-image-header -->';
+			//echo '<div class="single-featured-image-header">';
+			//echo get_the_post_thumbnail(get_queried_object_id(), 'twentyseventeen-featured-image');
+			//echo '</div><!-- .single-featured-image-header -->';
 			endif;
 			?>
 

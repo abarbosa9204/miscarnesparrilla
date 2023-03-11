@@ -59,7 +59,7 @@ class HumanTalentController extends Controller
                     "icon"      => 'fa fa-folder',
                     "type"      => 'folder',
                     "a_attr"    => ["class" => 'not-icon'],
-                    ["selected" =>  true, "opened" => true]
+                    "state"=>["opened" => true]
                 ];
                 if ($row->folder_row_id == null) {
                     $jstree[] = [
@@ -69,6 +69,7 @@ class HumanTalentController extends Controller
                         "icon"      => $row->mime_icon,
                         "type"      => 'file',
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                        "state"=>["opened" => true]
                     ];
                 }
             }else{            
@@ -79,7 +80,7 @@ class HumanTalentController extends Controller
                     "icon"      => $row->mime_icon,
                     "type"      => 'file',
                     "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
-                    ["selected" =>  true, "opened" => true]
+                    "state"=>["opened" => true]
                 ];
             }    
 
@@ -92,6 +93,7 @@ class HumanTalentController extends Controller
                     "icon"      => 'fa fa-folder',
                     "type"      => 'folder',
                     "a_attr"    => ["class" => 'not-icon'],
+                    "state"=>["opened" => true]
                 ];
                 if ($row->subfolder_n2_row_id == null) {
                     $jstree[] = [
@@ -101,6 +103,7 @@ class HumanTalentController extends Controller
                         "icon"      => $row->mime_icon,
                         "type"      => 'file',
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                        "state"=>["opened" => true]
                     ];
                 }
             }
@@ -113,6 +116,7 @@ class HumanTalentController extends Controller
                     "icon"      => 'fa fa-folder',
                     "type"      => 'folder',
                     "a_attr"    => ["class" => 'not-icon'],
+                    "state"=>["opened" => true]
 
                 ];
                 if ($row->subfolder_n3_row_id == null) {
@@ -123,6 +127,7 @@ class HumanTalentController extends Controller
                         "icon"      => $row->mime_icon,
                         "type"      => 'file',
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                        "state"=>["opened" => true]
                     ];
                 }
             }
@@ -136,6 +141,7 @@ class HumanTalentController extends Controller
                     "icon"      => 'fa fa-folder',
                     "type"      => 'folder',
                     "a_attr"    => ["class" => 'not-icon'],
+                    "state"=>["opened" => true]
 
                 ];
                 if ($row->subfolder_n4_row_id == null) {
@@ -146,6 +152,7 @@ class HumanTalentController extends Controller
                         "icon"      => $row->mime_icon,
                         "type"      => 'file',
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                        "state"=>["opened" => true]
                     ];
                 }
             }
@@ -158,6 +165,7 @@ class HumanTalentController extends Controller
                     "icon"      => 'fa fa-folder',
                     "type"      => 'folder',
                     "a_attr"    => ["class" => 'not-icon'],
+                    "state"=>["opened" => true]
                 ];
                 if ($row->subfolder_n5_row_id == null) {
                     $jstree[] = [
@@ -167,6 +175,7 @@ class HumanTalentController extends Controller
                         "icon"      => $row->mime_icon,
                         "type"      => 'file',
                         "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
+                        "state"=>["opened" => true]
                     ];
                 }
             }
@@ -179,6 +188,7 @@ class HumanTalentController extends Controller
                     "icon"      => $row->mime_icon,
                     "a_attr"    => ["class" => 'icon-' . str_replace('.', '', $row->mime_extension)],
                     "type" => 'file',
+                    "state"=>["opened" => true]
                 ];
             }
 
