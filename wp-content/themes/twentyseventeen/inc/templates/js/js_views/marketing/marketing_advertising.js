@@ -44,8 +44,9 @@ $(document).ready(function () {
                         }
 
                     },
-                    "plugins": ["types"]
-                });
+                    "plugins": ["types"],
+                });                
+                $('#' + index.path_id).addClass("jstree-open").trigger("change");
             });
         },
         columns: [

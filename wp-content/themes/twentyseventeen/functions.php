@@ -1003,7 +1003,7 @@ function my_event_arbol_cb()
 	switch ($_POST["id"]) {
 		case "1":
 			$queryArchivos = "SELECT am_id AS id,am_description AS description,
-									t.mime_icon,t.mime_icon_color,t.mime_extension,am_url AS ulr FROM wpl_advertising_markenting q
+									t.mime_icon,t.mime_icon_color,t.mime_extension,am_url AS ulr FROM wpl_advertising_marketing q
 									INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
 			$orderBy = " AND am_status=1  ORDER BY am_description";
 			$carpeta = "MERCADEO";
