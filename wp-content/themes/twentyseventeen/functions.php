@@ -1002,35 +1002,35 @@ function my_event_arbol_cb()
 	$carpeta = "";
 	switch ($_POST["id"]) {
 		case "1":
-			$queryArchivos = "SELECT am_id AS id,am_description AS description,
+			$queryArchivos = "SELECT am_row_id AS id,am_description AS description,
 									t.mime_icon,t.mime_icon_color,t.mime_extension,am_url AS ulr FROM wpl_advertising_marketing q
 									INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
 			$orderBy = " AND am_status=1  ORDER BY am_description";
 			$carpeta = "MERCADEO";
 			break;
 		case "2":
-			$queryArchivos = "SELECT qu_id AS id,qu_description AS description,
+			$queryArchivos = "SELECT qu_row_id AS id,qu_description AS description,
 								t.mime_icon,t.mime_icon_color,t.mime_extension,qu_url as url FROM wpl_quality q
 								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
 			$orderBy = " AND qu_status=1  ORDER BY qu_description";
 			$carpeta = "CALIDAD";
 			break;
 		case "3":
-			$queryArchivos = "SELECT pqr_id AS id,pqr_description AS description,
+			$queryArchivos = "SELECT pqr_row_id AS id,pqr_description AS description,
 								t.mime_icon,t.mime_icon_color,t.mime_extension,pqr_url as url FROM wpl_pqr q
 								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
 			$orderBy = " AND pqr_status=1  ORDER BY pqr_description";
 			$carpeta = "PQR";
 			break;
 		case "4":
-			$queryArchivos = "SELECT ht_id AS id,ht_description AS description,
+			$queryArchivos = "SELECT ht_row_id AS id,ht_description AS description,
 								t.mime_icon,t.mime_icon_color,t.mime_extension,ht_url as url FROM wpl_human_talent q
 								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
 			$orderBy = " AND ht_status=1  ORDER BY ht_description";
 			$carpeta = "TALENTO_HUMANO";
 			break;
 		case "5":
-			$queryArchivos = "SELECT cb_id AS id,cb_description AS description,
+			$queryArchivos = "SELECT cb_row_id AS id,cb_description AS description,
 								t.mime_icon,t.mime_icon_color,t.mime_extension,cb_url as url FROM wpl_cost_budget q
 								INNER JOIN  wpl_mime_type t ON q.mime_row_id=t.mime_row_id";
 			$orderBy = " AND cb_status=1  ORDER BY cb_description";
