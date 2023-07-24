@@ -59,3 +59,43 @@
 <script src="<?php bloginfo('template_directory') ?>/assets/jstree/vendor/vakata/jstree/dist/jstree.min.js"></script>
 <!-- style css -->
 <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory') ?>/style.css"> <!-- This stylesheet dynamically changed from style.less -->
+<style>
+        .dataTables_wrapper .dataTables_paginate {
+                float: right;
+                text-align: right;
+                padding-top: 0.25em;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+                box-sizing: border-box;
+                display: inline-block;
+                min-width: 1.5em;
+                padding: 0.5em 1em;
+                margin-left: 2px;
+                text-align: center;
+                text-decoration: none !important;
+                cursor: pointer;
+                color: #333 !important;
+                border: 1px solid transparent;
+                border-radius: 2px;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+                color: #fff !important;
+                background-color: #a5151d;
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #a5151d), color-stop(100%, #a5151d));
+                background: -webkit-linear-gradient(top, #a5151d 0%, #a5151d 100%);
+                background: -webkit-linear-gradient(top, #a5151d 0%, #a5151d 100%);
+                background: linear-gradient(to bottom, #a5151d 0%, #a5151d 100%);
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+                background-color: #878A8D;
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #878A8D), color-stop(100%, #878A8D));
+                background: -webkit-linear-gradient(top, #878A8D 0%, #878A8D 100%);
+                background: -webkit-linear-gradient(top, #878A8D 0%, #878A8D 100%);
+                background: linear-gradient(to bottom, #878A8D 0%, #878A8D 100%);
+                color: white !important;
+        }
+</style>

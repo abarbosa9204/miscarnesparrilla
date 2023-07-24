@@ -4,7 +4,6 @@
 <head>
     <?php get_header_admin() ?>
 </head>
-
 <body>
     <h4>Calidad & Gastronomia</h4>
     <div class="container-fluid">
